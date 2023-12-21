@@ -1,0 +1,68 @@
+{
+  "name": "@the-rabbit-hole/app-setup",
+  "version": "0.0.0-development",
+  "description": "A simple NPM package released under my org-scope that creates apps with my standard tools.",
+  "main": "./dist/index.js",
+  "bin": {
+    "app-setup": "./dist/index.js"
+  },
+  "type": "module",
+  "files": [
+    "dist/**/*",
+    "template/**/*"
+  ],
+  "scripts": {
+    "clean": "rm -rf coverage docs dist",
+    "build": "npx tsc",
+    "build:watch": "npx tsc -w",
+    "lint": "ts-standard | snazzy",
+    "lint:fix": "ts-standard --fix | snazzy",
+    "pack": "npm pack",
+    "prepublishOnly": "npm pack",
+    "semantic-release": "semantic-release",
+    "semantic-release:dry-run": "semantic-release --dry-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bugs5382/project-app-setup.git"
+  },
+  "keywords": [
+    "config",
+    "app",
+    "typescript",
+    "fastify",
+    "npm"
+  ],
+  "author": "Shane Froebel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Bugs5382/project-app-setup/issues"
+  },
+  "homepage": "https://github.com/Bugs5382/project-app-setup#readme",
+  "publishConfig": {
+    "provenance": true,
+    "access": "public"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^11.1.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^9.2.5",
+    "@semantic-release/release-notes-generator": "^12.1.0",
+    "@the-rabbit-hole/semantic-release-config": "^1.4.0",
+    "@types/inquirer": "^9.0.7",
+    "@types/inquirer-npm-name": "^3.0.7",
+    "@types/node": "^20.10.5",
+    "semantic-release": "^22.0.12",
+    "snazzy": "^9.0.0",
+    "ts-node": "^10.9.2",
+    "ts-standard": "^12.0.2",
+    "tsd": "^0.30.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "inquirer": "^9.2.12",
+    "inquirer-npm-name": "^4.0.0",
+    "yargs": "^17.7.2"
+  }
+}
