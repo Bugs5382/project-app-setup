@@ -4,18 +4,49 @@ import { GeneratePackageJsonInput, GeneratePackageJsonParams } from './types.js'
 
 const execFile = promisify(childProcess.execFile)
 
-export const generatePackageJson = (_params: GeneratePackageJsonParams, input: GeneratePackageJsonInput): any => {
+export const generatePackageJson = (params: GeneratePackageJsonParams, input: GeneratePackageJsonInput): any => {
   // console.log(_params, input)
+
+  let finalPackage: any = null
+
+  const packageJson: any = {
+    name: params.name,
+    description: params.description,
+    keywords: params.keywords,
+    version: '0.0.0-development',
+    author: params.author,
+    license: 'MIT',
+  }
 
   switch (input.type) {
     case 'nodejs': {
       switch (input.node) {
-        default:
+        case 'fastify-graphql-controller':{
+          finalPackage = {}
           break
+        }
+        case 'fastify-graphql-microservice':{
+          finalPackage = {}
+          break
+        }
+        case 'fastify-npm-package': {
+          finalPackage = {}
+          break
+        }
+        case 'npm-package':{
+          finalPackage = {}
+          break
+        }
       }
       break
     }
     case 'vite/react:': {
+      switch (input.vite) {
+        case 'vite-react-swc':{
+          finalPackage = {}
+          break
+        }
+      }
       break
     }
     default: {
@@ -23,7 +54,7 @@ export const generatePackageJson = (_params: GeneratePackageJsonParams, input: G
     }
   }
 
-  return {}
+  return { ...packageJson, ...finalPackage }
 }
 
 export const installDeps = async (dependencies: string[], options: { dev?: boolean } = {}): Promise<void> => {
