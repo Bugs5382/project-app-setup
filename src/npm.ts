@@ -64,8 +64,8 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
             ],
             scripts: {
               clean: 'rm -rf coverage docs lib temp',
-              build: 'tsc && tsc -p tsconfig.cjs.json && tsc -p tsconfig.types.json && ./bin/build-types.sh',
-              'build:watch': 'tsc -w',
+              build: 'tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json && tsc -p tsconfig.types.json && ./bin/build-types.sh',
+              'build:watch': 'tsc -p tsconfig.esm.json -w',
               lint: 'ts-standard | snazzy',
               'lint:fix': 'ts-standard --fix | snazzy',
               pack: 'npm pack',
