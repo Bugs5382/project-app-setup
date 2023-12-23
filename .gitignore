@@ -128,6 +128,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-.npmrc
 .idea
+temp
+.npmrc
 package-lock.json

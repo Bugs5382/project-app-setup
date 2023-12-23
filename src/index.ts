@@ -1,54 +1,107 @@
 #!/usr/bin/env node
 
+import * as fs from 'fs'
 // start of imports
-import inquirer from 'inquirer';
-import askNpmName from 'inquirer-npm-name';
-import yargs from "yargs";
-import {hideBin} from "yargs/helpers";
-
-/**
- * @since 1.0.0
- */
-async function parseOptions(): Promise<any> {
-  const inputOptions = await yargs(hideBin(process.argv))
-    .parseAsync();
-
-  console.log(inputOptions)
-
-  return inputOptions
-
-}
+import _ from 'lodash'
+import inquirer from 'inquirer'
+import askNpmName from 'inquirer-npm-name'
+import path from 'node:path'
+import { DEFAULT_NPM } from './constants.js'
+import { generatePackageJson } from './npm.js'
 
 /**
  * @since 1.0.0
  * @param defaultProjectName
  */
-const getProjectName = async (defaultProjectName: string) => {
+const getProjectName = async (defaultProjectName: string): Promise<string> => {
   const { npmName } = await askNpmName(
     {
-      name: 'npmName',
-      message: 'Your project npm name',
       default: defaultProjectName,
+      name: 'npmName',
+      message: 'Your Project NPM name?',
+      type: 'input'
     },
     inquirer
-  );
+  )
 
-  return npmName;
-};
+  return npmName
+}
 
 /**
  * @since 1.0.0
  */
-const main = async () => {
-  const options = await parseOptions();
+const main = async (): Promise<void> => {
+  const npmName = await getProjectName(_.kebabCase('project-app-setup'))
 
-  await getProjectName('project-app-setup')
+  console.log(npmName)
 
-  console.log(options)
+  const { type, node, vite, description, keywords } = await inquirer.prompt(
+    [{
+      choices: ['NodeJS', 'Vite/React'],
+      default: 0,
+      name: 'type',
+      message: 'What type of app are we creating today?',
+      type: 'list',
+      filter (val) {
+        return val.toLowerCase()
+      }
+    }, {
+      choices: [
+        { name: 'Fastify GraphQL Controller', value: 'fastify-graphql-controller' },
+        { name: 'Fastify GraphQL Microservice', value: 'fastify-graphql-microservice' },
+        { name: 'Fastify Standalone NPM Package', value: 'fastify-npm-package' },
+        { name: 'Standalone NPM Package', value: 'npm-package' }
+      ],
+      default: 1,
+      name: 'node',
+      message: 'What type of app are we creating today?',
+      type: 'list',
+      when: (answers) => answers.type === 'nodejs'
+    }, {
+      choices: [
+        'Vite with React + SWC'
+      ],
+      default: 0,
+      name: 'vite',
+      message: 'What type of app are we creating today?',
+      type: 'list',
+      when: (answers) => answers.type === 'vite/react'
+    }, {
+      name: 'description',
+      type: 'input',
+      message: 'Provide a description:',
+      validate: (input) => typeof input !== 'undefined'
+    }, {
+      name: 'keywords',
+      type: 'input',
+      message: 'Provide keywords (seperated by `,`):',
+      validate: (input) => typeof input !== 'undefined'
+    }]) as Partial<any>
 
+  const temp: string = process.env.NODE_ENV !== 'production' ? 'temp/' : ''
+
+  let cwd: string = process.cwd()
+  if (typeof npmName !== 'undefined') {
+    cwd = path.join(process.cwd(), `${temp}/${npmName}`)
+    fs.mkdirSync(cwd, { recursive: true })
+  }
+  process.chdir(cwd)
+
+  const packageJson = generatePackageJson({
+    ...DEFAULT_NPM,
+    name: npmName,
+    description,
+    keywords: keywords.split(',')
+  }, {
+    type,
+    node,
+    vite
+  })
+
+  fs.writeFileSync('package.json', JSON.stringify(packageJson, null, 4))
 }
 
 main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+  console.error(err)
+  process.exit(1)
+})

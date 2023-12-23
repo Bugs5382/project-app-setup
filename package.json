@@ -15,6 +15,7 @@
     "clean": "rm -rf coverage docs dist",
     "build": "npx tsc",
     "build:watch": "npx tsc -w",
+    "dev": "node dist/index.js",
     "lint": "ts-standard | snazzy",
     "lint:fix": "ts-standard --fix | snazzy",
     "pack": "npm pack",
@@ -67,7 +68,6 @@
     "inquirer-npm-name": "^4.0.0",
     "lodash": "^4.17.21",
     "pino": "^8.17.1",
-    "pino-pretty": "^10.3.0",
-    "yargs": "^17.7.2"
+    "pino-pretty": "^10.3.0"
   }
 }
