@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/Bugs5382/project-app-setup/compare/v1.0.0...v1.0.1) (2023-12-23)
+
+
+### Bug Fixes
+
+* package.json ([21176b7](https://github.com/Bugs5382/project-app-setup/commit/21176b7d41f291e9141f846a73796a38feae6120))
+
 # 1.0.0 (2023-12-23)
 
 
