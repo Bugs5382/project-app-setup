@@ -1,6 +1,6 @@
-# {{APP_TITLE}}
+# {{APP_README_TITLE}}
 
-> {{APP_DESCRIPTION}}
+> {{APP_README_DESCRIPTION}}
 
 If you are using this plugin/NPM, please (:star:) star this repository, submit PRs, and issues. This way I can make sure the repositories with much usage can be maintained based off demand.
 
@@ -12,8 +12,6 @@ If you are using this plugin/NPM, please (:star:) star this repository, submit P
 4. [License](#license)
 
 ## Keyword Definitions
-
-This NPM is designed to support medical applications with potential impact on patient care and diagnoses, this package documentation, and it's peer package [node-hl7-server]() follow these definitions when it comes to the documentation.
 
 Keywords such as "MUST", "MUST NOT", "REQUIRED",
 "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL".
