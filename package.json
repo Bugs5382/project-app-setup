@@ -4,7 +4,7 @@
   "description": "A simple NPM package released under my org-scope that creates apps with my standard tools.",
   "main": "./dist/index.js",
   "bin": {
-    "trh-app-setup": "./dist/index.js"
+    "trh-app-setup": "dist/index.js"
   },
   "type": "module",
   "files": [
