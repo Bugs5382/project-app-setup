@@ -5,7 +5,7 @@ import { GeneratePackageJsonInput, GeneratePackageJsonParams } from './types.js'
 const execFile = promisify(childProcess.execFile)
 
 export const generatePackageJson = (_params: GeneratePackageJsonParams, input: GeneratePackageJsonInput): any => {
-   // console.log(_params, input)
+  // console.log(_params, input)
 
   switch (input.type) {
     case 'nodejs': {

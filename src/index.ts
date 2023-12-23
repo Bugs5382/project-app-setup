@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 
-import * as fs from 'fs'
 // start of imports
+import * as fs from 'fs'
 import _ from 'lodash'
 import inquirer from 'inquirer'
 import askNpmName from 'inquirer-npm-name'
 import path from 'node:path'
 import { DEFAULT_NPM } from './constants.js'
-import { generatePackageJson } from './npm.js'
+import { returnDependencies } from './dependencies.js'
+import { generatePackageJson, installDeps } from './npm.js'
 
 /**
  * @since 1.0.0
@@ -59,7 +60,7 @@ const main = async (): Promise<void> => {
       when: (answers) => answers.type === 'nodejs'
     }, {
       choices: [
-        'Vite with React + SWC'
+        { name: 'Vite with React + SWC', value: 'vite-react-swc' }
       ],
       default: 0,
       name: 'vite',
@@ -99,6 +100,17 @@ const main = async (): Promise<void> => {
   })
 
   fs.writeFileSync('package.json', JSON.stringify(packageJson, null, 4))
+
+  // Get Dependencies
+  const packages = returnDependencies({
+    type,
+    node,
+    vite
+  })
+
+  // Install Dependencies
+  await installDeps(packages.dependencies)
+  await installDeps(packages.devDependencies, { dev: true })
 }
 
 main().catch((err) => {
