@@ -87,7 +87,7 @@ export const main = async (): Promise<void> => {
       validate: (input) => typeof input !== 'undefined'
     }]) as Partial<any>
 
-  const temp: string = process.env.NODE_ENV !== 'production' ? 'temp/' : ''
+  const temp: string = process.env.NODE_ENV === 'test' ? 'temp/' : ''
 
   // create folder
   let cwd: string = process.cwd()

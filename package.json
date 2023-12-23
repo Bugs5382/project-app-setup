@@ -4,18 +4,17 @@
   "description": "A simple NPM package released under my org-scope that creates apps with my standard tools.",
   "main": "./dist/index.js",
   "bin": {
-    "app-setup": "./dist/index.js"
+    "trh-app-setup": "./dist/index.js"
   },
   "type": "module",
   "files": [
-    "dist/**/**",
-    "template/**/**"
+    "dist/**/**"
   ],
   "scripts": {
     "clean": "rm -rf coverage docs dist",
     "build": "npx tsc",
     "build:watch": "npx tsc -w",
-    "dev": "npm run build && node dist/index.js",
+    "dev": "npm run build && NODE_ENV=test node dist/index.js",
     "lint": "ts-standard | snazzy",
     "lint:fix": "ts-standard --fix | snazzy",
     "pack": "npm pack",
