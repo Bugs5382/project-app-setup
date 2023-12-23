@@ -5,8 +5,6 @@ import { GeneratePackageJsonInput, GeneratePackageJsonParams } from './types.js'
 const execFile = promisify(childProcess.execFile)
 
 export const generatePackageJson = (params: GeneratePackageJsonParams, input: GeneratePackageJsonInput): any => {
-  // console.log(_params, input)
-
   let finalPackage: any = null
 
   const packageJson: any = {
@@ -22,19 +20,35 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
     case 'nodejs': {
       switch (input.node) {
         case 'fastify-graphql-controller':{
-          finalPackage = {}
+          finalPackage = {
+            type: 'module'
+          }
           break
         }
         case 'fastify-graphql-microservice':{
-          finalPackage = {}
+          finalPackage = {
+            type: 'module'
+          }
           break
         }
-        case 'fastify-npm-package': {
-          finalPackage = {}
-          break
-        }
+        case 'fastify-npm-package':
         case 'npm-package':{
-          finalPackage = {}
+          finalPackage = {
+            module: './lib/esm/index.js',
+            main: './lib/cjs/index.js',
+            types: './lib/types/index.d.ts',
+            exports: {
+              '.': {
+                types: './lib/types/index.d.ts',
+                import: './lib/esm/index.js',
+                require: './lib/cjs/index.js',
+                default: './lib/cjs/index.js'
+              }
+            },
+            files: [
+              'lib/**/*'
+            ]
+          }
           break
         }
       }

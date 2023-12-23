@@ -22,12 +22,17 @@ jobs:
         with:
           node-version: 'lts/*'
       - name: NPM Install
-        run: npm install
+        run: npm install --ignore-scripts
       - name: Semantic Release (Dry Run)
         run: npm run semantic-release:dry-run
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Release Drafter
+        uses: release-drafter/release-drafter@v5.9.0
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Semantic Release
         run: npm run semantic-release
         env:
