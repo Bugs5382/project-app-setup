@@ -20,3 +20,12 @@ export interface GeneratePackageJsonInput {
   type: string
   vite?: string
 }
+
+export interface GeneratePackageJsonInputWithOptions extends GeneratePackageJsonInput {
+  node?: string
+  options: {
+    port?: string
+  }
+  type: string
+  vite?: string
+}

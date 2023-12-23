@@ -36,7 +36,7 @@ const main = async (): Promise<void> => {
 
   console.log(npmName)
 
-  const { type, node, vite, description, keywords } = await inquirer.prompt(
+  const { type, node, vite, description, keywords, port } = await inquirer.prompt(
     [{
       choices: ['NodeJS', 'Vite/React'],
       default: 0,
@@ -68,6 +68,12 @@ const main = async (): Promise<void> => {
       type: 'list',
       when: (answers) => answers.type === 'vite/react'
     }, {
+      default: 3000,
+      name: 'port',
+      type: 'input',
+      message: 'Provide the port app should run under during development:',
+      when: (answers) => answers.node === 'fastify-graphql-controller' || answers.node === 'fastify-graphql-microservice'
+    }, {
       name: 'description',
       type: 'input',
       message: 'Provide a description:',
@@ -81,6 +87,7 @@ const main = async (): Promise<void> => {
 
   const temp: string = process.env.NODE_ENV !== 'production' ? 'temp/' : ''
 
+  // create folder
   let cwd: string = process.cwd()
   if (typeof npmName !== 'undefined') {
     cwd = path.join(process.cwd(), `${temp}/${npmName}`)
@@ -88,6 +95,7 @@ const main = async (): Promise<void> => {
   }
   process.chdir(cwd)
 
+  // Generate package.json
   const packageJson = generatePackageJson({
     ...DEFAULT_NPM,
     name: npmName,
@@ -96,7 +104,8 @@ const main = async (): Promise<void> => {
   }, {
     type,
     node,
-    vite
+    vite,
+    options: { port }
   })
 
   fs.writeFileSync('package.json', JSON.stringify(packageJson, null, 4))
