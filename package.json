@@ -4,23 +4,25 @@
   "description": "A simple NPM package released under my org-scope that creates apps with my standard tools.",
   "main": "./dist/index.js",
   "bin": {
-    "app-setup": "./dist/index.js"
+    "trh-app-setup": "./dist/index.js"
   },
   "type": "module",
   "files": [
-    "dist/**/*",
-    "template/**/*"
+    "dist/**/**"
   ],
   "scripts": {
     "clean": "rm -rf coverage docs dist",
     "build": "npx tsc",
     "build:watch": "npx tsc -w",
+    "dev": "npm run build && NODE_ENV=test node dist/index.js",
     "lint": "ts-standard | snazzy",
     "lint:fix": "ts-standard --fix | snazzy",
     "pack": "npm pack",
-    "prepublishOnly": "npm pack",
+    "prepublishOnly": "npm run lint:fix && npm run build && npm run pack",
     "semantic-release": "semantic-release",
-    "semantic-release:dry-run": "semantic-release --dry-run"
+    "semantic-release:dry-run": "semantic-release --dry-run",
+    "typedoc": "typedoc",
+    "typedoc:watch": "typedoc -watch"
   },
   "repository": {
     "type": "git",
@@ -50,19 +52,26 @@
     "@semantic-release/github": "^9.2.5",
     "@semantic-release/release-notes-generator": "^12.1.0",
     "@the-rabbit-hole/semantic-release-config": "^1.4.0",
+    "@types/cli-progress": "^3.11.5",
     "@types/inquirer": "^9.0.7",
     "@types/inquirer-npm-name": "^3.0.7",
+    "@types/lodash": "^4.14.202",
     "@types/node": "^20.10.5",
+    "@types/yargs": "^17.0.32",
     "semantic-release": "^22.0.12",
     "snazzy": "^9.0.0",
     "ts-node": "^10.9.2",
     "ts-standard": "^12.0.2",
     "tsd": "^0.30.0",
+    "typedoc": "^0.25.4",
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "cli-progress": "^3.12.0",
     "inquirer": "^9.2.12",
     "inquirer-npm-name": "^4.0.0",
-    "yargs": "^17.7.2"
+    "lodash": "^4.17.21",
+    "pino": "^8.17.1",
+    "pino-pretty": "^10.3.0"
   }
 }
