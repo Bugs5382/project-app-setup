@@ -11,7 +11,3 @@ This app creates my standard app setup for the following types:
 
 ### Vite
 * Vite with React + SWC
-
-## Git
-This will also create a default GIT repo using 'main' as the default branch name.
-

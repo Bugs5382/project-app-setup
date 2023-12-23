@@ -21,7 +21,9 @@
     "pack": "npm pack",
     "prepublishOnly": "npm pack",
     "semantic-release": "semantic-release",
-    "semantic-release:dry-run": "semantic-release --dry-run"
+    "semantic-release:dry-run": "semantic-release --dry-run",
+    "typedoc": "typedoc",
+    "typedoc:watch": "typedoc -watch"
   },
   "repository": {
     "type": "git",
@@ -57,12 +59,12 @@
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.10.5",
     "@types/yargs": "^17.0.32",
-    "lint-staged": "^15.2.0",
     "semantic-release": "^22.0.12",
     "snazzy": "^9.0.0",
     "ts-node": "^10.9.2",
     "ts-standard": "^12.0.2",
     "tsd": "^0.30.0",
+    "typedoc": "^0.25.4",
     "typescript": "^5.3.3"
   },
   "dependencies": {
@@ -72,9 +74,5 @@
     "lodash": "^4.17.21",
     "pino": "^8.17.1",
     "pino-pretty": "^10.3.0"
-  },
-  "lint-staged": {
-    "*.ts": "lint:fix"
-  },
-  "pre-commit": "lint-staged"
+  }
 }

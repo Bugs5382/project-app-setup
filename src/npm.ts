@@ -7,6 +7,11 @@ import {
 
 const execFile = promisify(childProcess.execFile)
 
+/**
+ * @since 1.0.0
+ * @param params
+ * @param input
+ */
 export const generatePackageJson = (params: GeneratePackageJsonParams, input: GeneratePackageJsonInputWithOptions): any => {
   let finalPackage: any = null
 
@@ -122,6 +127,11 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
   return { ...packageJson }
 }
 
+/**
+ * @since 1.0.0
+ * @param dependencies
+ * @param options
+ */
 export const installDeps = async (dependencies: string[], options: { dev?: boolean } = {}): Promise<void> => {
   const args: string[] = ['install']
   if (options.dev === true) {

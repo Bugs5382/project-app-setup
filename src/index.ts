@@ -29,9 +29,11 @@ const getProjectName = async (defaultProjectName: string): Promise<string> => {
 }
 
 /**
+ * Main Executable Function
+ * @description Runs by default.
  * @since 1.0.0
  */
-const main = async (): Promise<void> => {
+export const main = async (): Promise<void> => {
   const npmName = await getProjectName(_.kebabCase('project-app-setup'))
 
   console.log(npmName)

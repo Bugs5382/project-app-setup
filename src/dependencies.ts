@@ -105,6 +105,10 @@ const VITE_REACT_SWC: Dependencies = {
   ]
 }
 
+/**
+ * @since 1.0.0
+ * @param input
+ */
 export const returnDependencies = (input: GeneratePackageJsonInput): Dependencies => {
   switch (input.type) {
     case 'nodejs': {
