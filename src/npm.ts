@@ -15,7 +15,7 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
     keywords: params.keywords,
     version: '0.0.0-development',
     author: params.author,
-    license: 'MIT',
+    license: 'MIT'
   }
 
   switch (input.type) {
