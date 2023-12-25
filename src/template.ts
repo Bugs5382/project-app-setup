@@ -88,7 +88,12 @@ export const generateTemplate = async (input: GenerateInput): Promise<void> => {
     case 'nodejs': {
       switch (input.node) {
         case 'fastify-graphql-controller': {
-          // copy npm folder
+          // shared among all projects
+          await copyTemplateFiles(
+            path.join(dirName, '..', 'template', '__shared__fastify__'),
+            process.cwd()
+          )
+          // copy fastify-graphql-controller folder
           await copyTemplateFiles(
             path.join(dirName, '..', 'template', 'fastify-graphql-controller'),
             process.cwd(),
@@ -99,7 +104,20 @@ export const generateTemplate = async (input: GenerateInput): Promise<void> => {
           return
         }
         case 'fastify-graphql-microservice': {
-          break
+          // shared among all projects
+          await copyTemplateFiles(
+            path.join(dirName, '..', 'template', '__shared__fastify__'),
+            process.cwd()
+          )
+          // copy fastify-graphql-microservice folder
+          await copyTemplateFiles(
+            path.join(dirName, '..', 'template', 'fastify-graphql-microservice'),
+            process.cwd(),
+            {
+              rename: { gitignore: '.gitignore' }
+            }
+          )
+          return
         }
         case 'fastify-npm-package':
         case 'npm-package': {

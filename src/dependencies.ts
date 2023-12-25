@@ -42,6 +42,7 @@ const FASTIFY_GRAPHQL_MICROSERVICES: Dependencies = {
     'fastify-cli',
     'fastify-custom-healthcheck',
     'fastify-plugin',
+    'fastify-rabbitmq',
     'mercurius-codegen'
   ],
   devDependencies: [
