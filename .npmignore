@@ -2,16 +2,13 @@
 .github
 .idea
 .run
-template/__shared__npm__/bin
 certs
 docs
 src
 temp
-template/__shared__npm__/__tests__
 coverage
 
 # Files
-template/__shared__npm__/jest.config.ts
 release.config.js
 .eslintignore
 *.tgz
