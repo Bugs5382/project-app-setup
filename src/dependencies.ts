@@ -1,4 +1,4 @@
-import { Dependencies, GeneratePackageJsonInput } from './types.js'
+import { Dependencies, GenerateInput } from './types.js'
 
 const sharedDev: string[] = [
   '@semantic-release/changelog',
@@ -109,7 +109,7 @@ const VITE_REACT_SWC: Dependencies = {
  * @since 1.0.0
  * @param input
  */
-export const returnDependencies = (input: GeneratePackageJsonInput): Dependencies => {
+export const returnDependencies = (input: GenerateInput): Dependencies => {
   switch (input.type) {
     case 'nodejs': {
       switch (input.node) {

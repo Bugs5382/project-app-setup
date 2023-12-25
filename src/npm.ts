@@ -141,5 +141,7 @@ export const installDeps = async (dependencies: string[], options: { dev?: boole
     args.push('--save-dev')
   }
 
-  await execFile('npm', [...args, ...dependencies])
+  if (typeof process.env.NODE_ENV === 'undefined') {
+    await execFile('npm', [...args, ...dependencies])
+  }
 }
