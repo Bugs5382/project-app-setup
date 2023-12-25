@@ -15,6 +15,14 @@ const execFile = promisify(childProcess.execFile)
 export const generatePackageJson = (params: GeneratePackageJsonParams, input: GeneratePackageJsonInputWithOptions): any => {
   let finalPackage: any = null
 
+  const sharedScripts = {
+    lint: 'ts-standard | snazzy',
+    'lint:fix': 'ts-standard --fix | snazzy',
+    typedoc: 'typedoc',
+    'typedoc:watch': 'typedoc -watch',
+    update: 'npx npm-check-updates -u && npm install'
+  }
+
   switch (input.type) {
     case 'nodejs': {
       switch (input.node) {
@@ -31,16 +39,12 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
               clean: 'rm -rf coverage docs build temp',
               build: 'tsc -p tsconfig.json',
               'build:prod': 'tsc -p tsconfig.prd.json',
-              'build:watch': 'tsc -w -p tsconfig.json',
+              'build:watch': 'tsc -p tsconfig.json -w',
               dev: `fastify start -p ${input.options.port} -w -l debug -P build/app.js`,
               'dev:trace': `fastify start -p ${input.options.port} -w -l trace -P build/app.js`,
               'dev:expose': `fastify start -a 0.0.0.0 -p ${input.options.port} -w -l debug -P build/app.js`,
               prod: 'fastify start -l info -P build/app.js',
-              lint: 'ts-standard | snazzy',
-              'lint:fix': 'ts-standard --fix --parser @typescript-eslint/parser | snazzy',
-              typedoc: 'typedoc',
-              'typedoc:watch': 'typedoc -watch',
-              update: 'npx npm-check-updates -u && npm install'
+              ...sharedScripts
             }
           }
           break
@@ -60,14 +64,13 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
               }
             },
             files: [
-              'lib/**/*'
+              'lib/'
             ],
             scripts: {
               clean: 'rm -rf coverage docs lib temp',
               build: 'tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json && tsc -p tsconfig.types.json && ./bin/build-types.sh',
               'build:watch': 'tsc -p tsconfig.esm.json -w',
-              lint: 'ts-standard | snazzy',
-              'lint:fix': 'ts-standard --fix | snazzy',
+              ...sharedScripts,
               pack: 'npm pack',
               prepublishOnly: 'npm run clean && npm run build && npm run test:ci && npm run pack',
               test: 'jest',

@@ -1,27 +1,34 @@
 name: GitHub CI
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [ 'main', 'develop' ]
 
 jobs:
-  Release-Drafter:
+  Test:
     runs-on: ubuntu-latest
     permissions:
       contents: write
       issues: write
       pull-requests: write
       id-token: write
+    strategy:
+      matrix:
+        node-version: [ 18.x, 20.x, 'lts/*' ]
     steps:
-      - name: Release Drafter
-        uses: release-drafter/release-drafter@v5.25.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        continue-on-error: true
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Dependencies
+        run: npm install --ignore-scripts
+      - name: Run Unit Tests
+        run: npm run test:ci
   Release:
     runs-on: ubuntu-latest
-    needs: [ 'Release-Drafter' ]
+    needs: [ 'Test' ]
     permissions:
       contents: write
       issues: write
