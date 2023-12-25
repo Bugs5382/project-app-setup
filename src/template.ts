@@ -54,7 +54,7 @@ const copyTemplateFiles = async (
     let baseFile = file.replace(`${resolvedSource}/`, '')
 
     // make sure we remove ts-nocheck from files
-    if (baseFile.substring(baseFile.length - 2, baseFile.length) === 'ts') {
+    if ((baseFile.substring(baseFile.length - 2, baseFile.length) === 'ts') || baseFile.substring(baseFile.length - 3, baseFile.length) === 'tsx') {
       const regex = /\/\/ @ts-nocheck\n/g
       contents = contents.replace(regex, '')
     }
@@ -65,8 +65,10 @@ const copyTemplateFiles = async (
 
     const destFile = path.join(dest, baseFile)
     fs.mkdirSync(path.dirname(destFile), { recursive: true })
-    fs.writeFileSync(destFile, contents)
-    filesAdded.push(baseFile)
+    if (!destFile.includes('.keepfolder')) {
+      fs.writeFileSync(destFile, contents)
+      filesAdded.push(baseFile)
+    }
   }
 
   return filesAdded.sort()
@@ -91,15 +93,15 @@ export const generateTemplate = async (input: GenerateInput): Promise<void> => {
           // shared among all projects
           await copyTemplateFiles(
             path.join(dirName, '..', 'template', '__shared__fastify__'),
-            process.cwd()
-          )
-          // copy fastify-graphql-controller folder
-          await copyTemplateFiles(
-            path.join(dirName, '..', 'template', 'fastify-graphql-controller'),
             process.cwd(),
             {
               rename: { gitignore: '.gitignore' }
             }
+          )
+          // copy fastify-graphql-controller folder
+          await copyTemplateFiles(
+            path.join(dirName, '..', 'template', 'fastify-graphql-controller'),
+            process.cwd()
           )
           return
         }
@@ -107,15 +109,15 @@ export const generateTemplate = async (input: GenerateInput): Promise<void> => {
           // shared among all projects
           await copyTemplateFiles(
             path.join(dirName, '..', 'template', '__shared__fastify__'),
-            process.cwd()
-          )
-          // copy fastify-graphql-microservice folder
-          await copyTemplateFiles(
-            path.join(dirName, '..', 'template', 'fastify-graphql-microservice'),
             process.cwd(),
             {
               rename: { gitignore: '.gitignore' }
             }
+          )
+          // copy fastify-graphql-microservice folder
+          await copyTemplateFiles(
+            path.join(dirName, '..', 'template', 'fastify-graphql-microservice'),
+            process.cwd()
           )
           return
         }
@@ -123,15 +125,15 @@ export const generateTemplate = async (input: GenerateInput): Promise<void> => {
           // shared among all projects
           await copyTemplateFiles(
             path.join(dirName, '..', 'template', '__shared__npm__'),
-            process.cwd()
-          )
-          // copy npm folder
-          await copyTemplateFiles(
-            path.join(dirName, '..', 'template', 'npm-fastify-plugin'),
             process.cwd(),
             {
               rename: { gitignore: '.gitignore' }
             }
+          )
+          // copy npm folder
+          await copyTemplateFiles(
+            path.join(dirName, '..', 'template', 'npm-fastify-plugin'),
+            process.cwd()
           )
           return
         }
@@ -139,25 +141,33 @@ export const generateTemplate = async (input: GenerateInput): Promise<void> => {
           // shared among all projects
           await copyTemplateFiles(
             path.join(dirName, '..', 'template', '__shared__npm__'),
-            process.cwd()
-          )
-          // copy npm folder
-          await copyTemplateFiles(
-            path.join(dirName, '..', 'template', 'npm'),
             process.cwd(),
             {
               rename: { gitignore: '.gitignore' }
             }
+          )
+          // copy npm folder
+          await copyTemplateFiles(
+            path.join(dirName, '..', 'template', 'npm'),
+            process.cwd()
           )
           return
         }
       }
       break
     }
-    case 'vite/react:': {
+    case 'vite/react': {
       switch (input.vite) {
         case 'vite-react-swc': {
-          break
+          // copy npm folder
+          await copyTemplateFiles(
+            path.join(dirName, '..', 'template', 'vite'),
+            process.cwd(),
+            {
+              rename: { gitignore: '.gitignore' }
+            }
+          )
+          return
         }
       }
       break

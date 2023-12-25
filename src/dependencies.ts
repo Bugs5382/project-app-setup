@@ -125,7 +125,7 @@ export const returnDependencies = (input: GenerateInput): Dependencies => {
       }
       break
     }
-    case 'vite/react:': {
+    case 'vite/react': {
       switch (input.vite) {
         case 'vite-react-swc':
           return VITE_REACT_SWC

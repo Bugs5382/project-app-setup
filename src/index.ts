@@ -82,7 +82,10 @@ export const main = async (): Promise<void> => {
     }, {
       name: 'keywords',
       type: 'input',
-      message: 'Provide keywords (seperated by `,`):',
+      message: 'Package keywords (comma to split)',
+      filter (words: string) {
+        return typeof words !== 'undefined' ? words.split(/\s*,\s*/g) : undefined
+      },
       validate: (input) => typeof input !== 'undefined'
     }]) as Partial<any>
 
@@ -101,7 +104,7 @@ export const main = async (): Promise<void> => {
     ...DEFAULT_NPM,
     name: npmName,
     description,
-    keywords: keywords.split(',')
+    keywords
   }, {
     type,
     node,

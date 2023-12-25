@@ -91,9 +91,9 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
       }
       break
     }
-    case 'vite/react:': {
+    case 'vite/react': {
       switch (input.vite) {
-        case 'vite-react-swc':{
+        case 'vite-react-swc': {
           finalPackage = {
             type: 'module',
             scripts: {

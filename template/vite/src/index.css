@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+
+}
+
+#root {
+  display: flex;
+}
+
+main {
+  flex-grow: 1;
+  padding: 2rem;
+  min-height: calc(100vh);
+}
+
+div {
+  display: block;
+}
