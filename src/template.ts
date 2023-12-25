@@ -48,10 +48,16 @@ const copyTemplateFiles = async (
   const filesAdded: string[] = []
 
   for (const file of templateFileNames) {
-    const contents = fs.readFileSync(file, { encoding: 'utf8' })
+    let contents = fs.readFileSync(file, { encoding: 'utf8' })
 
     // Figure out where we're writing this file.
     let baseFile = file.replace(`${resolvedSource}/`, '')
+
+    // make sure we remove ts-nocheck from files
+    if (baseFile.substring(baseFile.length - 2, baseFile.length) === 'ts') {
+      const regex = /\/\/ @ts-nocheck\n/g
+      contents = contents.replace(regex, '')
+    }
 
     if (typeof rename[baseFile] !== 'undefined') {
       baseFile = rename[baseFile]
@@ -81,7 +87,17 @@ export const generateTemplate = async (input: GenerateInput): Promise<void> => {
   switch (input.type) {
     case 'nodejs': {
       switch (input.node) {
-        case 'fastify-graphql-controller':
+        case 'fastify-graphql-controller': {
+          // copy npm folder
+          await copyTemplateFiles(
+            path.join(dirName, '..', 'template', 'fastify-graphql-controller'),
+            process.cwd(),
+            {
+              rename: { gitignore: '.gitignore' }
+            }
+          )
+          return
+        }
         case 'fastify-graphql-microservice': {
           break
         }
