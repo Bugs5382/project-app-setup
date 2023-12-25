@@ -119,8 +119,28 @@ export const generateTemplate = async (input: GenerateInput): Promise<void> => {
           )
           return
         }
-        case 'fastify-npm-package':
+        case 'fastify-npm-package': {
+          // shared among all projects
+          await copyTemplateFiles(
+            path.join(dirName, '..', 'template', '__shared__npm__'),
+            process.cwd()
+          )
+          // copy npm folder
+          await copyTemplateFiles(
+            path.join(dirName, '..', 'template', 'npm-fastify-plugin'),
+            process.cwd(),
+            {
+              rename: { gitignore: '.gitignore' }
+            }
+          )
+          return
+        }
         case 'npm-package': {
+          // shared among all projects
+          await copyTemplateFiles(
+            path.join(dirName, '..', 'template', '__shared__npm__'),
+            process.cwd()
+          )
           // copy npm folder
           await copyTemplateFiles(
             path.join(dirName, '..', 'template', 'npm'),
