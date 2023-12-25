@@ -7,7 +7,7 @@ certs
 docs
 src
 temp
-__tests__
+template/npm/__tests__
 coverage
 
 # Files

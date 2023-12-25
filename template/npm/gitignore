@@ -170,6 +170,7 @@ dist
 
 # Custom
 .run
+docs
 lib
 temp
 .npmrc

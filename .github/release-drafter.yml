@@ -30,6 +30,7 @@ categories:
     labels:
       - chore
       - maintenance
+      - ci
   - title: 🚦 Tests
     labels:
       - test
