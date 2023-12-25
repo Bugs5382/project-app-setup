@@ -9,6 +9,7 @@ import path from 'node:path'
 import { DEFAULT_NPM } from './constants.js'
 import { returnDependencies } from './dependencies.js'
 import { generatePackageJson, installDeps } from './npm.js'
+import { generateTemplate } from './template.js'
 
 /**
  * @since 1.0.0
@@ -35,8 +36,6 @@ const getProjectName = async (defaultProjectName: string): Promise<string> => {
  */
 export const main = async (): Promise<void> => {
   const npmName = await getProjectName(_.kebabCase('project-app-setup'))
-
-  console.log(npmName)
 
   const { type, node, vite, description, keywords, port } = await inquirer.prompt(
     [{
@@ -83,7 +82,10 @@ export const main = async (): Promise<void> => {
     }, {
       name: 'keywords',
       type: 'input',
-      message: 'Provide keywords (seperated by `,`):',
+      message: 'Package keywords (comma to split)',
+      filter (words: string) {
+        return typeof words !== 'undefined' ? words.split(/\s*,\s*/g) : undefined
+      },
       validate: (input) => typeof input !== 'undefined'
     }]) as Partial<any>
 
@@ -102,15 +104,17 @@ export const main = async (): Promise<void> => {
     ...DEFAULT_NPM,
     name: npmName,
     description,
-    keywords: keywords.split(',')
+    keywords
   }, {
     type,
     node,
     vite,
     options: { port }
   })
-
   fs.writeFileSync('package.json', JSON.stringify(packageJson, null, 4))
+
+  // Move Templates
+  await generateTemplate({ type, node, vite })
 
   // Get Dependencies
   const packages = returnDependencies({

@@ -1,6 +1,13 @@
 # Project Application Setup
 This app creates my standard app setup for the following types:
 
+## Install
+
+Install using NPM:
+```
+npm install -G @the-rabbit-hole/app-setup
+```
+
 ## Selection Types
 
 ### NodeJS
@@ -12,5 +19,10 @@ This app creates my standard app setup for the following types:
 ### Vite
 * Vite with React + SWC
 
-## Templates of Apps
-Templates are not included yet in this version. It only sets up the package.json file.
+## Acknowledgements
+
+* Thanks to [Jason Walton](https://github.com/jwalton/create-ts-app) for his project startup. I based it off his code.
+
+## License
+
+Licensed under [MIT](LICENSE).

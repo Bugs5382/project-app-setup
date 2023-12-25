@@ -1,4 +1,4 @@
-import { Dependencies, GeneratePackageJsonInput } from './types.js'
+import { Dependencies, GenerateInput } from './types.js'
 
 const sharedDev: string[] = [
   '@semantic-release/changelog',
@@ -42,6 +42,7 @@ const FASTIFY_GRAPHQL_MICROSERVICES: Dependencies = {
     'fastify-cli',
     'fastify-custom-healthcheck',
     'fastify-plugin',
+    'fastify-rabbitmq',
     'mercurius-codegen'
   ],
   devDependencies: [
@@ -109,7 +110,7 @@ const VITE_REACT_SWC: Dependencies = {
  * @since 1.0.0
  * @param input
  */
-export const returnDependencies = (input: GeneratePackageJsonInput): Dependencies => {
+export const returnDependencies = (input: GenerateInput): Dependencies => {
   switch (input.type) {
     case 'nodejs': {
       switch (input.node) {
@@ -124,7 +125,7 @@ export const returnDependencies = (input: GeneratePackageJsonInput): Dependencie
       }
       break
     }
-    case 'vite/react:': {
+    case 'vite/react': {
       switch (input.vite) {
         case 'vite-react-swc':
           return VITE_REACT_SWC

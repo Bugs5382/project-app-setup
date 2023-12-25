@@ -15,17 +15,21 @@ export interface GeneratePackageJsonParams {
   }
 }
 
-export interface GeneratePackageJsonInput {
+export interface GenerateInput {
   node?: string
   type: string
   vite?: string
 }
 
-export interface GeneratePackageJsonInputWithOptions extends GeneratePackageJsonInput {
+export interface GeneratePackageJsonInputWithOptions extends GenerateInput {
   node?: string
   options: {
     port?: string
   }
   type: string
   vite?: string
+}
+
+export interface TemplateCopyOptions {
+  rename?: { [filename: string]: string }
 }

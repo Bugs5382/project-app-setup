@@ -1,0 +1,10 @@
+{
+  "page": {},
+  "components": {},
+  "common": {
+    "close": "Close",
+    "home": "Home",
+    "list": "List",
+    "unknown": "Unknown"
+  }
+}
