@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/Bugs5382/project-app-setup/compare/v1.1.0...v1.1.1) (2023-12-25)
+
+
+### Bug Fixes
+
+* forgot to add template to package ([ce1234f](https://github.com/Bugs5382/project-app-setup/commit/ce1234f141e69cfc9bbb9af3819e599601f5bbc0))
+
 # [1.1.0](https://github.com/Bugs5382/project-app-setup/compare/v1.0.1...v1.1.0) (2023-12-25)
 
 
