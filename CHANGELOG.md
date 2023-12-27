@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/Bugs5382/project-app-setup/compare/v1.1.2...v1.2.0) (2023-12-27)
+
+
+### Features
+
+* added in two packages ([2b34818](https://github.com/Bugs5382/project-app-setup/commit/2b348187176c1bace98970c5afee0086b5fa7461))
+
 ## [1.1.2](https://github.com/Bugs5382/project-app-setup/compare/v1.1.1...v1.1.2) (2023-12-27)
 
 
