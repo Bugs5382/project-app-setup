@@ -11,14 +11,19 @@
     "dist/**/**",
     "template/"
   ],
+  "engines": {
+    "node": "^18 || ^20"
+  },
   "scripts": {
     "clean": "rm -rf coverage docs dist",
     "build": "npx tsc",
     "build:watch": "npx tsc -w",
     "dev": "npm run build && NODE_ENV=test node dist/index.js",
-    "lint": "ts-standard | snazzy",
-    "lint:fix": "ts-standard --fix | snazzy",
+    "npmPkgJsonLint": "npmPkgJsonLint .",
+    "lint": "npmPkgJsonLint . && ts-standard | snazzy",
+    "lint:fix": "npmPkgJsonLint . && ts-standard --fix | snazzy",
     "pack": "npm pack",
+    "publish": "clean-publish",
     "prepublishOnly": "npm run lint:fix && npm run build && npm run pack",
     "semantic-release": "semantic-release",
     "semantic-release:dry-run": "semantic-release --dry-run",
@@ -59,6 +64,8 @@
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.10.5",
     "@types/yargs": "^17.0.32",
+    "clean-publish": "^4.2.0",
+    "npm-package-json-lint": "^7.1.0",
     "semantic-release": "^22.0.12",
     "snazzy": "^9.0.0",
     "ts-node": "^10.9.2",

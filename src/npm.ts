@@ -16,8 +16,8 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
   let finalPackage: any = null
 
   const sharedScripts = {
-    lint: 'ts-standard | snazzy',
-    'lint:fix': 'ts-standard --fix | snazzy',
+    lint: 'npmPkgJsonLint . && ts-standard | snazzy',
+    'lint:fix': 'npmPkgJsonLint . && ts-standard --fix | snazzy',
     typedoc: 'typedoc',
     'typedoc:watch': 'typedoc -watch',
     update: 'npx npm-check-updates -u && npm install'
@@ -72,6 +72,7 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
               'build:watch': 'tsc -p tsconfig.esm.json -w',
               ...sharedScripts,
               pack: 'npm pack',
+              publish: 'clean-publish',
               prepublishOnly: 'npm run clean && npm run build && npm run test:ci && npm run pack',
               test: 'jest',
               'test:open': 'jest --detectOpenHandles',
@@ -121,6 +122,9 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
     name: params.name,
     version: '0.0.0-development',
     description: params.description,
+    engines: {
+      node: '^18 || ^20'
+    },
     ...finalPackage,
     keywords: params.keywords,
     author: params.author,
