@@ -1,3 +1,11 @@
+## [1.1.2](https://github.com/Bugs5382/project-app-setup/compare/v1.1.1...v1.1.2) (2023-12-27)
+
+
+### Bug Fixes
+
+* re-added in extended ([f00c10d](https://github.com/Bugs5382/project-app-setup/commit/f00c10d378f2ff31c564a8f65dc93318236134c6))
+* removed release-drafter ([3993e03](https://github.com/Bugs5382/project-app-setup/commit/3993e032096568ddc4b846eaff0a958a2f154f65))
+
 ## [1.1.1](https://github.com/Bugs5382/project-app-setup/compare/v1.1.0...v1.1.1) (2023-12-25)
 
 
