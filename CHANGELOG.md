@@ -1,3 +1,11 @@
+## [1.4.2](https://github.com/Bugs5382/project-app-setup/compare/v1.4.1...v1.4.2) (2023-12-30)
+
+
+### Bug Fixes
+
+* replacement again ([f76e51e](https://github.com/Bugs5382/project-app-setup/commit/f76e51ec63578af477df4e8cd3cf670bb34589e0))
+* replacement again ([#13](https://github.com/Bugs5382/project-app-setup/issues/13)) ([d984598](https://github.com/Bugs5382/project-app-setup/commit/d9845984610cb58d5f3810121c96235351967db6))
+
 ## [1.4.1](https://github.com/Bugs5382/project-app-setup/compare/v1.4.0...v1.4.1) (2023-12-30)
 
 
