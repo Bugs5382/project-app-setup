@@ -1,5 +1,6 @@
 import childProcess from 'node:child_process'
 import { promisify } from 'node:util'
+import cliProgress from 'cli-progress'
 import {
   GeneratePackageJsonInputWithOptions,
   GeneratePackageJsonParams
@@ -145,7 +146,21 @@ export const installDeps = async (dependencies: string[], options: { dev?: boole
     args.push('--save-dev')
   }
 
-  if (typeof process.env.NODE_ENV === 'undefined') {
-    await execFile('npm', [...args, ...dependencies])
+  if (dependencies.length > 0) {
+    const bar = new cliProgress.SingleBar({}, cliProgress.Presets.rect)
+    bar.start(dependencies.length, 0)
+
+    let value = 0
+
+    for (const depend of dependencies) {
+      value++
+      if (typeof process.env.NODE_ENV === 'undefined') {
+        await execFile('npm', [...args, depend])
+      }
+      bar.update(value)
+      if (value >= bar.getTotal()) {
+        bar.stop()
+      }
+    }
   }
 }
