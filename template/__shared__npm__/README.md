@@ -1,6 +1,6 @@
-# {{APP_README_TITLE}}
+# <%- npm %>
 
-> {{APP_README_DESCRIPTION}}
+> <%- description %>
 
 If you are using this plugin/NPM, please (:star:) star this repository, submit PRs, and issues. This way I can make sure the repositories with much usage can be maintained based off demand.
 
@@ -31,4 +31,4 @@ They might be sans uppercase throughout the documentation, but they would have t
 
 ## License
 
-Licensed under [MIT](LICENSE).
+Licensed under [<%- licence %>](LICENSE).

@@ -29,7 +29,7 @@
     "scripts-type": "error",
     "version-type": "error",
     "valid-values-author": ["error", [
-      "Shane Froebel"
+      "<%- author %>"
     ]],
     "valid-values-private": ["error", [
       false

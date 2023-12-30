@@ -1,6 +1,6 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { copyTemplateFile } from './template.js'
+import { copyTemplateFile } from './helpers.js'
 
 const dirName = path.dirname(fileURLToPath(import.meta.url))
 
@@ -34,11 +34,11 @@ export const generateLicense = async (props: LicenseProps): Promise<void> => {
   const filename = `${props.license}.txt`
   let author = props.name.trim()
 
-  if (typeof props.email !== 'undefined' && props.email !== "") {
+  if (typeof props.email !== 'undefined' && props.email !== '') {
     author += ' <' + props.email.trim() + '>'
   }
 
-  if (typeof props.website !== 'undefined' && props.website !== "") {
+  if (typeof props.website !== 'undefined' && props.website !== '') {
     author += ' (' + props.website.trim() + ')'
   }
 

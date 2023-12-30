@@ -36,9 +36,19 @@ const getProjectName = async (defaultProjectName: string): Promise<string> => {
  * @since 1.0.0
  */
 export const main = async (): Promise<void> => {
-  const npmName = await getProjectName(_.kebabCase('project-app-setup'))
+  const defaultProjectName = _.kebabCase('project-app-setup')
+  let npmName: string | undefined
+  if (typeof process.env.NODE_ENV === 'undefined') {
+    npmName = await getProjectName(defaultProjectName)
+  }
 
-  const { website, type, node, vite, email, description, license, keywords, port } = await inquirer.prompt([{
+  const { npm, website, type, node, vite, email, description, license, keywords, port } = await inquirer.prompt([{
+    default: defaultProjectName,
+    name: 'npm',
+    message: 'Your Project NPM name?',
+    type: 'input',
+    when: () => typeof process.env.NODE_ENV !== 'undefined'
+  }, {
     choices: [
       { name: 'Github', value: 'github' },
       { name: 'Private Repo', value: 'private-repo' }
@@ -52,7 +62,7 @@ export const main = async (): Promise<void> => {
     type: 'input',
     name: 'repoName',
     message: 'Project Name:',
-    default: npmName,
+    default: npmName || defaultProjectName,
     when: (answers) => answers.gitLocation === 'github'
   }, {
     type: 'input',
@@ -126,10 +136,9 @@ export const main = async (): Promise<void> => {
 
   // create folder
   let cwd: string = process.cwd()
-  if (typeof npmName !== 'undefined') {
-    cwd = path.join(process.cwd(), `${temp}/${npmName}`)
-    fs.mkdirSync(cwd, { recursive: true })
-  }
+  let folder = typeof npmName !== 'undefined' ? npmName : npm
+  cwd = path.join(process.cwd(), `${temp}/${folder}`)
+  fs.mkdirSync(cwd, { recursive: true })
   process.chdir(cwd)
 
   // Generate Licence
@@ -143,7 +152,7 @@ export const main = async (): Promise<void> => {
   // Generate package.json
   const packageJson = generatePackageJson({
     ...DEFAULT_NPM,
-    name: npmName,
+    name: typeof npmName !== 'undefined' ? npmName : npm,
     description,
     license,
     keywords
@@ -160,6 +169,12 @@ export const main = async (): Promise<void> => {
     type,
     node,
     vite
+  }, {
+    npm: typeof npmName !== 'undefined' ? npmName : npm,
+    author: DEFAULT_NPM.author.name,
+    description,
+    homepage: website,
+    license
   })
 
   // Get Dependencies

@@ -5,7 +5,7 @@ import { mercuriusFederationPlugin } from '@mercuriusjs/federation'
 import { resolvers } from '../graphql/reporters.js'
 import schema from '../graphql/schema.js'
 
-export default fp<FastifyPluginOptions>((fastify, opts, done) => {
+export default fp<FastifyPluginOptions>(async (fastify, opts) => {
   void fastify.register(mercuriusFederationPlugin, {
     schema,
     resolvers,
@@ -14,8 +14,6 @@ export default fp<FastifyPluginOptions>((fastify, opts, done) => {
   })
 
   void fastify.ready().then(() => {
-    fastify.log.debug('[graphql] Started GraphQL')
+    fastify.log.debug('[<%- npm %>-graphql] Started GraphQL')
   })
-
-  done()
 })

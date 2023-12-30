@@ -4,7 +4,7 @@ import fp from 'fastify-plugin'
 import fastifyRabbit from 'fastify-rabbitmq'
 import { accessEnv } from '../helpers/accessEnv.js'
 
-export default fp<FastifyPluginOptions>((fastify, opt, done) => {
+export default fp<FastifyPluginOptions>(async (fastify, opt) => {
   const RABBIT_MQ = accessEnv('RABBIT_MQ', 'localhost')
 
   void fastify.register(fastifyRabbit, {
@@ -12,8 +12,6 @@ export default fp<FastifyPluginOptions>((fastify, opt, done) => {
   })
 
   void fastify.ready().then(async () => {
-    fastify.log.debug('[rabbitmq] Started RabbitMQ')
+    fastify.log.debug('[<%- npm %>-rabbitmq] Started RabbitMQ')
   })
-
-  done()
 })

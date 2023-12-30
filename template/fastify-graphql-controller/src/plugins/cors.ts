@@ -8,4 +8,8 @@ export default fp<FastifyCorsOptions>(async (fastify) => {
     methods: ['POST', 'OPTIONS'],
     preflight: true
   })
+
+  void fastify.ready().then(() => {
+    fastify.log.debug('[<%- npm %>-cors] Started Cors')
+  })
 })

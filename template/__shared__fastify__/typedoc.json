@@ -4,5 +4,5 @@
   "githubPages": false,
   "includeVersion": false,
   "out": "docs",
-  "name": "APP"
+  "name": "<%- npm %>"
 }
