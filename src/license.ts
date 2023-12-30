@@ -47,7 +47,7 @@ export const generateLicense = async (props: LicenseProps): Promise<void> => {
     path.join(dirName, '..', 'template', 'license'),
     process.cwd(),
     {
-      rename: { [filename]: props.license },
+      rename: { [filename]: 'LICENSE' },
       replace: [
         { replaceString: '<%- year %>', var: new Date().getFullYear().toString() },
         { replaceString: '<%- author %>', var: author }
