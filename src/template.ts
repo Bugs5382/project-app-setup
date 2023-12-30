@@ -1,3 +1,4 @@
+import cliProgress from 'cli-progress'
 import fs from 'fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -27,6 +28,16 @@ const recurseDir = async (dir: string): Promise<string[]> => {
 }
 
 /**
+ * Count Occurrences
+ * @since 1.2.1
+ * @param array
+ * @param value
+ */
+const getOccurrence = (array: any, value: any): number => {
+  return array.filter((v: any) => (v.includes(value) === true)).length
+}
+
+/**
  * Copy all files from a given source folder into the target folder.
  * @description This will recurse into subfolders.
  * @since 1.0.0
@@ -45,9 +56,18 @@ const copyTemplateFiles = async (
   const resolvedSource = path.resolve(source)
   const templateFileNames = await recurseDir(resolvedSource)
 
+  const totalOfGitKeep = getOccurrence(templateFileNames, '.keepfolder')
+
+  const bar = new cliProgress.SingleBar({}, cliProgress.Presets.rect)
+  bar.start(templateFileNames.length - totalOfGitKeep, 0)
+
+  let value = 0
+
   const filesAdded: string[] = []
 
   for (const file of templateFileNames) {
+    value++
+
     let contents = fs.readFileSync(file, { encoding: 'utf8' })
 
     // Figure out where we're writing this file.
@@ -68,6 +88,10 @@ const copyTemplateFiles = async (
     if (!destFile.includes('.keepfolder')) {
       fs.writeFileSync(destFile, contents)
       filesAdded.push(baseFile)
+      bar.update(value)
+      if (value >= bar.getTotal()) {
+        bar.stop()
+      }
     }
   }
 
