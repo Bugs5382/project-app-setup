@@ -12,3 +12,5 @@ export const CLI_PROGRESS = (area: string): any => {
     barIncompleteChar: ' '
   }
 }
+
+export const isProd = (): boolean => process.env.NODE_ENV !== 'test'

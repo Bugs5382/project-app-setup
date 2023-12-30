@@ -4,49 +4,14 @@
 import * as fs from 'fs'
 import _ from 'lodash'
 import inquirer from 'inquirer'
-import askNpmName from 'inquirer-npm-name'
-import yargs from 'yargs'
-import { hideBin } from 'yargs/helpers'
 import path from 'node:path'
-import { DEFAULT_NPM } from './modules/constants.js'
+import { DEFAULT_NPM, isProd } from './modules/constants.js'
 import { returnDependencies } from './modules/dependencies.js'
+import * as git from './modules/git.js'
+import { getProjectName, parseOptions } from './modules/helpers.js'
 import { generateLicense, licenseChoices } from './modules/license.js'
 import { generatePackageJson, installDeps } from './modules/npm.js'
 import { generateTemplate } from './modules/template.js'
-
-/**
- * Parse CLI options
- * @since 1.5.0
- */
-async function parseOptions (): Promise<{ name: string }> {
-  const options = await yargs(hideBin(process.argv))
-    .strict()
-    .parseAsync()
-
-  const project = options._.map(String)
-
-  console.log(project)
-
-  return { name: 'this is a test' }
-}
-
-/**
- * @since 1.0.0
- * @param defaultProjectName
- */
-const getProjectName = async (defaultProjectName: string): Promise<string> => {
-  const { npmName } = await askNpmName(
-    {
-      default: defaultProjectName,
-      name: 'npmName',
-      message: 'Your Project NPM name?',
-      type: 'input'
-    },
-    inquirer
-  )
-
-  return npmName
-}
 
 /**
  * Main Executable Function
@@ -58,7 +23,7 @@ export const main = async (): Promise<void> => {
   const options = await parseOptions()
 
   // default project name
-  const defaultProjectName = typeof process.env.NODE_ENV === 'undefined' ? 'project-app-setup' : path.basename(process.cwd())
+  const defaultProjectName = isProd() ? path.basename(process.cwd()) : 'project-app-setup'
 
   // set var
   let npmName: string | undefined
@@ -70,12 +35,12 @@ export const main = async (): Promise<void> => {
     npmName = options.name
   }
 
-  const { npm, repoOwner, repoName, repoPrivateLocation, website, type, node, vite, email, description, license, keywords, port } = await inquirer.prompt([{
+  const { npm, gitLocation, repoOwner, repoName, website, type, node, vite, email, description, license, keywords, port } = await inquirer.prompt([{
     default: defaultProjectName,
     name: 'npm',
     message: 'Your Project NPM name?',
     type: 'input',
-    when: () => typeof process.env.NODE_ENV !== 'undefined'
+    when: () => !isProd()
   }, {
     choices: [
       { name: 'Github', value: 'github' },
@@ -89,15 +54,20 @@ export const main = async (): Promise<void> => {
   }, {
     type: 'input',
     name: 'repoOwner',
-    message: 'Repository Owner: (e.g. https://github.com/{OWNER}/{PROJECT NAME}',
-    default: typeof npmName !== 'undefined' ? npmName : '',
-    when: (answers) => answers.gitLocation === 'github',
-    filter (val: string) { return val.toLowerCase() }
+    message: 'Repository Owner (e.g. https://github.com/{OWNER}/{PROJECT NAME}):',
+    default: 'Bugs5382', // this is me!
+    when: (answers) => answers.gitLocation === 'github'
   }, {
     type: 'input',
     name: 'repoName',
-    message: 'Project Repository Name: (e.g. https://github.com/{OWNER}/{PROJECT NAME}',
-    default: typeof npmName !== 'undefined' ? npmName : '',
+    message: 'Repository Project Name (e.g. https://github.com/{OWNER}/{PROJECT NAME}):',
+    validate: (result) => {
+      if (result === '') {
+        return 'Error: Please enter a repo name. If the repo does not exist, it will be created for you.'
+      } else {
+        return true
+      }
+    },
     when: (answers) => answers.gitLocation === 'github',
     filter (val: string) { return val.toLowerCase() }
   }, {
@@ -177,6 +147,21 @@ export const main = async (): Promise<void> => {
   fs.mkdirSync(cwd, { recursive: true })
   process.chdir(cwd)
 
+  // git stuff
+  await git.init(cwd)
+  if (gitLocation === 'github' && typeof repoOwner !== 'undefined' && typeof repoName !== 'undefined') {
+    await git.addRemote(cwd, repoOwner, repoName)
+  }
+
+  let gitUrl: string | undefined
+  let gitIssues: string | undefined
+  let gitReadme: string | undefined
+  if (gitLocation === 'github') {
+    gitUrl = `https://github.com/${repoOwner as string}/${repoName as string}`
+    gitIssues = `${gitUrl}/issues`
+    gitReadme = `${gitUrl}#readme`
+  }
+
   // Generate Licence
   await generateLicense({
     license,
@@ -190,6 +175,9 @@ export const main = async (): Promise<void> => {
     ...DEFAULT_NPM,
     name: typeof npmName !== 'undefined' ? npmName : npm,
     description,
+    gitIssues,
+    gitReadme,
+    gitUrl,
     license,
     keywords
   }, {

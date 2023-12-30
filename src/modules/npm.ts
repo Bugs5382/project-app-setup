@@ -128,9 +128,17 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
       node: '^18 || ^20'
     },
     ...finalPackage,
+    repository: {
+      type: 'git',
+      url: `git+${params.gitUrl as string}`
+    },
     keywords: params.keywords,
     author: params.author,
-    license: params.license
+    license: params.license,
+    bugs: {
+      url: params.gitIssues
+    },
+    homepage: params.gitReadme
   }
 
   return { ...packageJson }

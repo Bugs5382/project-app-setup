@@ -14,6 +14,9 @@ export interface GeneratePackageJsonParams {
     email?: string
     url?: string
   }
+  gitIssues?: string
+  gitReadme?: string
+  gitUrl?: string
 }
 
 export interface GenerateInput {
