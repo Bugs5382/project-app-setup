@@ -5,7 +5,7 @@ This app creates my standard app setup for the following types:
 
 Install using NPM:
 ```
-npm install -G @the-rabbit-hole/app-setup
+npm install @the-rabbit-hole/app-setup -g
 ```
 
 ## Selection Types
