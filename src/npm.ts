@@ -84,7 +84,7 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
               'semantic-release': 'semantic-release',
               'semantic-release:dry-run': 'semantic-release --dry-run',
               update: 'npx npm-check-updates -u && npm run update:post-update',
-              'update:post-update': 'npm ci && npm run test:ci'
+              'update:post-update': 'npm install && npm run test:ci'
             }
           }
           break
