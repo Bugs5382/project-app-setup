@@ -1,3 +1,11 @@
+## [1.4.3](https://github.com/Bugs5382/project-app-setup/compare/v1.4.2...v1.4.3) (2023-12-30)
+
+
+### Bug Fixes
+
+* lint issue ([af47e12](https://github.com/Bugs5382/project-app-setup/commit/af47e12ae2cbe82c42dd5000f7c5e5c5214b1528))
+* lint issue ([#14](https://github.com/Bugs5382/project-app-setup/issues/14)) ([86dd281](https://github.com/Bugs5382/project-app-setup/commit/86dd281c587b7f824d196a7c1f6f200f37035737))
+
 ## [1.4.2](https://github.com/Bugs5382/project-app-setup/compare/v1.4.1...v1.4.2) (2023-12-30)
 
 
