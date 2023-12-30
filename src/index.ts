@@ -62,7 +62,7 @@ export const main = async (): Promise<void> => {
     type: 'input',
     name: 'repoName',
     message: 'Project Name:',
-    default: npmName || defaultProjectName,
+    default: typeof npmName !== 'undefined' ? npmName : '',
     when: (answers) => answers.gitLocation === 'github'
   }, {
     type: 'input',
@@ -135,9 +135,9 @@ export const main = async (): Promise<void> => {
   const temp: string = process.env.NODE_ENV === 'test' ? 'temp/' : ''
 
   // create folder
-  let cwd: string = process.cwd()
-  let folder = typeof npmName !== 'undefined' ? npmName : npm
-  cwd = path.join(process.cwd(), `${temp}/${folder}`)
+
+  const folder: string = typeof npmName !== 'undefined' ? npmName : npm
+  let cwd = path.join(process.cwd(), `${temp}/${folder}`)
   fs.mkdirSync(cwd, { recursive: true })
   process.chdir(cwd)
 

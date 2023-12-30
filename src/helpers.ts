@@ -1,7 +1,7 @@
 import cliProgress from 'cli-progress'
 import fs from 'fs'
 import path from 'node:path'
-import {CLI_PROGRESS} from "./constants.js";
+import { CLI_PROGRESS } from './constants.js'
 import { TemplateCopyOptions } from './types.js'
 
 /**
