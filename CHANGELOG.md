@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/Bugs5382/project-app-setup/compare/v1.2.0...v1.2.1) (2023-12-30)
+
+
+### Bug Fixes
+
+* removed .npmignore ([85f661f](https://github.com/Bugs5382/project-app-setup/commit/85f661f39bc77ab124d55bc808de9ed73572c99c))
+* removed test:ci from prePackage ([e25cd1e](https://github.com/Bugs5382/project-app-setup/commit/e25cd1e4e2550512bc13a733619c9577c2c073b5))
+* removed test:ci from prePackage ([#7](https://github.com/Bugs5382/project-app-setup/issues/7)) ([7e1c6e1](https://github.com/Bugs5382/project-app-setup/commit/7e1c6e1c6e0a2e4d8d1923a33a7e790060c71348))
+
 # [1.2.0](https://github.com/Bugs5382/project-app-setup/compare/v1.1.2...v1.2.0) (2023-12-27)
 
 
