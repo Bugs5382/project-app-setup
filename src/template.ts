@@ -21,8 +21,6 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
     { replaceString: '<%- license %>', var: typeof replacement.license !== 'undefined' ? replacement.license : '' }
   ]
 
-  console.log(createReplace)
-
   // shared among all projects
   await copyTemplateFiles(
     path.join(dirName, '..', 'template', '__shared__'),
