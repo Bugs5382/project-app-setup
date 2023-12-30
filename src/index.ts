@@ -8,6 +8,7 @@ import askNpmName from 'inquirer-npm-name'
 import path from 'node:path'
 import { DEFAULT_NPM } from './constants.js'
 import { returnDependencies } from './dependencies.js'
+import { generateLicense, licenseChoices } from './license.js'
 import { generatePackageJson, installDeps } from './npm.js'
 import { generateTemplate } from './template.js'
 
@@ -37,57 +38,89 @@ const getProjectName = async (defaultProjectName: string): Promise<string> => {
 export const main = async (): Promise<void> => {
   const npmName = await getProjectName(_.kebabCase('project-app-setup'))
 
-  const { type, node, vite, description, keywords, port } = await inquirer.prompt(
-    [{
-      choices: ['NodeJS', 'Vite/React'],
-      default: 0,
-      name: 'type',
-      message: 'What type of app are we creating today?',
-      type: 'list',
-      filter (val) {
-        return val.toLowerCase()
-      }
-    }, {
-      choices: [
-        { name: 'Fastify GraphQL Controller', value: 'fastify-graphql-controller' },
-        { name: 'Fastify GraphQL Microservice', value: 'fastify-graphql-microservice' },
-        { name: 'Fastify Standalone NPM Package', value: 'fastify-npm-package' },
-        { name: 'Standalone NPM Package', value: 'npm-package' }
-      ],
-      default: 1,
-      name: 'node',
-      message: 'What type of app are we creating today?',
-      type: 'list',
-      when: (answers) => answers.type === 'nodejs'
-    }, {
-      choices: [
-        { name: 'Vite with React + SWC', value: 'vite-react-swc' }
-      ],
-      default: 0,
-      name: 'vite',
-      message: 'What type of app are we creating today?',
-      type: 'list',
-      when: (answers) => answers.type === 'vite/react'
-    }, {
-      default: 3000,
-      name: 'port',
-      type: 'input',
-      message: 'Provide the port app should run under during development:',
-      when: (answers) => answers.node === 'fastify-graphql-controller' || answers.node === 'fastify-graphql-microservice'
-    }, {
-      name: 'description',
-      type: 'input',
-      message: 'Provide a description:',
-      validate: (input) => typeof input !== 'undefined'
-    }, {
-      name: 'keywords',
-      type: 'input',
-      message: 'Package keywords (comma to split)',
-      filter (words: string) {
-        return typeof words !== 'undefined' ? words.split(/\s*,\s*/g) : undefined
-      },
-      validate: (input) => typeof input !== 'undefined'
-    }]) as Partial<any>
+  const { website, type, node, vite, email, description, license, keywords, port } = await inquirer.prompt([{
+    choices: [
+      { name: 'Github', value: 'github' },
+      { name: 'Private Repo', value: 'private-repo' }
+    ],
+    default: 0,
+    name: 'gitLocation',
+    message: 'Where are we storing this code today?',
+    type: 'list',
+    filter (val: string) { return val.toLowerCase() }
+  }, {
+    type: 'input',
+    name: 'repoName',
+    message: 'Project Name:',
+    default: npmName,
+    when: (answers) => answers.gitLocation === 'github'
+  }, {
+    type: 'input',
+    name: 'repoPrivateLocation',
+    message: 'Full URL of Git Repo:',
+    when: (answers) => answers.gitLocation !== 'github'
+  }, {
+    name: 'website',
+    message: 'Homepage:',
+    filter (val: string) { return val.toLowerCase() }
+  }, {
+    choices: ['NodeJS', 'Vite/React'],
+    default: 0,
+    name: 'type',
+    message: 'What type of app are we creating today?',
+    type: 'list',
+    filter (val: string) { return val.toLowerCase() }
+  }, {
+    choices: [
+      { name: 'Fastify GraphQL Controller', value: 'fastify-graphql-controller' },
+      { name: 'Fastify GraphQL Microservice', value: 'fastify-graphql-microservice' },
+      { name: 'Fastify Standalone NPM Package', value: 'fastify-npm-package' },
+      { name: 'Standalone NPM Package', value: 'npm-package' }
+    ],
+    default: 1,
+    name: 'node',
+    message: 'What type of app are we creating today?',
+    type: 'list',
+    when: (answers) => answers.type === 'nodejs'
+  }, {
+    choices: [
+      { name: 'Vite with React + SWC', value: 'vite-react-swc' }
+    ],
+    default: 0,
+    name: 'vite',
+    message: 'What type of app are we creating today?',
+    type: 'list',
+    when: (answers) => answers.type === 'vite/react'
+  }, {
+    default: 3000,
+    name: 'port',
+    type: 'input',
+    message: 'Provide the port app should run under during development:',
+    when: (answers) => answers.node === 'fastify-graphql-controller' || answers.node === 'fastify-graphql-microservice'
+  }, {
+    name: 'description',
+    type: 'input',
+    message: 'Provide a description:',
+    validate: (input) => typeof input !== 'undefined'
+  }, {
+    name: 'keywords',
+    type: 'input',
+    message: 'Package keywords (comma to split):',
+    filter (words) {
+      return typeof words !== 'undefined' ? words.split(/\s*,\s*/g) : undefined
+    },
+    validate: (input) => typeof input !== 'undefined'
+  }, {
+    name: 'email',
+    type: 'input',
+    message: 'Provide a email address:'
+  }, {
+    choices: licenseChoices,
+    default: 1,
+    name: 'license',
+    message: 'What type of license does this app follow?',
+    type: 'list'
+  }]) as Partial<any>
 
   const temp: string = process.env.NODE_ENV === 'test' ? 'temp/' : ''
 
@@ -99,11 +132,20 @@ export const main = async (): Promise<void> => {
   }
   process.chdir(cwd)
 
+  // Generate Licence
+  await generateLicense({
+    license,
+    name: DEFAULT_NPM.author.name,
+    email,
+    website
+  })
+
   // Generate package.json
   const packageJson = generatePackageJson({
     ...DEFAULT_NPM,
     name: npmName,
     description,
+    license,
     keywords
   }, {
     type,
@@ -114,7 +156,11 @@ export const main = async (): Promise<void> => {
   fs.writeFileSync('package.json', JSON.stringify(packageJson, null, 4))
 
   // Move Templates
-  await generateTemplate({ type, node, vite })
+  await generateTemplate({
+    type,
+    node,
+    vite
+  })
 
   // Get Dependencies
   const packages = returnDependencies({
