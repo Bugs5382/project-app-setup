@@ -5,9 +5,9 @@
   "includeVersion": false,
   "githubPages": false,
   "out": "./docs",
-  "name": "",
+  "name": "<%- npm %>",
   "navigationLinks": {
-    "GitHub": ""
+    "GitHub": "<%- homepage %>"
   },
   "visibilityFilters": {
     "protected": true,

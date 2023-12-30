@@ -1,6 +1,7 @@
 import childProcess from 'node:child_process'
 import { promisify } from 'node:util'
 import cliProgress from 'cli-progress'
+import {CLI_PROGRESS} from "./constants.js";
 import {
   GeneratePackageJsonInputWithOptions,
   GeneratePackageJsonParams
@@ -129,7 +130,7 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
     ...finalPackage,
     keywords: params.keywords,
     author: params.author,
-    license: params.license,
+    license: params.license
   }
 
   return { ...packageJson }
@@ -147,7 +148,7 @@ export const installDeps = async (dependencies: string[], options: { dev?: boole
   }
 
   if (dependencies.length > 0) {
-    const bar = new cliProgress.SingleBar({}, cliProgress.Presets.rect)
+    const bar = new cliProgress.SingleBar({}, CLI_PROGRESS(options.dev === true ? 'NPM DEV': 'NPM'))
     bar.start(dependencies.length, 0)
 
     let value = 0

@@ -12,7 +12,7 @@ const decorateFastifyInstance = (fastify: FastifyInstance, options: FastifyPlugi
   } = options
 
   if (typeof namespace !== 'undefined') {
-    fastify.log.debug('[fastify] Namespace: %s', namespace)
+    fastify.log.debug('[<%- npm %>] Namespace: %s', namespace)
   }
   if (typeof namespace !== 'undefined' && namespace !== '') {
     if (typeof fastify.rabbitmq === 'undefined') {
@@ -23,7 +23,7 @@ const decorateFastifyInstance = (fastify: FastifyInstance, options: FastifyPlugi
       throw new errors.FASTIFY_ERR_SETUP_ERRORS(`Already registered with namespace: ${namespace}`)
     }
 
-    fastify.log.trace('[fastify] Decorate Fastify with Namespace: %', namespace)
+    fastify.log.trace('[<%- npm %>] Decorate Fastify with Namespace: %', namespace)
     fastify.APP[namespace] = connection
   } else {
     if (typeof fastify.APP !== 'undefined') {
@@ -32,7 +32,7 @@ const decorateFastifyInstance = (fastify: FastifyInstance, options: FastifyPlugi
   }
 
   if (typeof fastify.APP === 'undefined') {
-    fastify.log.trace('[fastify] Decorate Fastify')
+    fastify.log.trace('[<%- npm %>] Decorate Fastify')
     fastify.decorate('APP', connection)
   }
 }

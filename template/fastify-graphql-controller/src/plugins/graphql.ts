@@ -10,7 +10,7 @@ export default fp<MercuriusGatewayOptions>(async (fastify) => {
   await fastify.register(mercuriusGateway, {
     gateway: {
       services: [{
-        name: 'service-name',
+        name: '<%- npm %>',
         collectors: {
           collectHeaders: true
         },
@@ -23,5 +23,9 @@ export default fp<MercuriusGatewayOptions>(async (fastify) => {
     },
     graphiql: process.env.NODE_ENV !== 'production',
     jit: 1
+  })
+
+  void fastify.ready().then(() => {
+    fastify.log.debug('[<%- npm %>-graphql] Started GraphQL Gateway')
   })
 })
