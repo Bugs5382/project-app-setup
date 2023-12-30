@@ -26,18 +26,19 @@ export const licenseChoices = [
 ]
 
 /**
- *
+ * Generate Licence
+ * @since 1.3.0
  * @param props
  */
 export const generateLicense = async (props: LicenseProps): Promise<void> => {
   const filename = `${props.license}.txt`
   let author = props.name.trim()
 
-  if (typeof props.email !== 'undefined') {
+  if (typeof props.email !== 'undefined' && props.email !== "") {
     author += ' <' + props.email.trim() + '>'
   }
 
-  if (typeof props.website !== 'undefined') {
+  if (typeof props.website !== 'undefined' && props.website !== "") {
     author += ' (' + props.website.trim() + ')'
   }
 
@@ -48,7 +49,7 @@ export const generateLicense = async (props: LicenseProps): Promise<void> => {
     {
       rename: { [filename]: props.license },
       replace: [
-        { replaceString: '<%- year %>', var: new Date().toDateString() },
+        { replaceString: '<%- year %>', var: new Date().getFullYear().toString() },
         { replaceString: '<%- author %>', var: author }
       ]
     }

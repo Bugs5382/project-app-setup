@@ -38,7 +38,7 @@ const getOccurrence = (array: any, value: any): number => {
 
 /**
  * Copy Template File
- * @since 1.0.0
+ * @since 1.3.0
  * @param file The source file
  * @param source
  * @param dest The dest where the file should go.
@@ -69,7 +69,7 @@ export const copyTemplateFile = async (
 
   // replace strings
   stringReplacement.forEach(string => {
-    const regex = new RegExp(`/${string.replaceString}/g`)
+    const regex = new RegExp(`${string.replaceString}`, 'g')
     contents = contents.replace(regex, string.var)
   })
 
