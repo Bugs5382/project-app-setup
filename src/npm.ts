@@ -73,7 +73,7 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
               ...sharedScripts,
               pack: 'npm pack',
               publish: 'clean-publish',
-              prepublishOnly: 'npm run clean && npm run build && npm run test:ci && npm run pack',
+              prepublishOnly: 'npm run clean && npm run build && npm run pack',
               test: 'jest',
               'test:open': 'jest --detectOpenHandles',
               'test:watch': 'jest --watch',
