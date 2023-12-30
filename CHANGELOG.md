@@ -1,3 +1,16 @@
+# [1.4.0](https://github.com/Bugs5382/project-app-setup/compare/v1.3.0...v1.4.0) (2023-12-30)
+
+
+### Bug Fixes
+
+* regex ([b235a21](https://github.com/Bugs5382/project-app-setup/commit/b235a21abf15754ab9e51d07ce0e1d8190c69ee2))
+
+
+### Features
+
+* incorporated jozefizso/generator-license ([eaa75ce](https://github.com/Bugs5382/project-app-setup/commit/eaa75ceae00db2c30ad84d513b2d99e77c24df1c))
+* incorporated jozefizso/generator-license ([#11](https://github.com/Bugs5382/project-app-setup/issues/11)) ([0e84a09](https://github.com/Bugs5382/project-app-setup/commit/0e84a0944791118fe756b8e42e041d7bb1b17f4a))
+
 # [1.3.0](https://github.com/Bugs5382/project-app-setup/compare/v1.2.1...v1.3.0) (2023-12-30)
 
 

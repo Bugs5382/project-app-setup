@@ -1,6 +1,6 @@
 {
   "name": "@the-rabbit-hole/app-setup",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "A simple NPM package released under my org-scope that creates apps with my standard tools.",
   "main": "./dist/index.js",
   "bin": {
