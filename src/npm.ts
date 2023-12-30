@@ -129,7 +129,7 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
     ...finalPackage,
     keywords: params.keywords,
     author: params.author,
-    license: 'MIT'
+    license: params.license,
   }
 
   return { ...packageJson }

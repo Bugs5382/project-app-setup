@@ -7,6 +7,7 @@ export interface Dependencies {
 export interface GeneratePackageJsonParams {
   name: string
   description: string
+  license: string
   keywords?: string[]
   author: {
     name: string
@@ -30,6 +31,12 @@ export interface GeneratePackageJsonInputWithOptions extends GenerateInput {
   vite?: string
 }
 
+interface Replacement {
+  var: string
+  replaceString: string
+}
+
 export interface TemplateCopyOptions {
+  replace?: Replacement[]
   rename?: { [filename: string]: string }
 }

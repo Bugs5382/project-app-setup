@@ -1,4 +1,3 @@
-
 export const DEFAULT_NPM = {
   author: {
     name: 'Shane Froebel'
