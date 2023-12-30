@@ -1,3 +1,11 @@
+## [1.4.1](https://github.com/Bugs5382/project-app-setup/compare/v1.4.0...v1.4.1) (2023-12-30)
+
+
+### Bug Fixes
+
+* LICENSE should be the output ([66d3281](https://github.com/Bugs5382/project-app-setup/commit/66d32813e62b30a98d8c98538b127b69978f2789))
+* LICENSE should be the output ([#12](https://github.com/Bugs5382/project-app-setup/issues/12)) ([4a59ec4](https://github.com/Bugs5382/project-app-setup/commit/4a59ec4ff9d92716617819b0cb314a4f86861669))
+
 # [1.4.0](https://github.com/Bugs5382/project-app-setup/compare/v1.3.0...v1.4.0) (2023-12-30)
 
 
