@@ -1,3 +1,11 @@
+## [1.4.4](https://github.com/Bugs5382/project-app-setup/compare/v1.4.3...v1.4.4) (2023-12-30)
+
+
+### Bug Fixes
+
+* remove console ([7a5dc92](https://github.com/Bugs5382/project-app-setup/commit/7a5dc92fe63186cd4293aef51baa5b65551775b5))
+* removed console.log ([#15](https://github.com/Bugs5382/project-app-setup/issues/15)) ([3866988](https://github.com/Bugs5382/project-app-setup/commit/3866988fe0c6d0a157cca52714c298841810b414))
+
 ## [1.4.3](https://github.com/Bugs5382/project-app-setup/compare/v1.4.2...v1.4.3) (2023-12-30)
 
 
