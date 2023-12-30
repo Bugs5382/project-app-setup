@@ -5,12 +5,30 @@ import * as fs from 'fs'
 import _ from 'lodash'
 import inquirer from 'inquirer'
 import askNpmName from 'inquirer-npm-name'
+import yargs from 'yargs'
+import { hideBin } from 'yargs/helpers'
 import path from 'node:path'
-import { DEFAULT_NPM } from './constants.js'
-import { returnDependencies } from './dependencies.js'
-import { generateLicense, licenseChoices } from './license.js'
-import { generatePackageJson, installDeps } from './npm.js'
-import { generateTemplate } from './template.js'
+import { DEFAULT_NPM } from './modules/constants.js'
+import { returnDependencies } from './modules/dependencies.js'
+import { generateLicense, licenseChoices } from './modules/license.js'
+import { generatePackageJson, installDeps } from './modules/npm.js'
+import { generateTemplate } from './modules/template.js'
+
+/**
+ * Parse CLI options
+ * @since 1.5.0
+ */
+async function parseOptions (): Promise<{ name: string }> {
+  const options = await yargs(hideBin(process.argv))
+    .strict()
+    .parseAsync()
+
+  const project = options._.map(String)
+
+  console.log(project)
+
+  return { name: 'this is a test' }
+}
 
 /**
  * @since 1.0.0
@@ -36,13 +54,23 @@ const getProjectName = async (defaultProjectName: string): Promise<string> => {
  * @since 1.0.0
  */
 export const main = async (): Promise<void> => {
-  const defaultProjectName = _.kebabCase('project-app-setup')
+  // get options
+  const options = await parseOptions()
+
+  // default project name
+  const defaultProjectName = typeof process.env.NODE_ENV === 'undefined' ? 'project-app-setup' : path.basename(process.cwd())
+
+  // set var
   let npmName: string | undefined
-  if (typeof process.env.NODE_ENV === 'undefined') {
-    npmName = await getProjectName(defaultProjectName)
+
+  // set project name
+  if (typeof process.env.NODE_ENV === 'undefined' && typeof options.name === 'undefined') {
+    npmName = await getProjectName(_.kebabCase(defaultProjectName))
+  } else if (typeof options.name !== 'undefined') {
+    npmName = options.name
   }
 
-  const { npm, website, type, node, vite, email, description, license, keywords, port } = await inquirer.prompt([{
+  const { npm, repoOwner, repoName, repoPrivateLocation, website, type, node, vite, email, description, license, keywords, port } = await inquirer.prompt([{
     default: defaultProjectName,
     name: 'npm',
     message: 'Your Project NPM name?',
@@ -60,10 +88,18 @@ export const main = async (): Promise<void> => {
     filter (val: string) { return val.toLowerCase() }
   }, {
     type: 'input',
-    name: 'repoName',
-    message: 'Project Name:',
+    name: 'repoOwner',
+    message: 'Repository Owner: (e.g. https://github.com/{OWNER}/{PROJECT NAME}',
     default: typeof npmName !== 'undefined' ? npmName : '',
-    when: (answers) => answers.gitLocation === 'github'
+    when: (answers) => answers.gitLocation === 'github',
+    filter (val: string) { return val.toLowerCase() }
+  }, {
+    type: 'input',
+    name: 'repoName',
+    message: 'Project Repository Name: (e.g. https://github.com/{OWNER}/{PROJECT NAME}',
+    default: typeof npmName !== 'undefined' ? npmName : '',
+    when: (answers) => answers.gitLocation === 'github',
+    filter (val: string) { return val.toLowerCase() }
   }, {
     type: 'input',
     name: 'repoPrivateLocation',
@@ -71,7 +107,7 @@ export const main = async (): Promise<void> => {
     when: (answers) => answers.gitLocation !== 'github'
   }, {
     name: 'website',
-    message: 'Homepage:',
+    message: 'Homepage of Author:',
     filter (val: string) { return val.toLowerCase() }
   }, {
     choices: ['NodeJS', 'Vite/React'],
@@ -137,7 +173,7 @@ export const main = async (): Promise<void> => {
   // create folder
 
   const folder: string = typeof npmName !== 'undefined' ? npmName : npm
-  let cwd = path.join(process.cwd(), `${temp}/${folder}`)
+  const cwd = path.join(process.cwd(), `${temp}/${folder}`)
   fs.mkdirSync(cwd, { recursive: true })
   process.chdir(cwd)
 
