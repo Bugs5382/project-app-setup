@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/Bugs5382/project-app-setup/compare/v1.2.1...v1.3.0) (2023-12-30)
+
+
+### Features
+
+* added in cli progress bar ([ad2dd3b](https://github.com/Bugs5382/project-app-setup/commit/ad2dd3b422dcc1699213191b36545d5baaa95372))
+* added in cli progress bar ([#9](https://github.com/Bugs5382/project-app-setup/issues/9)) ([bd4a9f0](https://github.com/Bugs5382/project-app-setup/commit/bd4a9f09053f1c8abd97a90bcb2549106eb07c2a))
+
 ## [1.2.1](https://github.com/Bugs5382/project-app-setup/compare/v1.2.0...v1.2.1) (2023-12-30)
 
 
