@@ -1,8 +1,16 @@
 import cliProgress from 'cli-progress'
 import fs from 'fs'
+import inquirer from 'inquirer'
+import askNpmName from 'inquirer-npm-name'
+import childProcess from 'node:child_process'
 import path from 'node:path'
+import { promisify } from 'node:util'
+import yargs from 'yargs'
+import { hideBin } from 'yargs/helpers'
 import { CLI_PROGRESS } from './constants.js'
 import { TemplateCopyOptions } from './types.js'
+
+const execFile = promisify(childProcess.execFile)
 
 /**
  * Recurse Dir
@@ -149,4 +157,68 @@ export const copyTemplateFiles = async (
   }
 
   return filesAdded.sort()
+}
+
+/**
+ * Parse CLI options
+ * @since 1.5.0
+ */
+export const parseOptions = async (): Promise<{ name: string }> => {
+  const options = await yargs(hideBin(process.argv))
+    .strict()
+    .parseAsync()
+
+  const project = options._.map(String)
+
+  console.log(project)
+
+  return { name: 'this is a test' }
+}
+
+/**
+ * @since 1.0.0
+ * @param defaultProjectName
+ */
+export const getProjectName = async (defaultProjectName: string): Promise<string> => {
+  const { npmName } = await askNpmName(
+    {
+      default: defaultProjectName,
+      name: 'npmName',
+      message: 'Your Project NPM name?',
+      type: 'input'
+    },
+    inquirer
+  )
+
+  return npmName
+}
+
+/**
+ * @since 1.0.0
+ * @param dependencies
+ * @param options
+ */
+export const installDeps = async (dependencies: string[], options: { dev?: boolean } = {}): Promise<void> => {
+  const args: string[] = ['install']
+  if (options.dev === true) {
+    args.push('--save-dev')
+  }
+
+  if (dependencies.length > 0) {
+    const bar = new cliProgress.SingleBar({}, CLI_PROGRESS(options.dev === true ? 'NPM DEV' : 'NPM'))
+    bar.start(dependencies.length, 0)
+
+    let value = 0
+
+    for (const depend of dependencies) {
+      value++
+      if (typeof process.env.NODE_ENV === 'undefined') {
+        await execFile('npm', [...args, depend])
+      }
+      bar.update(value)
+      if (value >= bar.getTotal()) {
+        bar.stop()
+      }
+    }
+  }
 }

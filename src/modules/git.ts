@@ -8,13 +8,27 @@ const execFile = promisify(childProcess.execFile)
  * Init Git
  * @since 1.5.0
  * @param folder
+ * @param step
  */
-export async function init (folder: string): Promise<void> {
-  await execFile('git', ['init'], { cwd: folder })
+export async function init (folder: string, step: string): Promise<void> {
+  switch (step) {
+    case 'initial': {
+      await execFile('git', ['init', '--initial-branch=develop'], { cwd: folder })
+      break
+    }
+    case 'post': {
+      await execFile('git', ['add', '.'], { cwd: folder })
+      await execFile('git', ['commit', '-m', '"chore: initial creation [ci skip]"'], { cwd: folder })
+      await execFile('git', ['switch', '--orphan', 'main'], { cwd: folder })
+      await execFile('git', ['commit', '--allow-empty', '-m', '"chore: initial creation [ci skip]"'], { cwd: folder })
+      break
+    }
+  }
 }
 
 /**
- * Add Git Remote
+ * Add Git Remote for GitHub
+ * @since 1.5.0
  * @param folder
  * @param repoOwner
  * @param repoName

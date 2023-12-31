@@ -1,13 +1,7 @@
-import childProcess from 'node:child_process'
-import { promisify } from 'node:util'
-import cliProgress from 'cli-progress'
-import { CLI_PROGRESS } from './constants.js'
 import {
   GeneratePackageJsonInputWithOptions,
   GeneratePackageJsonParams
 } from './types.js'
-
-const execFile = promisify(childProcess.execFile)
 
 /**
  * @since 1.0.0
@@ -74,7 +68,6 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
               'build:watch': 'tsc -p tsconfig.esm.json -w',
               ...sharedScripts,
               pack: 'npm pack',
-              publish: 'clean-publish',
               prepublishOnly: 'npm run clean && npm run build && npm run pack',
               test: 'jest',
               'test:open': 'jest --detectOpenHandles',
@@ -142,34 +135,4 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
   }
 
   return { ...packageJson }
-}
-
-/**
- * @since 1.0.0
- * @param dependencies
- * @param options
- */
-export const installDeps = async (dependencies: string[], options: { dev?: boolean } = {}): Promise<void> => {
-  const args: string[] = ['install']
-  if (options.dev === true) {
-    args.push('--save-dev')
-  }
-
-  if (dependencies.length > 0) {
-    const bar = new cliProgress.SingleBar({}, CLI_PROGRESS(options.dev === true ? 'NPM DEV' : 'NPM'))
-    bar.start(dependencies.length, 0)
-
-    let value = 0
-
-    for (const depend of dependencies) {
-      value++
-      if (typeof process.env.NODE_ENV === 'undefined') {
-        await execFile('npm', [...args, depend])
-      }
-      bar.update(value)
-      if (value >= bar.getTotal()) {
-        bar.stop()
-      }
-    }
-  }
 }

@@ -8,9 +8,9 @@ import path from 'node:path'
 import { DEFAULT_NPM, isProd } from './modules/constants.js'
 import { returnDependencies } from './modules/dependencies.js'
 import * as git from './modules/git.js'
-import { getProjectName, parseOptions } from './modules/helpers.js'
+import { getProjectName, installDeps, parseOptions } from './modules/helpers.js'
 import { generateLicense, licenseChoices } from './modules/license.js'
-import { generatePackageJson, installDeps } from './modules/npm.js'
+import { generatePackageJson } from './modules/npm.js'
 import { generateTemplate } from './modules/template.js'
 
 /**
@@ -138,17 +138,16 @@ export const main = async (): Promise<void> => {
     type: 'list'
   }]) as Partial<any>
 
-  const temp: string = process.env.NODE_ENV === 'test' ? 'temp/' : ''
+  const temp: string = !isProd() ? 'temp/' : ''
 
-  // create folder
-
+  // Create folder
   const folder: string = typeof npmName !== 'undefined' ? npmName : npm
   const cwd = path.join(process.cwd(), `${temp}/${folder}`)
   fs.mkdirSync(cwd, { recursive: true })
   process.chdir(cwd)
 
-  // git stuff
-  await git.init(cwd)
+  // GIT: Initial
+  await git.init(cwd, 'initial')
   if (gitLocation === 'github' && typeof repoOwner !== 'undefined' && typeof repoName !== 'undefined') {
     await git.addRemote(cwd, repoOwner, repoName)
   }
@@ -207,6 +206,9 @@ export const main = async (): Promise<void> => {
     node,
     vite
   })
+
+  // GIT: Post Step
+  await git.init(cwd, 'post')
 
   // Install Dependencies
   await installDeps(packages.dependencies)
