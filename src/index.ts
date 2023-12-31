@@ -20,14 +20,13 @@ import { generateTemplate } from './modules/template.js'
  */
 export const main = async (): Promise<void> => {
   // get options
-  // @ts-expect-error
   const options = await parseOptions()
 
   // default project name
   const defaultProjectName = isProd() ? path.basename(process.cwd()) : 'project-app-setup'
 
   // set var
-  const npmName = await getProjectName(_.kebabCase(defaultProjectName))
+  const npmName = !isProd() ? '' :  await getProjectName(_.kebabCase(defaultProjectName))
 
   const { npm, gitLocation, repoOwner, repoName, website, type, node, vite, email, description, license, keywords, port } = await inquirer.prompt([{
     default: defaultProjectName,
@@ -135,7 +134,7 @@ export const main = async (): Promise<void> => {
   const temp: string = !isProd() ? 'temp/' : ''
 
   // Create folder
-  const folder: string = typeof npmName !== 'undefined' ? npmName : npm
+  const folder: string = options.sameFolder === true ? '' :  typeof npmName !== 'undefined' ? npmName : npm
   const cwd = path.join(process.cwd(), `${temp}/${folder}`)
   fs.mkdirSync(cwd, { recursive: true })
   process.chdir(cwd)

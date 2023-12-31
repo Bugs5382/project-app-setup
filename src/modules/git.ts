@@ -21,6 +21,7 @@ export async function init (folder: string, step: string): Promise<void> {
       await execFile('git', ['commit', '-m', '"chore: initial creation [ci skip]"'], { cwd: folder })
       await execFile('git', ['switch', '--orphan', 'main'], { cwd: folder })
       await execFile('git', ['commit', '--allow-empty', '-m', '"chore: initial creation [ci skip]"'], { cwd: folder })
+      await execFile('git', ['checkout', 'develop'], { cwd: folder })
       break
     }
   }

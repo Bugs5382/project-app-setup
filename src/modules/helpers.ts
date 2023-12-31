@@ -163,9 +163,14 @@ export const copyTemplateFiles = async (
  * Parse CLI options
  * @since 1.5.0
  */
-export const parseOptions = async (): Promise<{ run: string, type?: string }> => {
+export const parseOptions = async (): Promise<{ sameFolder?: boolean, run: string, type?: string }> => {
   const options = await yargs(hideBin(process.argv))
     .usage('Usage: $0 [options]')
+    .option('same-folder', {
+      alias: 'sf',
+      type: 'boolean',
+      description: 'Set this to have the app run withing the same folder your currently in.'
+    })
     .option('run', {
       alias: 'r',
       type: 'string',
@@ -186,7 +191,7 @@ export const parseOptions = async (): Promise<{ run: string, type?: string }> =>
     .wrap(null)
     .parseAsync()
 
-  return { run: options.run, type: options.type }
+  return { sameFolder: options.sameFolder, run: options.run, type: options.type }
 }
 
 /**

@@ -19,7 +19,7 @@
     "build": "npx tsc",
     "build:watch": "npx tsc -w",
     "dev": "npm run build && NODE_ENV=test node dist/index.js",
-    "dev:cli": "npm run build && NODE_ENV=test node dist/index.js",
+    "dev:cli:sf": "npm run build && NODE_ENV=test node dist/index.js --sf",
     "dev:cli:fix": "npm run build && NODE_ENV=test node dist/index.js --r fix --t npm",
     "dev:cli:update": "npm run build && NODE_ENV=test node dist/index.js --r update --t npm",
     "dev:cli:help": "npm run build && NODE_ENV=test node dist/index.js --h",
