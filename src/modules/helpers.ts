@@ -163,16 +163,30 @@ export const copyTemplateFiles = async (
  * Parse CLI options
  * @since 1.5.0
  */
-export const parseOptions = async (): Promise<{ name: string }> => {
+export const parseOptions = async (): Promise<{ run: string, type?: string }> => {
   const options = await yargs(hideBin(process.argv))
+    .usage('Usage: $0 [options]')
+    .option('run', {
+      alias: 'r',
+      type: 'string',
+      demandOption: true,
+      default: 'start',
+      description: 'Action:\n start\n fix\n update'
+    })
+    .option('type', {
+      alias: 't',
+      type: 'string',
+      description: 'Type:\n fastify-controller\n fastify-microservice\n fastify-plugin\n npm\n vite-react'
+    })
+    .option('h', {
+      alias: 'help',
+      description: 'display help message'
+    })
     .strict()
+    .wrap(null)
     .parseAsync()
 
-  const project = options._.map(String)
-
-  console.log(project)
-
-  return { name: 'this is a test' }
+  return { run: options.run, type: options.type }
 }
 
 /**

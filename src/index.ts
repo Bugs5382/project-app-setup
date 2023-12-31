@@ -20,20 +20,14 @@ import { generateTemplate } from './modules/template.js'
  */
 export const main = async (): Promise<void> => {
   // get options
+  // @ts-expect-error
   const options = await parseOptions()
 
   // default project name
   const defaultProjectName = isProd() ? path.basename(process.cwd()) : 'project-app-setup'
 
   // set var
-  let npmName: string | undefined
-
-  // set project name
-  if (typeof process.env.NODE_ENV === 'undefined' && typeof options.name === 'undefined') {
-    npmName = await getProjectName(_.kebabCase(defaultProjectName))
-  } else if (typeof options.name !== 'undefined') {
-    npmName = options.name
-  }
+  const npmName = await getProjectName(_.kebabCase(defaultProjectName))
 
   const { npm, gitLocation, repoOwner, repoName, website, type, node, vite, email, description, license, keywords, port } = await inquirer.prompt([{
     default: defaultProjectName,
