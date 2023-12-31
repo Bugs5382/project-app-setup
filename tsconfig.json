@@ -33,7 +33,7 @@
   "exclude": [
     "./jest.config.ts",
     "./release.config.cjs",
-    "/template/**/*"
+    "./template/**/*"
   ],
   "compileOnSave": true
 }

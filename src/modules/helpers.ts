@@ -1,8 +1,16 @@
 import cliProgress from 'cli-progress'
 import fs from 'fs'
+import inquirer from 'inquirer'
+import askNpmName from 'inquirer-npm-name'
+import childProcess from 'node:child_process'
 import path from 'node:path'
-import { CLI_PROGRESS } from './constants.js'
+import { promisify } from 'node:util'
+import yargs from 'yargs'
+import { hideBin } from 'yargs/helpers'
+import { CLI_PROGRESS, isProd } from './constants.js'
 import { TemplateCopyOptions } from './types.js'
+
+const execFile = promisify(childProcess.execFile)
 
 /**
  * Recurse Dir
@@ -149,4 +157,112 @@ export const copyTemplateFiles = async (
   }
 
   return filesAdded.sort()
+}
+
+/**
+ * Parse CLI options
+ * @since 1.5.0
+ */
+export const parseOptions = async (): Promise<{
+  run: string
+  sameFolder?: boolean
+  // type?: string
+}> => {
+  const options = await yargs(hideBin(process.argv))
+    .usage('Usage: $0 [options]')
+    .option('same-folder', {
+      alias: 'sf',
+      type: 'boolean',
+      description: 'Set this to have the app run withing the same folder your currently in.'
+    })
+    .option('run', {
+      alias: 'r',
+      type: 'string',
+      demandOption: true,
+      default: 'start',
+      description: 'Action:\n start'
+    })
+    /*
+    .option('type', {
+      alias: 't',
+      type: 'string',
+      description: 'Type:\n fastify-controller\n fastify-microservice\n fastify-plugin\n npm\n vite-react'
+    }) */
+    .option('h', {
+      alias: 'help',
+      description: 'display help message'
+    })
+    .strict()
+    .wrap(null)
+    .parseAsync()
+
+  // check to make sure that package.json is in the directory we are currently in
+  if (options.run === 'fix' || options.run === 'update') {
+    if (!fs.existsSync('package.json')) {
+      throw new Error('Needs to be run within directory that has package.json.')
+    }
+  } else if (options.run === 'start' && options.sameFolder === true) {
+    if (fs.existsSync('package.json')) {
+      const { continueAnyway } = await inquirer.prompt([{
+        name: 'continueAnyway',
+        message: 'package.json exists already in directory. Continue?',
+        default: false,
+        type: 'confirm'
+      }])
+
+      if (continueAnyway === false) {
+        process.exit()
+      }
+    }
+  }
+
+  return { sameFolder: options.sameFolder, run: options.run }
+}
+
+/**
+ * @since 1.0.0
+ * @param defaultProjectName
+ */
+export const getProjectName = async (defaultProjectName: string): Promise<string> => {
+  const { npmName } = await askNpmName(
+    {
+      default: defaultProjectName,
+      name: 'npmName',
+      message: 'Your Project NPM name?',
+      type: 'input'
+    },
+    inquirer
+  )
+
+  return npmName
+}
+
+/**
+ * @since 1.0.0
+ * @param dependencies
+ * @param options
+ */
+export const installDeps = async (dependencies: string[], options: { dev?: boolean } = {}): Promise<void> => {
+  const args: string[] = ['install']
+  if (options.dev === true) {
+    args.push('--save-dev')
+  }
+
+  if (dependencies.length > 0) {
+    const bar = new cliProgress.SingleBar({}, CLI_PROGRESS(options.dev === true ? 'NPM DEV' : 'NPM'))
+    bar.start(dependencies.length, 0)
+
+    let value = 0
+
+    for (const depend of dependencies) {
+      value++
+      if (isProd()) {
+        await execFile('npm', [...args, depend])
+      }
+      bar.update(value)
+      if (value >= bar.getTotal()) {
+        bar.stop()
+      }
+    }
+  }
 }

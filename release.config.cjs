@@ -1,6 +1,6 @@
 module.exports = {
-  "extends": "@the-rabbit-hole/semantic-release-config",
-  "branches": [
-    "main"
+  extends: '@the-rabbit-hole/semantic-release-config',
+  branches: [
+    'main'
   ]
 }

@@ -21,6 +21,8 @@ jobs:
           node-version: 'lts/*'
       - name: NPM Install
         run: npm install --ignore-scripts
+      - name: Lint Fix
+        run: npm run lint:fix
       - name: Semantic Release (Dry Run)
         run: npm run semantic-release:dry-run
         env:

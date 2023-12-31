@@ -4,31 +4,14 @@
 import * as fs from 'fs'
 import _ from 'lodash'
 import inquirer from 'inquirer'
-import askNpmName from 'inquirer-npm-name'
 import path from 'node:path'
-import { DEFAULT_NPM } from './constants.js'
-import { returnDependencies } from './dependencies.js'
-import { generateLicense, licenseChoices } from './license.js'
-import { generatePackageJson, installDeps } from './npm.js'
-import { generateTemplate } from './template.js'
-
-/**
- * @since 1.0.0
- * @param defaultProjectName
- */
-const getProjectName = async (defaultProjectName: string): Promise<string> => {
-  const { npmName } = await askNpmName(
-    {
-      default: defaultProjectName,
-      name: 'npmName',
-      message: 'Your Project NPM name?',
-      type: 'input'
-    },
-    inquirer
-  )
-
-  return npmName
-}
+import { DEFAULT_NPM, isProd } from './modules/constants.js'
+import { returnDependencies } from './modules/dependencies.js'
+import * as git from './modules/git.js'
+import { getProjectName, installDeps, parseOptions } from './modules/helpers.js'
+import { generateLicense, licenseChoices } from './modules/license.js'
+import { generatePackageJson } from './modules/npm.js'
+import { generateTemplate } from './modules/template.js'
 
 /**
  * Main Executable Function
@@ -36,18 +19,21 @@ const getProjectName = async (defaultProjectName: string): Promise<string> => {
  * @since 1.0.0
  */
 export const main = async (): Promise<void> => {
-  const defaultProjectName = _.kebabCase('project-app-setup')
-  let npmName: string | undefined
-  if (typeof process.env.NODE_ENV === 'undefined') {
-    npmName = await getProjectName(defaultProjectName)
-  }
+  // get options
+  const options = await parseOptions()
 
-  const { npm, website, type, node, vite, email, description, license, keywords, port } = await inquirer.prompt([{
+  // default project name
+  const defaultProjectName = isProd() ? path.basename(process.cwd()) : 'project-app-setup'
+
+  // set var
+  const npmName = !isProd() ? undefined : await getProjectName(_.kebabCase(defaultProjectName))
+
+  const { npm, gitLocation, repoOwner, repoName, website, type, node, vite, email, description, license, keywords, port } = await inquirer.prompt([{
     default: defaultProjectName,
     name: 'npm',
     message: 'Your Project NPM name?',
     type: 'input',
-    when: () => typeof process.env.NODE_ENV !== 'undefined'
+    when: () => !isProd()
   }, {
     choices: [
       { name: 'Github', value: 'github' },
@@ -60,10 +46,23 @@ export const main = async (): Promise<void> => {
     filter (val: string) { return val.toLowerCase() }
   }, {
     type: 'input',
-    name: 'repoName',
-    message: 'Project Name:',
-    default: typeof npmName !== 'undefined' ? npmName : '',
+    name: 'repoOwner',
+    message: 'Repository Owner (e.g. https://github.com/{OWNER}/{PROJECT NAME}):',
+    default: 'Bugs5382', // this is me!
     when: (answers) => answers.gitLocation === 'github'
+  }, {
+    type: 'input',
+    name: 'repoName',
+    message: 'Repository Project Name (e.g. https://github.com/{OWNER}/{PROJECT NAME}):',
+    validate: (result) => {
+      if (result === '') {
+        return 'Error: Please enter a repo name. If the repo does not exist, it will be created for you.'
+      } else {
+        return true
+      }
+    },
+    when: (answers) => answers.gitLocation === 'github',
+    filter (val: string) { return val.toLowerCase() }
   }, {
     type: 'input',
     name: 'repoPrivateLocation',
@@ -71,7 +70,7 @@ export const main = async (): Promise<void> => {
     when: (answers) => answers.gitLocation !== 'github'
   }, {
     name: 'website',
-    message: 'Homepage:',
+    message: 'Homepage of Author:',
     filter (val: string) { return val.toLowerCase() }
   }, {
     choices: ['NodeJS', 'Vite/React'],
@@ -132,14 +131,41 @@ export const main = async (): Promise<void> => {
     type: 'list'
   }]) as Partial<any>
 
-  const temp: string = process.env.NODE_ENV === 'test' ? 'temp/' : ''
+  const temp: string = !isProd() ? 'temp/' : ''
 
-  // create folder
-
-  const folder: string = typeof npmName !== 'undefined' ? npmName : npm
-  let cwd = path.join(process.cwd(), `${temp}/${folder}`)
+  // Create folder
+  const folder: string = options.sameFolder === true ? '' : typeof npmName !== 'undefined' ? npmName : npm
+  const cwd = path.join(process.cwd(), `${temp}/${folder}`)
   fs.mkdirSync(cwd, { recursive: true })
   process.chdir(cwd)
+
+  if (fs.existsSync('package.json')) {
+    const { continueAnyway } = await inquirer.prompt([{
+      name: 'continueAnyway',
+      message: 'package.json exists already. Continue?',
+      default: false,
+      type: 'confirm'
+    }])
+
+    if (continueAnyway === false) {
+      process.exit()
+    }
+  }
+
+  // GIT: Initial
+  await git.init(cwd, 'initial')
+  if (gitLocation === 'github' && typeof repoOwner !== 'undefined' && typeof repoName !== 'undefined') {
+    await git.addRemote(cwd, repoOwner, repoName)
+  }
+
+  let gitUrl: string | undefined
+  let gitIssues: string | undefined
+  let gitReadme: string | undefined
+  if (gitLocation === 'github') {
+    gitUrl = `https://github.com/${repoOwner as string}/${repoName as string}`
+    gitIssues = `${gitUrl}/issues`
+    gitReadme = `${gitUrl}#readme`
+  }
 
   // Generate Licence
   await generateLicense({
@@ -154,6 +180,9 @@ export const main = async (): Promise<void> => {
     ...DEFAULT_NPM,
     name: typeof npmName !== 'undefined' ? npmName : npm,
     description,
+    gitIssues,
+    gitReadme,
+    gitUrl,
     license,
     keywords
   }, {
@@ -183,6 +212,9 @@ export const main = async (): Promise<void> => {
     node,
     vite
   })
+
+  // GIT: Post Step
+  await git.init(cwd, 'post')
 
   // Install Dependencies
   await installDeps(packages.dependencies)
