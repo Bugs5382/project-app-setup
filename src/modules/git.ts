@@ -11,19 +11,23 @@ const execFile = promisify(childProcess.execFile)
  * @param step
  */
 export async function init (folder: string, step: string): Promise<void> {
-  switch (step) {
-    case 'initial': {
-      await execFile('git', ['init', '--initial-branch=develop'], { cwd: folder })
-      break
+  try {
+    switch (step) {
+      case 'initial': {
+        await execFile('git', ['init', '--initial-branch=develop'], { cwd: folder })
+        break
+      }
+      case 'post': {
+        await execFile('git', ['add', '.'], { cwd: folder })
+        await execFile('git', ['commit', '-m', '"chore: initial creation [ci skip]"'], { cwd: folder })
+        await execFile('git', ['switch', '--orphan', 'main'], { cwd: folder })
+        await execFile('git', ['commit', '--allow-empty', '-m', '"chore: initial creation [ci skip]"'], { cwd: folder })
+        await execFile('git', ['checkout', 'develop'], { cwd: folder })
+        break
+      }
     }
-    case 'post': {
-      await execFile('git', ['add', '.'], { cwd: folder })
-      await execFile('git', ['commit', '-m', '"chore: initial creation [ci skip]"'], { cwd: folder })
-      await execFile('git', ['switch', '--orphan', 'main'], { cwd: folder })
-      await execFile('git', ['commit', '--allow-empty', '-m', '"chore: initial creation [ci skip]"'], { cwd: folder })
-      await execFile('git', ['checkout', 'develop'], { cwd: folder })
-      break
-    }
+  } catch (e: any) {
+    // do nothing...
   }
 }
 
