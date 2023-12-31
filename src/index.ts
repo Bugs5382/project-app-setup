@@ -26,7 +26,7 @@ export const main = async (): Promise<void> => {
   const defaultProjectName = isProd() ? path.basename(process.cwd()) : 'project-app-setup'
 
   // set var
-  const npmName = !isProd() ? '' :  await getProjectName(_.kebabCase(defaultProjectName))
+  const npmName = !isProd() ? undefined : await getProjectName(_.kebabCase(defaultProjectName))
 
   const { npm, gitLocation, repoOwner, repoName, website, type, node, vite, email, description, license, keywords, port } = await inquirer.prompt([{
     default: defaultProjectName,
@@ -134,10 +134,23 @@ export const main = async (): Promise<void> => {
   const temp: string = !isProd() ? 'temp/' : ''
 
   // Create folder
-  const folder: string = options.sameFolder === true ? '' :  typeof npmName !== 'undefined' ? npmName : npm
+  const folder: string = options.sameFolder === true ? '' : typeof npmName !== 'undefined' ? npmName : npm
   const cwd = path.join(process.cwd(), `${temp}/${folder}`)
   fs.mkdirSync(cwd, { recursive: true })
   process.chdir(cwd)
+
+  if (fs.existsSync('package.json')) {
+    const { continueAnyway } = await inquirer.prompt([{
+      name: 'continueAnyway',
+      message: 'package.json exists already. Continue?',
+      default: false,
+      type: 'confirm'
+    }])
+
+    if (continueAnyway === false) {
+      process.exit()
+    }
+  }
 
   // GIT: Initial
   await git.init(cwd, 'initial')

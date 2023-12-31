@@ -7,7 +7,7 @@ import path from 'node:path'
 import { promisify } from 'node:util'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
-import { CLI_PROGRESS } from './constants.js'
+import { CLI_PROGRESS, isProd } from './constants.js'
 import { TemplateCopyOptions } from './types.js'
 
 const execFile = promisify(childProcess.execFile)
@@ -163,7 +163,11 @@ export const copyTemplateFiles = async (
  * Parse CLI options
  * @since 1.5.0
  */
-export const parseOptions = async (): Promise<{ sameFolder?: boolean, run: string, type?: string }> => {
+export const parseOptions = async (): Promise<{
+  run: string
+  sameFolder?: boolean
+  // type?: string
+}> => {
   const options = await yargs(hideBin(process.argv))
     .usage('Usage: $0 [options]')
     .option('same-folder', {
@@ -176,13 +180,14 @@ export const parseOptions = async (): Promise<{ sameFolder?: boolean, run: strin
       type: 'string',
       demandOption: true,
       default: 'start',
-      description: 'Action:\n start\n fix\n update'
+      description: 'Action:\n start'
     })
+    /*
     .option('type', {
       alias: 't',
       type: 'string',
       description: 'Type:\n fastify-controller\n fastify-microservice\n fastify-plugin\n npm\n vite-react'
-    })
+    }) */
     .option('h', {
       alias: 'help',
       description: 'display help message'
@@ -191,7 +196,27 @@ export const parseOptions = async (): Promise<{ sameFolder?: boolean, run: strin
     .wrap(null)
     .parseAsync()
 
-  return { sameFolder: options.sameFolder, run: options.run, type: options.type }
+  // check to make sure that package.json is in the directory we are currently in
+  if (options.run === 'fix' || options.run === 'update') {
+    if (!fs.existsSync('package.json')) {
+      throw new Error('Needs to be run within directory that has package.json.')
+    }
+  } else if (options.run === 'start' && options.sameFolder === true) {
+    if (fs.existsSync('package.json')) {
+      const { continueAnyway } = await inquirer.prompt([{
+        name: 'continueAnyway',
+        message: 'package.json exists already in directory. Continue?',
+        default: false,
+        type: 'confirm'
+      }])
+
+      if (continueAnyway === false) {
+        process.exit()
+      }
+    }
+  }
+
+  return { sameFolder: options.sameFolder, run: options.run }
 }
 
 /**
@@ -231,7 +256,7 @@ export const installDeps = async (dependencies: string[], options: { dev?: boole
 
     for (const depend of dependencies) {
       value++
-      if (typeof process.env.NODE_ENV === 'undefined') {
+      if (isProd()) {
         await execFile('npm', [...args, depend])
       }
       bar.update(value)
