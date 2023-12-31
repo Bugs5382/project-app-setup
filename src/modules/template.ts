@@ -23,7 +23,7 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
 
   // shared among all projects
   await copyTemplateFiles(
-    path.join(dirName, '..', 'template', '__shared__'),
+    path.join(dirName, '..', '..', 'template', '__shared__'),
     process.cwd(),
     {
       replace: createReplace
@@ -36,7 +36,7 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
         case 'fastify-graphql-controller': {
           // shared among all projects
           await copyTemplateFiles(
-            path.join(dirName, '..', 'template', '__shared__fastify__'),
+            path.join(dirName, '..', '..', 'template', '__shared__fastify__'),
             process.cwd(),
             {
               rename: { gitignore: '.gitignore' },
@@ -45,7 +45,7 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
           )
           // copy fastify-graphql-controller folder
           await copyTemplateFiles(
-            path.join(dirName, '..', 'template', 'fastify-graphql-controller'),
+            path.join(dirName, '..', '..', 'template', 'fastify-graphql-controller'),
             process.cwd(),
             {
               replace: createReplace
@@ -56,7 +56,7 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
         case 'fastify-graphql-microservice': {
           // shared among all projects
           await copyTemplateFiles(
-            path.join(dirName, '..', 'template', '__shared__fastify__'),
+            path.join(dirName, '..', '..', 'template', '__shared__fastify__'),
             process.cwd(),
             {
               rename: { gitignore: '.gitignore' },
@@ -65,7 +65,7 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
           )
           // copy fastify-graphql-microservice folder
           await copyTemplateFiles(
-            path.join(dirName, '..', 'template', 'fastify-graphql-microservice'),
+            path.join(dirName, '..', '..', 'template', 'fastify-graphql-microservice'),
             process.cwd(),
             {
               replace: createReplace
@@ -76,7 +76,7 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
         case 'fastify-npm-package': {
           // shared among all projects
           await copyTemplateFiles(
-            path.join(dirName, '..', 'template', '__shared__npm__'),
+            path.join(dirName, '..', '..', 'template', '__shared__npm__'),
             process.cwd(),
             {
               rename: { gitignore: '.gitignore' },
@@ -85,7 +85,7 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
           )
           // copy npm folder
           await copyTemplateFiles(
-            path.join(dirName, '..', 'template', 'npm-fastify-plugin'),
+            path.join(dirName, '..', '..', 'template', 'npm-fastify-plugin'),
             process.cwd(),
             {
               replace: createReplace
@@ -96,7 +96,7 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
         case 'npm-package': {
           // shared among all projects
           await copyTemplateFiles(
-            path.join(dirName, '..', 'template', '__shared__npm__'),
+            path.join(dirName, '..', '..', 'template', '__shared__npm__'),
             process.cwd(),
             {
               rename: { gitignore: '.gitignore' },
@@ -105,7 +105,7 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
           )
           // copy npm folder
           await copyTemplateFiles(
-            path.join(dirName, '..', 'template', 'npm'),
+            path.join(dirName, '..', '..', 'template', 'npm'),
             process.cwd(),
             {
               replace: createReplace
@@ -121,7 +121,7 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
         case 'vite-react-swc': {
           // copy npm folder
           await copyTemplateFiles(
-            path.join(dirName, '..', 'template', 'vite'),
+            path.join(dirName, '..', '..', 'template', 'vite'),
             process.cwd(),
             {
               rename: { gitignore: '.gitignore' },

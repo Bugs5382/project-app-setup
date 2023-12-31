@@ -44,7 +44,7 @@ export const generateLicense = async (props: LicenseProps): Promise<void> => {
 
   await copyTemplateFile(
     filename,
-    path.join(dirName, '..', 'template', 'license'),
+    path.join(dirName, '..', '..', 'template', 'license'),
     process.cwd(),
     {
       rename: { [filename]: 'LICENSE' },

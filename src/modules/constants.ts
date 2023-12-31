@@ -1,13 +1,27 @@
-import { Dependencies, GenerateInput } from './types.js'
+import { Dependencies } from './types'
 
-const sharedDev: string[] = [
+export const DEFAULT_NPM = {
+  author: {
+    name: 'Shane Froebel'
+    // url: 'https://therabbithole.com/' // website is not online yet...
+  }
+}
+
+export const CLI_PROGRESS = (area: string): any => {
+  return {
+    format: `${area} {bar}\u25A0 {percentage}% | ETA: {eta}s | {value}/{total}`,
+    barCompleteChar: '\u25A0',
+    barIncompleteChar: ' '
+  }
+}
+
+export const sharedDev: string[] = [
   '@semantic-release/changelog',
   '@semantic-release/commit-analyzer',
   '@semantic-release/git',
   '@semantic-release/release-notes-generator',
   '@the-rabbit-hole/semantic-release-config',
   '@types/node',
-  'clean-publish',
   'npm-check-updates',
   'npm-package-json-lint',
   'pre-commit',
@@ -20,7 +34,7 @@ const sharedDev: string[] = [
   'typescript'
 ]
 
-const FASTIFY_GRAPHQL_CONTROLLER: Dependencies = {
+export const FASTIFY_GRAPHQL_CONTROLLER: Dependencies = {
   dependencies: [
     '@fastify/autoload',
     '@fastify/cors',
@@ -35,7 +49,7 @@ const FASTIFY_GRAPHQL_CONTROLLER: Dependencies = {
   ]
 }
 
-const FASTIFY_GRAPHQL_MICROSERVICES: Dependencies = {
+export const FASTIFY_GRAPHQL_MICROSERVICES: Dependencies = {
   dependencies: [
     '@fastify/autoload',
     '@fastify/mongodb',
@@ -52,7 +66,7 @@ const FASTIFY_GRAPHQL_MICROSERVICES: Dependencies = {
   ]
 }
 
-const FASTIFY_NPM_PACKAGE: Dependencies = {
+export const FASTIFY_NPM_PACKAGE: Dependencies = {
   dependencies: [
     '@fastify/error',
     'fastify-plugin'
@@ -67,7 +81,7 @@ const FASTIFY_NPM_PACKAGE: Dependencies = {
   ]
 }
 
-const NPM_PACKAGE: Dependencies = {
+export const NPM_PACKAGE: Dependencies = {
   dependencies: [],
   devDependencies: [
     ...sharedDev,
@@ -78,7 +92,7 @@ const NPM_PACKAGE: Dependencies = {
   ]
 }
 
-const VITE_REACT_SWC: Dependencies = {
+export const VITE_REACT_SWC: Dependencies = {
   dependencies: [
     '@apollo/client',
     '@fortawesome/fontawesome-svg-core',
@@ -108,36 +122,4 @@ const VITE_REACT_SWC: Dependencies = {
   ]
 }
 
-/**
- * @since 1.0.0
- * @param input
- */
-export const returnDependencies = (input: GenerateInput): Dependencies => {
-  switch (input.type) {
-    case 'nodejs': {
-      switch (input.node) {
-        case 'fastify-graphql-controller':
-          return FASTIFY_GRAPHQL_CONTROLLER
-        case 'fastify-graphql-microservice':
-          return FASTIFY_GRAPHQL_MICROSERVICES
-        case 'fastify-npm-package':
-          return FASTIFY_NPM_PACKAGE
-        case 'npm-package':
-          return NPM_PACKAGE
-      }
-      break
-    }
-    case 'vite/react': {
-      switch (input.vite) {
-        case 'vite-react-swc':
-          return VITE_REACT_SWC
-      }
-      break
-    }
-    default: {
-      throw new Error('Unknown selection. Try again.')
-    }
-  }
-  // if we made it this far, major issue.
-  throw new Error('Unknown selection. Try again.')
-}
+export const isProd = (): boolean => process.env.NODE_ENV !== 'test'
