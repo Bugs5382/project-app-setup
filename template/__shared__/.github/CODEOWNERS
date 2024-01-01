@@ -1,1 +1,1 @@
-*   @<%- gitHubAuthor %>
+*   @<%- repoOwner %>
