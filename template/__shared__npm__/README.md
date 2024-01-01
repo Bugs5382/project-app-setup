@@ -31,4 +31,4 @@ They might be sans uppercase throughout the documentation, but they would have t
 
 ## License
 
-Licensed under [<%- licence %>](LICENSE).
+Licensed under [<%- license %>](LICENSE).
