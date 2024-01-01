@@ -23,6 +23,7 @@ export async function init (folder: string, step: string): Promise<void> {
         await execFile('git', ['switch', '--orphan', 'main'], { cwd: folder })
         await execFile('git', ['commit', '--allow-empty', '-m', '"chore: initial creation [ci skip]"'], { cwd: folder })
         await execFile('git', ['checkout', 'develop'], { cwd: folder })
+        await execFile('git', ['-u', 'origin', 'main', 'develop'])
         break
       }
     }
@@ -45,7 +46,7 @@ export async function addRemote (folder: string, repoOwner: string, repoName: st
   } catch {
     await execFile(
       'git',
-      ['remote', 'add', 'origin', `git@github.com:${repoOwner}/${repoName}.git`],
+      ['remote', 'add', 'origin', `https://github.com/${repoOwner}/${repoName}.git`],
       { cwd: folder }
     )
   }
