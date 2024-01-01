@@ -1,3 +1,14 @@
+## [1.5.1](https://github.com/Bugs5382/project-app-setup/compare/v1.5.0...v1.5.1) (2024-01-01)
+
+
+### Bug Fixes
+
+* 2 fixes done ([#27](https://github.com/Bugs5382/project-app-setup/issues/27)) ([5d7dfe7](https://github.com/Bugs5382/project-app-setup/commit/5d7dfe71c02a96efa5096be355a57b4c240f3dea))
+* CODE OWNERS replacement ([9412eeb](https://github.com/Bugs5382/project-app-setup/commit/9412eeb53f6d19df2c638b099d4b6cb7d70e0f42))
+* CODE OWNERS replacement ([#25](https://github.com/Bugs5382/project-app-setup/issues/25)) ([21f046d](https://github.com/Bugs5382/project-app-setup/commit/21f046df19c75bd27661cac7ff42f385f315cef0)), closes [#23](https://github.com/Bugs5382/project-app-setup/issues/23)
+* url now set correctly ([c78058e](https://github.com/Bugs5382/project-app-setup/commit/c78058e0deb09458ae8294d700b4cf51318e6a9e))
+* url now set correctly ([#26](https://github.com/Bugs5382/project-app-setup/issues/26)) ([9f5f111](https://github.com/Bugs5382/project-app-setup/commit/9f5f111974160e47ce14d32584b78a9d0d35f958)), closes [#24](https://github.com/Bugs5382/project-app-setup/issues/24)
+
 # [1.5.0](https://github.com/Bugs5382/project-app-setup/compare/v1.4.4...v1.5.0) (2023-12-31)
 
 
