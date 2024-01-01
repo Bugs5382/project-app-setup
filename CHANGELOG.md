@@ -1,3 +1,14 @@
+## [1.5.2](https://github.com/Bugs5382/project-app-setup/compare/v1.5.1...v1.5.2) (2024-01-01)
+
+
+### Bug Fixes
+
+* +x added to the build-types.sh file ([ad44f15](https://github.com/Bugs5382/project-app-setup/commit/ad44f1507e0591c2de6f6385cc4e657497614b83))
+* 3 fixes ([#32](https://github.com/Bugs5382/project-app-setup/issues/32)) ([be57b51](https://github.com/Bugs5382/project-app-setup/commit/be57b5199555cc8b7644358ddeb41f5098e7a049)), closes [#31](https://github.com/Bugs5382/project-app-setup/issues/31) [#28](https://github.com/Bugs5382/project-app-setup/issues/28) [#29](https://github.com/Bugs5382/project-app-setup/issues/29)
+* 3 fixes ([#33](https://github.com/Bugs5382/project-app-setup/issues/33)) ([4cff857](https://github.com/Bugs5382/project-app-setup/commit/4cff85706ec17926f12498aa1ec1282f4a5a143a))
+* removed quotes out of git message ([eb51c02](https://github.com/Bugs5382/project-app-setup/commit/eb51c0205f450161a10ee5f2c89f3cf47228f340))
+* spelling mistake in var ([db2b350](https://github.com/Bugs5382/project-app-setup/commit/db2b350116fa718fceb5a0fe754888e0a64ce8fd))
+
 ## [1.5.1](https://github.com/Bugs5382/project-app-setup/compare/v1.5.0...v1.5.1) (2024-01-01)
 
 
