@@ -201,6 +201,7 @@ export const main = async (): Promise<void> => {
   }, {
     npm: typeof npmName !== 'undefined' ? npmName : npm,
     author: DEFAULT_NPM.author.name,
+    repoOwner,
     description,
     homepage: website,
     license

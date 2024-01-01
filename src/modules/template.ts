@@ -14,7 +14,7 @@ const dirName = path.dirname(fileURLToPath(import.meta.url))
 export const generateTemplate = async (input: GenerateInput, replacement?: any): Promise<void> => {
   const createReplace = [
     { replaceString: '<%- npm %>', var: typeof replacement.npm !== 'undefined' ? replacement.npm : '' },
-    { replaceString: '<%- gitHubAuthor %>', var: typeof replacement.gitHubAuthor !== 'undefined' ? replacement.gitHubAuthor : '' },
+    { replaceString: '<%- repoOwner %>', var: typeof replacement.repoOwner !== 'undefined' ? replacement.repoOwner : '' },
     { replaceString: '<%- author %>', var: typeof replacement.author !== 'undefined' ? replacement.author : '' },
     { replaceString: '<%- description %>', var: typeof replacement.description !== 'undefined' ? replacement.description : '' },
     { replaceString: '<%- homepage %>', var: typeof replacement.homepage !== 'undefined' ? replacement.homepage : '' },
