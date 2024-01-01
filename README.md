@@ -26,7 +26,7 @@ Used within any UTF-8 file.
 | **Replacement Search** |     **Used for**     | **Should be on replacement...** |
 |:----------------------:|:--------------------:|---------------------------------|
 |       <%- npm %>       |                      | The full NPM package name.      |
-|  <%- gitHubAuthor %>   | GitHub Projects Only | GitHub Username of Author.      |
+|    <%- repoOwner %>    | GitHub Projects Only | GitHub Username of Author.      |
 |     <%- author %>      |                      | Full Name of Initial Author     |
 |   <%- description %>   |                      | Description of the package.     |
 |    <%- homepage %>     |                      | Full URL                        |
