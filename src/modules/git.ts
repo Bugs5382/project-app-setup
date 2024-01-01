@@ -2,7 +2,7 @@ import childProcess from 'node:child_process'
 import { promisify } from 'node:util'
 
 /** @internal */
-const execFile = promisify(childProcess.execFile)
+export const execFile = promisify(childProcess.execFile)
 
 /**
  * Init Git
