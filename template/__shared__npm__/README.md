@@ -2,7 +2,7 @@
 
 > <%- description %>
 
-If you are using this plugin/NPM, please (:star:) star this repository, submit PRs, and issues. This way I can make sure the repositories with much usage can be maintained based off demand.
+If you are using this plugin/NPM, please (:star:) star this repository, submit PRs, and issues. This way I can make sure the repositories with much usage can be maintained based on demand.
 
 ## Table of Contents
 
@@ -31,4 +31,4 @@ They might be sans uppercase throughout the documentation, but they would have t
 
 ## License
 
-Licensed under [<%- licence %>](LICENSE).
+Licensed under [<%- license %>](LICENSE).

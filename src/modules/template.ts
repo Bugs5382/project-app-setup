@@ -2,6 +2,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { copyTemplateFiles } from './helpers.js'
 import { GenerateInput } from './types.js'
+import { execFile } from './git.js'
 
 const dirName = path.dirname(fileURLToPath(import.meta.url))
 
@@ -83,6 +84,7 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
               replace: createReplace
             }
           )
+          await execFile('chmod', ['+x', 'bin/build-types.sh'], { cwd: process.cwd() })
           // copy npm folder
           await copyTemplateFiles(
             path.join(dirName, '..', '..', 'template', 'npm-fastify-plugin'),
@@ -103,6 +105,7 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
               replace: createReplace
             }
           )
+          await execFile('chmod', ['+x', 'bin/build-types.sh'], { cwd: process.cwd() })
           // copy npm folder
           await copyTemplateFiles(
             path.join(dirName, '..', '..', 'template', 'npm'),

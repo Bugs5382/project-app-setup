@@ -2,7 +2,7 @@ import childProcess from 'node:child_process'
 import { promisify } from 'node:util'
 
 /** @internal */
-const execFile = promisify(childProcess.execFile)
+export const execFile = promisify(childProcess.execFile)
 
 /**
  * Init Git
@@ -19,9 +19,9 @@ export async function init (folder: string, step: string): Promise<void> {
       }
       case 'post': {
         await execFile('git', ['add', '.'], { cwd: folder })
-        await execFile('git', ['commit', '-m', '"chore: initial creation [ci skip]"'], { cwd: folder })
+        await execFile('git', ['commit', '-m', 'chore: initial creation [ci skip]'], { cwd: folder })
         await execFile('git', ['switch', '--orphan', 'main'], { cwd: folder })
-        await execFile('git', ['commit', '--allow-empty', '-m', '"chore: initial creation [ci skip]"'], { cwd: folder })
+        await execFile('git', ['commit', '--allow-empty', '-m', 'chore: initial creation [ci skip]'], { cwd: folder })
         await execFile('git', ['checkout', 'develop'], { cwd: folder })
         await execFile('git', ['-u', 'origin', 'main', 'develop'])
         break
