@@ -123,7 +123,7 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
     ...finalPackage,
     repository: {
       type: 'git',
-      url: `git+${params.gitUrl as string}`
+      url: `git+${params.gitUrl as string}.git`
     },
     keywords: params.keywords,
     author: params.author,
