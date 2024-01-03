@@ -1,3 +1,11 @@
+## [1.5.3](https://github.com/Bugs5382/project-app-setup/compare/v1.5.2...v1.5.3) (2024-01-03)
+
+
+### Bug Fixes
+
+* minor issues found ([f5be98b](https://github.com/Bugs5382/project-app-setup/commit/f5be98b7befd12cd44ae84f1e737699e425fdc3d))
+* minor issues found ([#34](https://github.com/Bugs5382/project-app-setup/issues/34)) ([1048efa](https://github.com/Bugs5382/project-app-setup/commit/1048efa4acd685ad3373bd76fdad86d798751428))
+
 ## [1.5.2](https://github.com/Bugs5382/project-app-setup/compare/v1.5.1...v1.5.2) (2024-01-01)
 
 
