@@ -9,9 +9,7 @@ import { setContext } from "@apollo/client/link/context";
 import * as React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { CartProvider } from "./context/cartContext.tsx";
 import { accessEnv } from "./helpers/accessEnv.ts";
-import Layout from "./components/layout.tsx";
 import { getLocalStorage } from "./helpers/localStroage.ts";
 import "./index.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -62,9 +60,7 @@ export const Main: React.FC<Readonly<IMainProperties>> = (props) => {
           toastClassName="toast-container"
           style={{ width: "50rem" }}
         />
-        <CartProvider>
-          <RouterProvider router={router} />
-        </CartProvider>
+        <RouterProvider router={router} />
       </ApolloProvider>
     </>
   );
