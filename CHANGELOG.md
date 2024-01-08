@@ -1,3 +1,48 @@
+## [1.5.3](https://github.com/Bugs5382/project-app-setup/compare/v1.5.2...v1.5.3) (2024-01-03)
+
+
+### Bug Fixes
+
+* minor issues found ([f5be98b](https://github.com/Bugs5382/project-app-setup/commit/f5be98b7befd12cd44ae84f1e737699e425fdc3d))
+* minor issues found ([#34](https://github.com/Bugs5382/project-app-setup/issues/34)) ([1048efa](https://github.com/Bugs5382/project-app-setup/commit/1048efa4acd685ad3373bd76fdad86d798751428))
+
+## [1.5.2](https://github.com/Bugs5382/project-app-setup/compare/v1.5.1...v1.5.2) (2024-01-01)
+
+
+### Bug Fixes
+
+* +x added to the build-types.sh file ([ad44f15](https://github.com/Bugs5382/project-app-setup/commit/ad44f1507e0591c2de6f6385cc4e657497614b83))
+* 3 fixes ([#32](https://github.com/Bugs5382/project-app-setup/issues/32)) ([be57b51](https://github.com/Bugs5382/project-app-setup/commit/be57b5199555cc8b7644358ddeb41f5098e7a049)), closes [#31](https://github.com/Bugs5382/project-app-setup/issues/31) [#28](https://github.com/Bugs5382/project-app-setup/issues/28) [#29](https://github.com/Bugs5382/project-app-setup/issues/29)
+* 3 fixes ([#33](https://github.com/Bugs5382/project-app-setup/issues/33)) ([4cff857](https://github.com/Bugs5382/project-app-setup/commit/4cff85706ec17926f12498aa1ec1282f4a5a143a))
+* removed quotes out of git message ([eb51c02](https://github.com/Bugs5382/project-app-setup/commit/eb51c0205f450161a10ee5f2c89f3cf47228f340))
+* spelling mistake in var ([db2b350](https://github.com/Bugs5382/project-app-setup/commit/db2b350116fa718fceb5a0fe754888e0a64ce8fd))
+
+## [1.5.1](https://github.com/Bugs5382/project-app-setup/compare/v1.5.0...v1.5.1) (2024-01-01)
+
+
+### Bug Fixes
+
+* 2 fixes done ([#27](https://github.com/Bugs5382/project-app-setup/issues/27)) ([5d7dfe7](https://github.com/Bugs5382/project-app-setup/commit/5d7dfe71c02a96efa5096be355a57b4c240f3dea))
+* CODE OWNERS replacement ([9412eeb](https://github.com/Bugs5382/project-app-setup/commit/9412eeb53f6d19df2c638b099d4b6cb7d70e0f42))
+* CODE OWNERS replacement ([#25](https://github.com/Bugs5382/project-app-setup/issues/25)) ([21f046d](https://github.com/Bugs5382/project-app-setup/commit/21f046df19c75bd27661cac7ff42f385f315cef0)), closes [#23](https://github.com/Bugs5382/project-app-setup/issues/23)
+* url now set correctly ([c78058e](https://github.com/Bugs5382/project-app-setup/commit/c78058e0deb09458ae8294d700b4cf51318e6a9e))
+* url now set correctly ([#26](https://github.com/Bugs5382/project-app-setup/issues/26)) ([9f5f111](https://github.com/Bugs5382/project-app-setup/commit/9f5f111974160e47ce14d32584b78a9d0d35f958)), closes [#24](https://github.com/Bugs5382/project-app-setup/issues/24)
+
+# [1.5.0](https://github.com/Bugs5382/project-app-setup/compare/v1.4.4...v1.5.0) (2023-12-31)
+
+
+### Features
+
+* --same-folder // -sf ([76dc97c](https://github.com/Bugs5382/project-app-setup/commit/76dc97c7accca866c1bdbda3a170187ecc5039c4)), closes [#19](https://github.com/Bugs5382/project-app-setup/issues/19)
+* cli ([58d9761](https://github.com/Bugs5382/project-app-setup/commit/58d97613f0ca408032b80c82918de7d9c09aeb96))
+* git creation ([930af92](https://github.com/Bugs5382/project-app-setup/commit/930af928e7596b973eef9703a2542bb6e024eda7))
+* git working now ([70d1e9c](https://github.com/Bugs5382/project-app-setup/commit/70d1e9c8d7d8518317819c1f42894b0cbecc9492)), closes [#18](https://github.com/Bugs5382/project-app-setup/issues/18) [#18](https://github.com/Bugs5382/project-app-setup/issues/18) [#17](https://github.com/Bugs5382/project-app-setup/issues/17)
+* more git stuff ([6c10ef9](https://github.com/Bugs5382/project-app-setup/commit/6c10ef95dc614fc42c2d099b4bd168927dc522c7))
+* package.json check ([75f6e34](https://github.com/Bugs5382/project-app-setup/commit/75f6e34882294707770632dc9fabcb172c4c7d8b))
+* package.json check ([#21](https://github.com/Bugs5382/project-app-setup/issues/21)) ([3b720c2](https://github.com/Bugs5382/project-app-setup/commit/3b720c2a3aa27e9622d4fa171fcb7a6c544f1316))
+* same folder and git init ([#20](https://github.com/Bugs5382/project-app-setup/issues/20)) ([f0a9c87](https://github.com/Bugs5382/project-app-setup/commit/f0a9c87c7853a5938b54844a36f6cb9c04701c3e))
+* updates ([#22](https://github.com/Bugs5382/project-app-setup/issues/22)) ([e7f5290](https://github.com/Bugs5382/project-app-setup/commit/e7f529064cbc90f77bea96a98346edef55d306f5))
+
 ## [1.4.4](https://github.com/Bugs5382/project-app-setup/compare/v1.4.3...v1.4.4) (2023-12-30)
 
 
