@@ -6,12 +6,12 @@ import { resolvers } from '../graphql/reporters.js'
 import schema from '../graphql/schema.js'
 
 export default fp<FastifyPluginOptions>(async (fastify, opts) => {
-  void fastify.register(mercuriusFederationPlugin, {
-    schema,
-    resolvers,
-    graphiql: process.env.NODE_ENV !== 'production',
-    jit: 1
-  })
+  // void fastify.register(mercuriusFederationPlugin, {
+  //   schema,
+  //   resolvers,
+  //   graphiql: process.env.NODE_ENV !== 'production',
+  //   jit: 1
+  // })
 
   void fastify.ready().then(() => {
     fastify.log.debug('[<%- npm %>-graphql] Started GraphQL')
