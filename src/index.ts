@@ -28,7 +28,7 @@ export const main = async (): Promise<void> => {
   // set var
   const npmName = !isProd() ? undefined : await getProjectName(_.kebabCase(defaultProjectName))
 
-  const { npm, gitLocation, repoOwner, repoName, website, type, node, vite, email, description, license, keywords, port } = await inquirer.prompt([{
+  const { npm, gitLocation, repoOwner, repoName, repoPrivateLocation, website, type, node, vite, email, description, license, keywords, port } = await inquirer.prompt([{
     default: defaultProjectName,
     name: 'npm',
     message: 'Your Project NPM name?',
@@ -182,7 +182,7 @@ export const main = async (): Promise<void> => {
     description,
     gitIssues,
     gitReadme,
-    gitUrl,
+    gitUrl: typeof repoPrivateLocation !== 'undefined' ? repoPrivateLocation : gitUrl,
     license,
     keywords
   }, {
