@@ -1,3 +1,14 @@
+# [1.6.0](https://github.com/Bugs5382/project-app-setup/compare/v1.5.3...v1.6.0) (2024-01-09)
+
+
+### Features
+
+* merge in develop branch [ci skip] ([#37](https://github.com/Bugs5382/project-app-setup/issues/37)) ([cf43948](https://github.com/Bugs5382/project-app-setup/commit/cf43948538ed9c9b1057129eeebf58cf5b6b0a5d))
+* merge in main branch [ci skip] ([#36](https://github.com/Bugs5382/project-app-setup/issues/36)) ([9e28856](https://github.com/Bugs5382/project-app-setup/commit/9e288562a15318e6054f0575972621f388735ba0))
+* windows commands fixes ([5316e97](https://github.com/Bugs5382/project-app-setup/commit/5316e97b7e2632951d13c8565a372d50d885f954))
+* windows commands for copy ([#38](https://github.com/Bugs5382/project-app-setup/issues/38)) ([fb49d48](https://github.com/Bugs5382/project-app-setup/commit/fb49d48930806fe9e037819d307c3c2e5774b7d4))
+* windows features ([#39](https://github.com/Bugs5382/project-app-setup/issues/39)) ([6e00c7e](https://github.com/Bugs5382/project-app-setup/commit/6e00c7ef18af6c63230466d99c03c463d950f30b))
+
 ## [1.5.3](https://github.com/Bugs5382/project-app-setup/compare/v1.5.2...v1.5.3) (2024-01-03)
 
 
