@@ -65,7 +65,7 @@ export const copyTemplateFile = async (
   let contents = fs.readFileSync(`${resolvedSource}/${file}`, { encoding: 'utf8' })
 
   // Figure out where we're writing this file.
-  let baseFile = file.replace(`${resolvedSource}/`, '')
+  let baseFile = file.replace(`${resolvedSource}`, '')
 
   // make sure we remove ts-nocheck from files
   if ((baseFile.substring(baseFile.length - 2, baseFile.length) === 'ts') || baseFile.substring(baseFile.length - 3, baseFile.length) === 'tsx') {
@@ -126,7 +126,7 @@ export const copyTemplateFiles = async (
     let contents = fs.readFileSync(file, { encoding: 'utf8' })
 
     // Figure out where we're writing this file.
-    let baseFile = file.replace(`${resolvedSource}/`, '')
+    let baseFile = file.replace(`${resolvedSource}`, '')
 
     // make sure we remove ts-nocheck from files
     if ((baseFile.substring(baseFile.length - 2, baseFile.length) === 'ts') || baseFile.substring(baseFile.length - 3, baseFile.length) === 'tsx') {
@@ -244,6 +244,8 @@ export const getProjectName = async (defaultProjectName: string): Promise<string
  */
 export const installDeps = async (dependencies: string[], options: { dev?: boolean } = {}): Promise<void> => {
   const args: string[] = ['install']
+  const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+
   if (options.dev === true) {
     args.push('--save-dev')
   }
@@ -257,7 +259,7 @@ export const installDeps = async (dependencies: string[], options: { dev?: boole
     for (const depend of dependencies) {
       value++
       if (isProd()) {
-        await execFile('npm', [...args, depend])
+        await execFile(npmCmd, [...args, depend])
       }
       bar.update(value)
       if (value >= bar.getTotal()) {

@@ -6,6 +6,6 @@ export default fp<CustomHealthCheckOptions>(async (fastify) => {
   void fastify.register(customHealthCheck)
 
   void fastify.ready().then(() => {
-    fastify.log.debug('[<%- npm %>--health] Started Health')
+    fastify.log.debug('[<%- npm %>-health] Started Health')
   })
 })
