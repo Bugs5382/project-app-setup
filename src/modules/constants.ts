@@ -135,6 +135,8 @@ export const VITE_REACT_SWC: Dependencies = {
     '@types/react',
     '@types/react-dom',
     '@vitejs/plugin-react-swc',
+    'eslint-plugin-react-hooks',
+    'eslint-plugin-react-refresh',
     'autoprefixer',
     'prettier-plugin-tailwindcss',
     'tailwindcss',
