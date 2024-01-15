@@ -1,3 +1,11 @@
+## [1.7.1](https://github.com/Bugs5382/project-app-setup/compare/v1.7.0...v1.7.1) (2024-01-15)
+
+
+### Bug Fixes
+
+* update packages ([#43](https://github.com/Bugs5382/project-app-setup/issues/43)) ([c3ced9e](https://github.com/Bugs5382/project-app-setup/commit/c3ced9e150f71a648ee130c617eb2afb28535bc3))
+* update to node v20 ([bfb62fc](https://github.com/Bugs5382/project-app-setup/commit/bfb62fcfbd17bc3aea6ce49ea8fc2b3716ed1bc7))
+
 # [1.7.0](https://github.com/Bugs5382/project-app-setup/compare/v1.6.0...v1.7.0) (2024-01-15)
 
 
