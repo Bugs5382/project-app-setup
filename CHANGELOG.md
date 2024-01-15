@@ -1,3 +1,16 @@
+# [1.8.0](https://github.com/Bugs5382/project-app-setup/compare/v1.7.1...v1.8.0) (2024-01-15)
+
+
+### Bug Fixes
+
+* missing dev packages for vite ([5349591](https://github.com/Bugs5382/project-app-setup/commit/53495914fc46866c5922161cb313d8bb1331468d))
+
+
+### Features
+
+* disable git creation ([5dea55b](https://github.com/Bugs5382/project-app-setup/commit/5dea55bc2f38d78dec596e21676e0cbe69242d1d))
+* disable git if required ([#44](https://github.com/Bugs5382/project-app-setup/issues/44)) ([4725074](https://github.com/Bugs5382/project-app-setup/commit/4725074a04187845ea9d06342849341a86d8633b))
+
 ## [1.7.1](https://github.com/Bugs5382/project-app-setup/compare/v1.7.0...v1.7.1) (2024-01-15)
 
 
