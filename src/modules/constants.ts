@@ -15,6 +15,26 @@ export const CLI_PROGRESS = (area: string): any => {
   }
 }
 
+export const EMPTY_PROJECT: Dependencies = {
+  dependencies: [],
+  devDependencies: [
+    '@types/node',
+    '@types/jest',
+    'npm-check-updates',
+    'npm-package-json-lint',
+    'pre-commit',
+    'jest',
+    'jest-ts-webcompat-resolver',
+    'snazzy',
+    'ts-node',
+    'ts-jest',
+    'ts-standard',
+    'tsd',
+    'typedoc',
+    'typescript'
+  ]
+}
+
 export const sharedDev: string[] = [
   '@semantic-release/changelog',
   '@semantic-release/commit-analyzer',
