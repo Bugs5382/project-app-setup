@@ -37,7 +37,8 @@ export const main = async (): Promise<void> => {
   }, {
     choices: [
       { name: 'Github', value: 'github' },
-      { name: 'Private Repo', value: 'private-repo' }
+      { name: 'Private Repo', value: 'private-repo' },
+      { name: 'Skip Git', value: 'skip-git' },
     ],
     default: 0,
     name: 'gitLocation',
@@ -67,7 +68,7 @@ export const main = async (): Promise<void> => {
     type: 'input',
     name: 'repoPrivateLocation',
     message: 'Full URL of Git Repo:',
-    when: (answers) => answers.gitLocation !== 'github'
+    when: (answers) => answers.gitLocation !== 'github' && answers.gitLocation !== 'skip-git'
   }, {
     name: 'website',
     message: 'Homepage of Author:',
@@ -154,18 +155,20 @@ export const main = async (): Promise<void> => {
   }
 
   // GIT: Initial
-  await git.init(cwd, 'initial')
-  if (gitLocation === 'github' && typeof repoOwner !== 'undefined' && typeof repoName !== 'undefined') {
-    await git.addRemote(cwd, repoOwner, repoName)
-  }
-
-  let gitUrl: string | undefined
   let gitIssues: string | undefined
   let gitReadme: string | undefined
-  if (gitLocation === 'github') {
-    gitUrl = `https://github.com/${repoOwner as string}/${repoName as string}`
-    gitIssues = `${gitUrl}/issues`
-    gitReadme = `${gitUrl}#readme`
+  let gitUrl: string | undefined
+  if (gitLocation !== 'skip-git') {
+    await git.init(cwd, 'initial')
+    if (gitLocation === 'github' && typeof repoOwner !== 'undefined' && typeof repoName !== 'undefined') {
+      await git.addRemote(cwd, repoOwner, repoName)
+    }
+
+    if (gitLocation === 'github') {
+      gitUrl = `https://github.com/${repoOwner as string}/${repoName as string}`
+      gitIssues = `${gitUrl}/issues`
+      gitReadme = `${gitUrl}#readme`
+    }
   }
 
   // Generate Licence
