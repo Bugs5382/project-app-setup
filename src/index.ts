@@ -81,12 +81,13 @@ export const main = async (): Promise<void> => {
     filter (val: string) { return val.toLowerCase() }
   }, {
     choices: [
+      { name: 'Empty Project', value: 'empty-project' },
       { name: 'Fastify GraphQL Controller', value: 'fastify-graphql-controller' },
       { name: 'Fastify GraphQL Microservice', value: 'fastify-graphql-microservice' },
       { name: 'Fastify Standalone NPM Package', value: 'fastify-npm-package' },
       { name: 'Standalone NPM Package', value: 'npm-package' }
     ],
-    default: 1,
+    default: 0,
     name: 'node',
     message: 'What type of app are we creating today?',
     type: 'list',

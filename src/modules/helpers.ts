@@ -244,7 +244,7 @@ export const getProjectName = async (defaultProjectName: string): Promise<string
  */
 export const installDeps = async (dependencies: string[], options: { dev?: boolean } = {}): Promise<void> => {
   const args: string[] = ['install']
-  const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+  const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm'
 
   if (options.dev === true) {
     args.push('--save-dev')

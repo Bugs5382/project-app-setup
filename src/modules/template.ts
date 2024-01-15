@@ -23,17 +23,22 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
   ]
 
   // shared among all projects
-  await copyTemplateFiles(
-    path.join(dirName, '..', '..', 'template', '__shared__'),
-    process.cwd(),
-    {
-      replace: createReplace
-    }
-  )
+  if (input.node !== 'empty-project') {
+    await copyTemplateFiles(
+      path.join(dirName, '..', '..', 'template', '__shared__'),
+      process.cwd(),
+      {
+        replace: createReplace
+      }
+    )
+  }
 
   switch (input.type) {
     case 'nodejs': {
       switch (input.node) {
+        case 'empty-project': {
+          return
+        }
         case 'fastify-graphql-controller': {
           // shared among all projects
           await copyTemplateFiles(

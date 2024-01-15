@@ -1,4 +1,5 @@
 import {
+  EMPTY_PROJECT,
   FASTIFY_GRAPHQL_CONTROLLER,
   FASTIFY_GRAPHQL_MICROSERVICES,
   FASTIFY_NPM_PACKAGE,
@@ -15,6 +16,8 @@ export const returnDependencies = (input: GenerateInput): Dependencies => {
   switch (input.type) {
     case 'nodejs': {
       switch (input.node) {
+        case 'empty-project':
+          return EMPTY_PROJECT
         case 'fastify-graphql-controller':
           return FASTIFY_GRAPHQL_CONTROLLER
         case 'fastify-graphql-microservice':
