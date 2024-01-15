@@ -1,3 +1,12 @@
+# [1.7.0](https://github.com/Bugs5382/project-app-setup/compare/v1.6.0...v1.7.0) (2024-01-15)
+
+
+### Features
+
+* empty project template ([9ba3fb8](https://github.com/Bugs5382/project-app-setup/commit/9ba3fb83d08f0aa77ab2f54bd4665b281e1bd22a))
+* empty project template ([#42](https://github.com/Bugs5382/project-app-setup/issues/42)) ([2ef8589](https://github.com/Bugs5382/project-app-setup/commit/2ef858998e65a90da116dbb37c74ec90506518ea))
+* updated packages ([891d4ae](https://github.com/Bugs5382/project-app-setup/commit/891d4aea20484de52bf27cc74eb7a227d8d2a1cf))
+
 # [1.6.0](https://github.com/Bugs5382/project-app-setup/compare/v1.5.3...v1.6.0) (2024-01-09)
 
 
