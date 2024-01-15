@@ -118,7 +118,7 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
     version: '0.0.0-development',
     description: params.description,
     engines: {
-      node: '^18 || ^20'
+      node: '^20'
     },
     ...finalPackage,
     repository: {
