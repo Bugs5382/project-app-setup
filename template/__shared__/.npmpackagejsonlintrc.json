@@ -32,6 +32,7 @@
       "<%- author %>"
     ]],
     "valid-values-private": ["error", [
+      true,
       false
     ]],
     "no-restricted-dependencies": ["error", [

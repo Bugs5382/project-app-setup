@@ -69,17 +69,16 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
               ...sharedScripts,
               pack: 'npm pack',
               prepublishOnly: 'npm run clean && npm run build && npm run pack',
-              test: 'jest',
-              'test:open': 'jest --detectOpenHandles',
-              'test:watch': 'jest --watch',
-              'test:ci': 'jest --ci',
-              'test:coverage': 'jest --coverage',
+              test: 'vitest run',
+              'test:verbose': 'vitest run --reporter verbose',
+              'test:watch': 'vitest watch',
+              'test:coverage': 'vitest --coverage',
               typedoc: 'typedoc',
               'typedoc:watch': 'typedoc -watch',
               'semantic-release': 'semantic-release',
               'semantic-release:dry-run': 'semantic-release --dry-run',
-              update: 'npx npm-check-updates -u && npm run update:post-update',
-              'update:post-update': 'npm install && npm run test:ci'
+              update: 'npx npm-check-updates -u --enginesNode && npm run update:post-update',
+              'update:post-update': 'npm install && npm run test'
             }
           }
           break
@@ -118,7 +117,7 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
     version: '0.0.0-development',
     description: params.description,
     engines: {
-      node: '^20'
+      node: '>=20.0.0'
     },
     ...finalPackage,
     repository: {
