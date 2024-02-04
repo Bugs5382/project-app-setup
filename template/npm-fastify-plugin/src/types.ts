@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 declare module 'fastify' {
   export interface FastifyInstance {
     /** Main Decorator for Fastify **/
