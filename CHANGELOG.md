@@ -1,3 +1,18 @@
+# [2.0.0](https://github.com/Bugs5382/project-app-setup/compare/v1.8.0...v2.0.0) (2024-02-04)
+
+
+### Features
+
+* remove jest for vitest ([b12c09e](https://github.com/Bugs5382/project-app-setup/commit/b12c09ec54d9e14b05c2078f1b0f078b0ef659e9))
+* remove jest for vitest ([#45](https://github.com/Bugs5382/project-app-setup/issues/45)) ([f1afd46](https://github.com/Bugs5382/project-app-setup/commit/f1afd46334cb0ea6461993c7c436ee0101e98f77))
+* v2.0.0 ([#46](https://github.com/Bugs5382/project-app-setup/issues/46)) ([d9be447](https://github.com/Bugs5382/project-app-setup/commit/d9be447757af897c9228c56f567907aa7c558ad6))
+
+
+### BREAKING CHANGES
+
+* - node 20
+* - node 20
+
 # [1.8.0](https://github.com/Bugs5382/project-app-setup/compare/v1.7.1...v1.8.0) (2024-01-15)
 
 
