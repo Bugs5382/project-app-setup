@@ -105,10 +105,9 @@ export const NPM_PACKAGE: Dependencies = {
   dependencies: [],
   devDependencies: [
     ...sharedDev,
-    'ts-jest',
-    '@types/jest',
-    'jest',
-    'jest-ts-webcompat-resolver'
+    '@vitest/coverage-v8',
+    '@vitest/ui',
+    'vitest'
   ]
 }
 

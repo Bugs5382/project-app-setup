@@ -38,7 +38,7 @@ export const main = async (): Promise<void> => {
     choices: [
       { name: 'Github', value: 'github' },
       { name: 'Private Repo', value: 'private-repo' },
-      { name: 'Skip Git', value: 'skip-git' },
+      { name: 'Skip Git', value: 'skip-git' }
     ],
     default: 0,
     name: 'gitLocation',
