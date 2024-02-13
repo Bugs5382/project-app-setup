@@ -99,7 +99,9 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
               'format:check': 'prettier --check  "src/**/*.{ts,tsx,css,json}" "public/**/*.json"',
               lint: 'eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0',
               'lint:fix': 'eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix',
-              preview: 'vite preview'
+              preview: 'vite preview',
+              update: 'npx npm-check-updates -u --enginesNode && npm run update:post-update',
+              'update:post-update': 'npm install'
             }
           }
           break
