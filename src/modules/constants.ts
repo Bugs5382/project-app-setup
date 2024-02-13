@@ -19,15 +19,11 @@ export const EMPTY_PROJECT: Dependencies = {
   dependencies: [],
   devDependencies: [
     '@types/node',
-    '@types/jest',
     'npm-check-updates',
     'npm-package-json-lint',
     'pre-commit',
-    'jest',
-    'jest-ts-webcompat-resolver',
     'snazzy',
     'ts-node',
-    'ts-jest',
     'ts-standard',
     'tsd',
     'typedoc',
@@ -37,9 +33,7 @@ export const EMPTY_PROJECT: Dependencies = {
 
 export const sharedDev: string[] = [
   '@semantic-release/changelog',
-  '@semantic-release/commit-analyzer',
   '@semantic-release/git',
-  '@semantic-release/release-notes-generator',
   '@the-rabbit-hole/semantic-release-config',
   '@types/node',
   'npm-check-updates',
@@ -94,10 +88,9 @@ export const FASTIFY_NPM_PACKAGE: Dependencies = {
   devDependencies: [
     ...sharedDev,
     'fastify',
-    'ts-jest',
-    '@types/jest',
-    'jest',
-    'jest-ts-webcompat-resolver'
+    '@vitest/coverage-v8',
+    '@vitest/ui',
+    'vitest'
   ]
 }
 
@@ -133,6 +126,7 @@ export const VITE_REACT_SWC: Dependencies = {
     ...sharedDev,
     '@types/react',
     '@types/react-dom',
+    '@vitejs/plugin-basic-ssl',
     '@vitejs/plugin-react-swc',
     'eslint-plugin-react-hooks',
     'eslint-plugin-react-refresh',
