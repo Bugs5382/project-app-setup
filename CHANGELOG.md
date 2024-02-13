@@ -1,3 +1,12 @@
+# [2.1.0](https://github.com/Bugs5382/project-app-setup/compare/v2.0.0...v2.1.0) (2024-02-13)
+
+
+### Features
+
+* added loader, layout, error ([8f0574c](https://github.com/Bugs5382/project-app-setup/commit/8f0574c3bf0ef31b31e1d646d64abb2dc060f94f))
+* added loader, layout, error ([#49](https://github.com/Bugs5382/project-app-setup/issues/49)) ([feb4c24](https://github.com/Bugs5382/project-app-setup/commit/feb4c2442e4c0985ef60c41c5e0d656e959b4209)), closes [#47](https://github.com/Bugs5382/project-app-setup/issues/47) [#48](https://github.com/Bugs5382/project-app-setup/issues/48)
+* added vite updates ([#50](https://github.com/Bugs5382/project-app-setup/issues/50)) ([8667521](https://github.com/Bugs5382/project-app-setup/commit/8667521dc80b117d6cc49685d513a3e9aea64871))
+
 # [2.0.0](https://github.com/Bugs5382/project-app-setup/compare/v1.8.0...v2.0.0) (2024-02-04)
 
 
