@@ -15,6 +15,9 @@ import "./index.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "react-toastify/dist/ReactToastify.css";
 
+import { Layout } from '../template/layout.tsx'
+import { Error } from '../pages/error.tsx'
+
 interface IMainProperties {
   defaultLang: string;
 }
