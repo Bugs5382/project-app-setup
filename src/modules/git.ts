@@ -39,7 +39,7 @@ export async function init (folder: string, step: string): Promise<void> {
  * @param repoOwner
  * @param repoName
  */
-export async function addRemote (folder: string, repoOwner: string, repoName: string): Promise<void> {
+export async function addRemoteGitHUb (folder: string, repoOwner: string, repoName: string): Promise<void> {
   try {
     // If this succeeds, there's already a remote for `origin`.
     await execFile('git', ['config', 'remote.origin.url'], { cwd: folder })
@@ -47,6 +47,27 @@ export async function addRemote (folder: string, repoOwner: string, repoName: st
     await execFile(
       'git',
       ['remote', 'add', 'origin', `https://github.com/${repoOwner}/${repoName}.git`],
+      { cwd: folder }
+    )
+  }
+}
+
+/**
+ * Add Git Remote for Other Repo Location
+ * @since 1.5.0
+ * @param folder
+ * @param repoUrl
+ * @param repoProject
+ * @param repoName
+ */
+export async function addRemotePrivate (folder: string, repoUrl: string, repoProject: string, repoName: string): Promise<void> {
+  try {
+    // If this succeeds, there's already a remote for `origin`.
+    await execFile('git', ['config', 'remote.origin.url'], { cwd: folder })
+  } catch {
+    await execFile(
+      'git',
+      ['remote', 'add', 'origin', `${repoUrl}/${repoProject}/${repoName}.git`],
       { cwd: folder }
     )
   }

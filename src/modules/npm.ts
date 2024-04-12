@@ -119,12 +119,12 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
     version: '0.0.0-development',
     description: params.description,
     engines: {
-      node: '>=20.0.0'
+      node: '>=20.11.0'
     },
     ...finalPackage,
     repository: {
       type: 'git',
-      url: `git+${params.gitUrl as string}.git`
+      url: typeof params.gitUrl === 'undefined' ? '' : `git+${params.gitUrl as string}`
     },
     keywords: params.keywords,
     author: params.author,

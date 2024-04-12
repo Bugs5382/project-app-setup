@@ -28,7 +28,7 @@ export const main = async (): Promise<void> => {
   // set var
   const npmName = !isProd() ? undefined : await getProjectName(_.kebabCase(defaultProjectName))
 
-  const { npm, gitLocation, repoOwner, repoName, repoPrivateLocation, website, type, node, vite, email, description, license, keywords, port } = await inquirer.prompt([{
+  const { npm, gitLocation, website, type, node, vite, email, description, license, keywords, port } = await inquirer.prompt([{
     default: defaultProjectName,
     name: 'npm',
     message: 'Your Project NPM name?',
@@ -45,30 +45,6 @@ export const main = async (): Promise<void> => {
     message: 'Where are we storing this code today?',
     type: 'list',
     filter (val: string) { return val.toLowerCase() }
-  }, {
-    type: 'input',
-    name: 'repoOwner',
-    message: 'Repository Owner (e.g. https://github.com/{OWNER}/{PROJECT NAME}):',
-    default: 'Bugs5382', // this is me!
-    when: (answers) => answers.gitLocation === 'github'
-  }, {
-    type: 'input',
-    name: 'repoName',
-    message: 'Repository Project Name (e.g. https://github.com/{OWNER}/{PROJECT NAME}):',
-    validate: (result) => {
-      if (result === '') {
-        return 'Error: Please enter a repo name. If the repo does not exist, it will be created for you.'
-      } else {
-        return true
-      }
-    },
-    when: (answers) => answers.gitLocation === 'github',
-    filter (val: string) { return val.toLowerCase() }
-  }, {
-    type: 'input',
-    name: 'repoPrivateLocation',
-    message: 'Full URL of Git Repo:',
-    when: (answers) => answers.gitLocation !== 'github' && answers.gitLocation !== 'skip-git'
   }, {
     name: 'website',
     message: 'Homepage of Author:',
@@ -158,17 +134,69 @@ export const main = async (): Promise<void> => {
   let gitIssues: string | undefined
   let gitReadme: string | undefined
   let gitUrl: string | undefined
+  let gitOwner: string | undefined
   if (gitLocation !== 'skip-git') {
     await git.init(cwd, 'initial')
-    if (gitLocation === 'github' && typeof repoOwner !== 'undefined' && typeof repoName !== 'undefined') {
-      await git.addRemote(cwd, repoOwner, repoName)
-    }
+    switch (gitLocation) {
+      case 'github':
 
-    if (gitLocation === 'github') {
-      gitUrl = `https://github.com/${repoOwner as string}/${repoName as string}`
-      gitIssues = `${gitUrl}/issues`
-      gitReadme = `${gitUrl}#readme`
+        let { repoOwner, repoName } = await inquirer.prompt([{
+          type: 'input',
+          name: 'repoOwner',
+          message: 'Repository Owner (e.g. https://github.com/[OWNER]):',
+          default: 'Bugs5382', // this is me!
+        }, {
+          type: 'input',
+          name: 'repoName',
+          message: 'Repository Project Name (e.g. https://github.com/OWNER/[PROJECT NAME]):',
+          validate: (result) => {
+            if (result === '') {
+              return 'Error: Please enter a repo name. If the repo does not exist, it will be created for you.'
+            } else {
+              return true
+            }
+          },
+          filter (val: string) { return val.toLowerCase() }
+        }])
+
+        await git.addRemoteGitHUb(cwd, repoOwner, repoName)
+
+        gitUrl = `https://github.com/${repoOwner as string}/${repoName as string}.git`
+        gitOwner = repoOwner
+
+        break
+      case 'private-repo':
+
+        let { repoUrl, repoProject, repoNamePrivate } = await inquirer.prompt([ {
+          type: 'input',
+          name: 'repoUrl',
+          message: 'Full URL of Git Repo (e.g. https://REPOURL) Do not include the trailing /:'
+        }, {
+          type: 'input',
+          name: 'repoProject',
+          message: 'Project "Folder (e.g. https://REPOURL/[PROJECT]) Do not include the trailing /:'
+        }, {
+          type: 'input',
+          name: 'repoNamePrivate',
+          message: 'Repository Repo Name (e.g. https://REPOURL/PROJECT/[REPONAME].git}):',
+          validate: (result) => {
+            if (result === '') {
+              return 'Error: Please enter a repo name. If the repo does not exist, it will be potentially created for you.'
+            } else {
+              return true
+            }
+          },
+          filter (val: string) { return val.toLowerCase() }
+        }])
+
+        await git.addRemotePrivate(cwd, repoUrl, repoProject, repoNamePrivate )
+
+        gitUrl = `${repoUrl as string}/${repoProject as string}/${repoNamePrivate as string}.git`
+        gitOwner = repoProject
+
     }
+    gitIssues = `${gitUrl}/issues`
+    gitReadme = `${gitUrl}#readme`
   }
 
   // Generate Licence
@@ -186,7 +214,7 @@ export const main = async (): Promise<void> => {
     description,
     gitIssues,
     gitReadme,
-    gitUrl: typeof repoPrivateLocation !== 'undefined' ? repoPrivateLocation : gitUrl,
+    gitUrl,
     license,
     keywords
   }, {
@@ -205,7 +233,7 @@ export const main = async (): Promise<void> => {
   }, {
     npm: typeof npmName !== 'undefined' ? npmName : npm,
     author: DEFAULT_NPM.author.name,
-    repoOwner,
+    repoOwner: gitOwner,
     description,
     homepage: website,
     license

@@ -12,7 +12,7 @@
     "template/"
   ],
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=20.11.0"
   },
   "scripts": {
     "clean": "rm -rf coverage docs dist",
@@ -72,7 +72,7 @@
     "@types/yargs": "^17.0.32",
     "npm-package-json-lint": "^7.1.0",
     "precommit": "^1.2.2",
-    "semantic-release": "^23.0.0",
+    "semantic-release": "^23.0.8",
     "snazzy": "^9.0.0",
     "ts-node": "^10.9.2",
     "ts-standard": "^12.0.2",
