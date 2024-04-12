@@ -9,7 +9,7 @@ export default fp<FastifyPluginOptions>(async (fastify, opts) => {
   // void fastify.register(mercuriusFederationPlugin, {
   //   schema,
   //   resolvers,
-  //   graphiql: process.env.NODE_ENV !== 'production',
+  //   graphiql: process.env.npm_lifecycle_event !== 'prod',
   //   jit: 1
   // })
 

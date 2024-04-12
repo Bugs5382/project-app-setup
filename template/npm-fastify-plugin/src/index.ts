@@ -15,11 +15,11 @@ const decorateFastifyInstance = (fastify: FastifyInstance, options: FastifyPlugi
     fastify.log.debug('[<%- npm %>] Namespace: %s', namespace)
   }
   if (typeof namespace !== 'undefined' && namespace !== '') {
-    if (typeof fastify.rabbitmq === 'undefined') {
+    if (typeof fastify.APP === 'undefined') {
       fastify.decorate('APP', Object.create(null))
     }
 
-    if (typeof fastify.rabbitmq[namespace] !== 'undefined') {
+    if (typeof fastify.APP[namespace] !== 'undefined') {
       throw new errors.FASTIFY_ERR_SETUP_ERRORS(`Already registered with namespace: ${namespace}`)
     }
 

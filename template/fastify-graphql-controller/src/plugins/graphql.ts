@@ -4,8 +4,8 @@ import mercuriusGateway, { MercuriusGatewayOptions } from '@mercuriusjs/gateway'
 import { accessEnv } from '../helpers/accessEnv.js'
 
 export default fp<MercuriusGatewayOptions>(async (fastify) => {
-  const GRAPHQL_HOST = accessEnv('GRAPHQL_HOST', 'localhost')
-  const GRAPHQL_PORT = parseInt(accessEnv('GRAPHQL_PORT', '3000'))
+  // const GRAPHQL_HOST = accessEnv('GRAPHQL_HOST', 'localhost')
+  // const GRAPHQL_PORT = parseInt(accessEnv('GRAPHQL_PORT', '3000'))
 
   // await fastify.register(mercuriusGateway, {
   //   gateway: {
@@ -21,7 +21,7 @@ export default fp<MercuriusGatewayOptions>(async (fastify) => {
   //       keepAlive: 10
   //     }]
   //   },
-  //   graphiql: process.env.NODE_ENV !== 'production',
+  //   graphiql: process.env.npm_lifecycle_event !== 'prod',
   //   jit: 1
   // })
 

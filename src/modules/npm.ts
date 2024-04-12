@@ -12,11 +12,13 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
   let finalPackage: any = null
 
   const sharedScripts = {
+    'docker:build': `npm run build && docker build -t IMAGENAME:dev .`,
     lint: 'npmPkgJsonLint . && ts-standard | snazzy',
     'lint:fix': 'npmPkgJsonLint . && ts-standard --fix | snazzy',
     typedoc: 'typedoc',
     'typedoc:watch': 'typedoc -watch',
-    update: 'npx npm-check-updates -u && npm install'
+    update: 'npx npm-check-updates -u --enginesNode && npm run update:post-update',
+    'update:post-update': 'npm install'
   }
 
   switch (input.type) {
@@ -39,7 +41,7 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
               dev: `fastify start -p ${input.options.port} -w -l debug -P build/app.js`,
               'dev:trace': `fastify start -p ${input.options.port} -w -l trace -P build/app.js`,
               'dev:expose': `fastify start -a 0.0.0.0 -p ${input.options.port} -w -l debug -P build/app.js`,
-              prod: 'fastify start -l info -P build/app.js',
+              prod: 'fastify start -o -P build/app.js',
               ...sharedScripts
             }
           }
@@ -76,9 +78,7 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
               typedoc: 'typedoc',
               'typedoc:watch': 'typedoc -watch',
               'semantic-release': 'semantic-release',
-              'semantic-release:dry-run': 'semantic-release --dry-run',
-              update: 'npx npm-check-updates -u --enginesNode && npm run update:post-update',
-              'update:post-update': 'npm install && npm run test'
+              'semantic-release:dry-run': 'semantic-release --dry-run'
             }
           }
           break
@@ -99,9 +99,7 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
               'format:check': 'prettier --check  "src/**/*.{ts,tsx,css,json}" "public/**/*.json"',
               lint: 'eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0',
               'lint:fix': 'eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix',
-              preview: 'vite preview',
-              update: 'npx npm-check-updates -u --enginesNode && npm run update:post-update',
-              'update:post-update': 'npm install'
+              preview: 'vite preview'
             }
           }
           break

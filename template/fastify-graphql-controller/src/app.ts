@@ -1,15 +1,22 @@
 // @ts-nocheck
-import { dirname, join } from 'path'
+import { join, dirname } from 'path'
 import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload'
-import { FastifyPluginAsync } from 'fastify'
+import { FastifyPluginAsync, FastifyServerOptions } from 'fastify'
 import { fileURLToPath } from 'url'
 
 const fileName = fileURLToPath(import.meta.url)
 const dirName = dirname(fileName)
 
-export type AppOptions = {} & Partial<AutoloadPluginOptions>
+export interface AppOptions extends FastifyServerOptions, Partial<AutoloadPluginOptions> {
+  // Place your custom options for app below here.
+}
 
-const options: AppOptions = {}
+const options: AppOptions = {
+  logger: {
+    name: '<%- npm %>',
+    level: 'info'
+  }
+}
 
 const app: FastifyPluginAsync<AppOptions> = async (
   fastify,
