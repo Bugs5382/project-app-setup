@@ -20,6 +20,5 @@ export default fp<CustomHealthCheckOptions>(async (fastify) => {
     fastify.addHealthCheck('redis', async () => {
       return fastify.redis.status === 'ready'
     })
-    fastify.log.debug('[<%- npm %>-health] Started Health')
   })
 })
