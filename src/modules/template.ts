@@ -1,6 +1,6 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import {copyTemplateFiles} from "../helpers/copyTemplateFiles";
+import { copyTemplateFiles } from '../helpers/copyTemplateFiles.js'
 import { GenerateInput } from '../declaration/types.js'
 import { execFile } from './git.js'
 
@@ -46,7 +46,6 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
   }
 
   switch (input.type) {
-
     /**
      * Node JS
      */
@@ -67,7 +66,7 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
             path.join(dirName, '..', '..', 'template', '__shared__fastify__'),
             process.cwd(),
             {
-              rename: { gitignore: '.gitignore' },
+              rename: { '/gitignore': '.gitignore' },
               replace: createReplace
             }
           )
@@ -87,7 +86,7 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
             path.join(dirName, '..', '..', 'template', '__shared__fastify__'),
             process.cwd(),
             {
-              rename: { gitignore: '.gitignore' },
+              rename: { '/gitignore': '.gitignore' },
               replace: createReplace
             }
           )
@@ -107,7 +106,7 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
             path.join(dirName, '..', '..', 'template', '__shared__npm__'),
             process.cwd(),
             {
-              rename: { gitignore: '.gitignore' },
+              rename: { '/gitignore': '.gitignore' },
               replace: createReplace
             }
           )
@@ -134,7 +133,7 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
             path.join(dirName, '..', '..', 'template', '__shared__npm__'),
             process.cwd(),
             {
-              rename: { gitignore: '.gitignore' },
+              rename: { '/gitignore': '.gitignore' },
               replace: createReplace
             }
           )
@@ -153,8 +152,6 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
       }
       break
     }
-
-
 
     case 'vite/react': {
       switch (input.vite) {

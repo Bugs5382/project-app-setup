@@ -1,7 +1,7 @@
-import fs from "fs";
-import inquirer from "inquirer";
-import yargs from "yargs";
-import {hideBin} from "yargs/helpers";
+import fs from 'fs'
+import inquirer from 'inquirer'
+import yargs from 'yargs'
+import { hideBin } from 'yargs/helpers'
 
 /**
  * Parse CLI options
@@ -47,7 +47,7 @@ export const parseOptions = async (): Promise<{
     }
   } else if (options.run === 'start' && options.sameFolder === true) {
     if (fs.existsSync('package.json')) {
-      const {continueAnyway} = await inquirer.prompt([{
+      const { continueAnyway } = await inquirer.prompt([{
         name: 'continueAnyway',
         message: 'package.json exists already in directory. Continue?',
         default: false,
@@ -60,5 +60,5 @@ export const parseOptions = async (): Promise<{
     }
   }
 
-  return {sameFolder: options.sameFolder, run: options.run}
+  return { sameFolder: options.sameFolder, run: options.run }
 }

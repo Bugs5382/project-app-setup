@@ -5,9 +5,9 @@ import * as fs from 'fs'
 import _ from 'lodash'
 import inquirer from 'inquirer'
 import path from 'node:path'
-import {getProjectName} from "./helpers/getProjectName.js";
-import {installDeps} from "./helpers/installDeps.js";
-import {parseOptions} from "./helpers/parseOptions.js";
+import { getProjectName } from './helpers/getProjectName.js'
+import { installDeps } from './helpers/installDeps.js'
+import { parseOptions } from './helpers/parseOptions.js'
 import { DEFAULT_NPM, isProd } from './modules/constants.js'
 import { returnDependencies } from './modules/dependencies.js'
 import * as git from './modules/git.js'
@@ -140,13 +140,12 @@ export const main = async (): Promise<void> => {
   if (gitLocation !== 'skip-git') {
     await git.init(cwd, 'initial')
     switch (gitLocation) {
-      case 'github':
-
-        let { repoOwner, repoName } = await inquirer.prompt([{
+      case 'github': {
+        const { repoOwner, repoName } = await inquirer.prompt([{
           type: 'input',
           name: 'repoOwner',
           message: 'Repository Owner (e.g. https://github.com/[OWNER]):',
-          default: 'Bugs5382', // this is me!
+          default: 'Bugs5382' // this is me!
         }, {
           type: 'input',
           name: 'repoName',
@@ -165,11 +164,11 @@ export const main = async (): Promise<void> => {
 
         gitUrl = `https://github.com/${repoOwner as string}/${repoName as string}.git`
         gitOwner = repoOwner
-
         break
-      case 'private-repo':
+      }
 
-        let { repoUrl, repoProject, repoNamePrivate } = await inquirer.prompt([ {
+      case 'private-repo': {
+        const { repoUrl, repoProject, repoNamePrivate } = await inquirer.prompt([{
           type: 'input',
           name: 'repoUrl',
           message: 'Full URL of Git Repo (e.g. https://REPOURL) Do not include the trailing /:'
@@ -188,14 +187,17 @@ export const main = async (): Promise<void> => {
               return true
             }
           },
-          filter (val: string) { return val.toLowerCase() }
+          filter (val: string) {
+            return val.toLowerCase()
+          }
         }])
 
-        await git.addRemotePrivate(cwd, repoUrl, repoProject, repoNamePrivate )
+        await git.addRemotePrivate(cwd, repoUrl, repoProject, repoNamePrivate)
 
         gitUrl = `${repoUrl as string}/${repoProject as string}/${repoNamePrivate as string}.git`
         gitOwner = repoProject
-
+        break
+      }
     }
     gitIssues = `${gitUrl}/issues`
     gitReadme = `${gitUrl}#readme`

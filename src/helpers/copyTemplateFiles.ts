@@ -1,10 +1,10 @@
-import cliProgress from "cli-progress";
-import fs from "fs";
-import path from "node:path";
-import {CLI_PROGRESS} from "../modules/constants";
-import {TemplateCopyOptions} from "../declaration/types";
-import {getOccurrence} from "./getOccurrence";
-import {recurseDir} from "./recurseDir";
+import cliProgress from 'cli-progress'
+import fs from 'fs'
+import path from 'node:path'
+import { CLI_PROGRESS } from '../modules/constants.js'
+import { TemplateCopyOptions } from '../declaration/types.js'
+import { getOccurrence } from './getOccurrence.js'
+import { recurseDir } from './recurseDir.js'
 
 /**
  * Copy all files from a given source folder into the target folder.
@@ -38,7 +38,7 @@ export const copyTemplateFiles = async (
   for (const file of templateFileNames) {
     value++
 
-    let contents = fs.readFileSync(file, {encoding: 'utf8'})
+    let contents = fs.readFileSync(file, { encoding: 'utf8' })
 
     // Figure out where we're writing this file.
     let baseFile = file.replace(`${resolvedSource}`, '')
@@ -60,7 +60,7 @@ export const copyTemplateFiles = async (
     }
 
     const destFile = path.join(dest, baseFile)
-    fs.mkdirSync(path.dirname(destFile), {recursive: true})
+    fs.mkdirSync(path.dirname(destFile), { recursive: true })
     if (!destFile.includes('.keepfolder')) {
       fs.writeFileSync(destFile, contents)
       filesAdded.push(baseFile)

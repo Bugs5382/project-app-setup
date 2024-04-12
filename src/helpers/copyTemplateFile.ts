@@ -1,6 +1,6 @@
-import fs from "fs";
-import path from "node:path";
-import {TemplateCopyOptions} from "../declaration/types";
+import fs from 'fs'
+import path from 'node:path'
+import { TemplateCopyOptions } from '../declaration/types.js'
 
 /**
  * Copy Template File
@@ -22,7 +22,7 @@ export const copyTemplateFile = async (
 
   const resolvedSource = path.resolve(source)
 
-  let contents = fs.readFileSync(`${resolvedSource}/${file}`, {encoding: 'utf8'})
+  let contents = fs.readFileSync(`${resolvedSource}/${file}`, { encoding: 'utf8' })
 
   // Figure out where we're writing this file.
   let baseFile = file.replace(`${resolvedSource}`, '')
@@ -45,7 +45,7 @@ export const copyTemplateFile = async (
 
   const destFile = path.join(dest, baseFile)
 
-  fs.mkdirSync(path.dirname(destFile), {recursive: true})
+  fs.mkdirSync(path.dirname(destFile), { recursive: true })
   fs.writeFileSync(destFile, contents)
 
   return true

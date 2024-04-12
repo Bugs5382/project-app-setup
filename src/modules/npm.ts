@@ -124,7 +124,7 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
     ...finalPackage,
     repository: {
       type: 'git',
-      url: typeof params.gitUrl === 'undefined' ? '' : `git+${params.gitUrl as string}`
+      url: typeof params.gitUrl === 'undefined' ? '' : `git+${params.gitUrl}`
     },
     keywords: params.keywords,
     author: params.author,

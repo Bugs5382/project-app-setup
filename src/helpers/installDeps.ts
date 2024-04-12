@@ -1,7 +1,7 @@
-import cliProgress from "cli-progress";
-import childProcess from "node:child_process";
-import {promisify} from "node:util";
-import {CLI_PROGRESS, isProd} from "../modules/constants";
+import cliProgress from 'cli-progress'
+import childProcess from 'node:child_process'
+import { promisify } from 'node:util'
+import { CLI_PROGRESS, isProd } from '../modules/constants.js'
 
 const execFile = promisify(childProcess.execFile)
 

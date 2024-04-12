@@ -1,4 +1,4 @@
-import { Dependencies } from '../declaration/types'
+import { Dependencies } from '../declaration/types.js'
 
 export const DEFAULT_NPM = {
   author: {

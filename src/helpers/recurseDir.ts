@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "node:path";
+import fs from 'fs'
+import path from 'node:path'
 
 /**
  * Recurse Dir
