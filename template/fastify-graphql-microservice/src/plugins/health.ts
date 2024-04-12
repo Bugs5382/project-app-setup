@@ -6,7 +6,7 @@ export default fp<CustomHealthCheckOptions>(async (fastify) => {
   void fastify.register(customHealthCheck)
 
   void fastify.ready().then(() => {
-    fastify.log.debug('[cmdb-health] Started Health')
+    fastify.log.debug('[<%- npm %>-health] Started Health')
 
     fastify.addHealthCheck('mongodb', async () => {
       // @ts-expect-error topology doesn't exist in the types for some odd reason, but this is valid
@@ -18,7 +18,8 @@ export default fp<CustomHealthCheckOptions>(async (fastify) => {
     })
 
     fastify.addHealthCheck('redis', async () => {
-      return typeof fastify.redis.ready
+      return fastify.redis.status === 'ready'
     })
+    fastify.log.debug('[<%- npm %>-health] Started Health')
   })
 })

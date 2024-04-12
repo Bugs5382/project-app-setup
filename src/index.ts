@@ -199,8 +199,8 @@ export const main = async (): Promise<void> => {
         break
       }
     }
-    gitIssues = `${gitUrl}/issues`
-    gitReadme = `${gitUrl}#readme`
+    gitIssues = `${gitUrl as string}/issues`
+    gitReadme = `${gitUrl as string}#readme`
   }
 
   // Generate Licence
