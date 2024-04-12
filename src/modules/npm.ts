@@ -12,7 +12,7 @@ export const generatePackageJson = (params: GeneratePackageJsonParams, input: Ge
   let finalPackage: any = null
 
   const sharedScripts = {
-    'docker:build': `npm run build && docker build -t IMAGENAME:dev .`,
+    'docker:build': 'npm run build && docker build -t IMAGENET:dev .',
     lint: 'npmPkgJsonLint . && ts-standard | snazzy',
     'lint:fix': 'npmPkgJsonLint . && ts-standard --fix | snazzy',
     typedoc: 'typedoc',
