@@ -1,3 +1,10 @@
+## [2.2.1](https://github.com/Bugs5382/project-app-setup/compare/v2.2.0...v2.2.1) (2024-04-12)
+
+
+### Bug Fixes
+
+* removed duplicate debug log ([2cdf46c](https://github.com/Bugs5382/project-app-setup/commit/2cdf46c17a6f52c407672ec6ad5333621d7e75e3))
+
 # [2.2.0](https://github.com/Bugs5382/project-app-setup/compare/v2.1.0...v2.2.0) (2024-04-12)
 
 
