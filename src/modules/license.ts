@@ -1,6 +1,6 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { copyTemplateFile } from './helpers.js'
+import { copyTemplateFile } from '../helpers/copyTemplateFile.js'
 
 const dirName = path.dirname(fileURLToPath(import.meta.url))
 

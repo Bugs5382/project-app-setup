@@ -5,10 +5,12 @@ import * as fs from 'fs'
 import _ from 'lodash'
 import inquirer from 'inquirer'
 import path from 'node:path'
+import {getProjectName} from "./helpers/getProjectName.js";
+import {installDeps} from "./helpers/installDeps.js";
+import {parseOptions} from "./helpers/parseOptions.js";
 import { DEFAULT_NPM, isProd } from './modules/constants.js'
 import { returnDependencies } from './modules/dependencies.js'
 import * as git from './modules/git.js'
-import { getProjectName, installDeps, parseOptions } from './modules/helpers.js'
 import { generateLicense, licenseChoices } from './modules/license.js'
 import { generatePackageJson } from './modules/npm.js'
 import { generateTemplate } from './modules/template.js'
@@ -221,6 +223,8 @@ export const main = async (): Promise<void> => {
     type,
     node,
     vite,
+    git: gitLocation === 'skip-git',
+    github: gitLocation === 'github',
     options: { port }
   })
   fs.writeFileSync('package.json', JSON.stringify(packageJson, null, 4))
@@ -229,7 +233,9 @@ export const main = async (): Promise<void> => {
   await generateTemplate({
     type,
     node,
-    vite
+    vite,
+    git: gitLocation === 'skip-git',
+    github: gitLocation === 'github'
   }, {
     npm: typeof npmName !== 'undefined' ? npmName : npm,
     author: DEFAULT_NPM.author.name,
@@ -243,7 +249,9 @@ export const main = async (): Promise<void> => {
   const packages = returnDependencies({
     type,
     node,
-    vite
+    vite,
+    git: gitLocation === 'skip-git',
+    github: gitLocation === 'github'
   })
 
   // GIT: Post Step

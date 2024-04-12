@@ -1,4 +1,4 @@
-import { Dependencies } from './types'
+import { Dependencies } from '../declaration/types'
 
 export const DEFAULT_NPM = {
   author: {
@@ -56,6 +56,7 @@ export const FASTIFY_GRAPHQL_CONTROLLER: Dependencies = {
     'fastify',
     'fastify-cli',
     'fastify-custom-healthcheck',
+    'fastify-metrics',
     'fastify-plugin'
   ],
   devDependencies: [
@@ -66,13 +67,16 @@ export const FASTIFY_GRAPHQL_CONTROLLER: Dependencies = {
 export const FASTIFY_GRAPHQL_MICROSERVICES: Dependencies = {
   dependencies: [
     '@fastify/autoload',
+    '@fastify/cors',
     '@fastify/mongodb',
+    '@fastify/redis',
     '@mercuriusjs/federation',
     'fastify',
     'fastify-cli',
     'fastify-custom-healthcheck',
     'fastify-plugin',
     'fastify-rabbitmq',
+    'fastify-metrics',
     'mercurius-codegen'
   ],
   devDependencies: [

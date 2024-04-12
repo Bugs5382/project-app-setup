@@ -1,7 +1,7 @@
 import {
   GeneratePackageJsonInputWithOptions,
   GeneratePackageJsonParams
-} from './types.js'
+} from '../declaration/types.js'
 
 /**
  * @since 1.0.0

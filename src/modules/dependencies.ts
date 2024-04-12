@@ -6,7 +6,7 @@ import {
   NPM_PACKAGE,
   VITE_REACT_SWC
 } from './constants.js'
-import { Dependencies, GenerateInput } from './types.js'
+import { Dependencies, GenerateInput } from '../declaration/types.js'
 
 /**
  * @since 1.0.0

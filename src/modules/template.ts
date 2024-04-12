@@ -1,7 +1,7 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { copyTemplateFiles } from './helpers.js'
-import { GenerateInput } from './types.js'
+import {copyTemplateFiles} from "../helpers/copyTemplateFiles";
+import { GenerateInput } from '../declaration/types.js'
 import { execFile } from './git.js'
 
 const dirName = path.dirname(fileURLToPath(import.meta.url))
@@ -22,6 +22,18 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
     { replaceString: '<%- license %>', var: typeof replacement.license !== 'undefined' ? replacement.license : '' }
   ]
 
+  if (input.git) {
+    if (input.github) {
+      await copyTemplateFiles(
+        path.join(dirName, '..', '..', 'template', '__github__'),
+        process.cwd(),
+        {
+          replace: createReplace
+        }
+      )
+    }
+  }
+
   // shared among all projects
   if (input.node !== 'empty-project') {
     await copyTemplateFiles(
@@ -34,11 +46,21 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
   }
 
   switch (input.type) {
+
+    /**
+     * Node JS
+     */
+
     case 'nodejs': {
       switch (input.node) {
         case 'empty-project': {
           return
         }
+
+        /**
+         * Fastify
+         */
+
         case 'fastify-graphql-controller': {
           // shared among all projects
           await copyTemplateFiles(
@@ -89,7 +111,6 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
               replace: createReplace
             }
           )
-          await execFile('chmod', ['+x', 'bin/build-types.sh'], { cwd: process.cwd() })
           // copy npm folder
           await copyTemplateFiles(
             path.join(dirName, '..', '..', 'template', 'npm-fastify-plugin'),
@@ -98,8 +119,15 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
               replace: createReplace
             }
           )
+          // exec file
+          await execFile('chmod', ['+x', 'bin/build-types.sh'], { cwd: process.cwd() })
           return
         }
+
+        /**
+         * NPM
+         */
+
         case 'npm-package': {
           // shared among all projects
           await copyTemplateFiles(
@@ -110,7 +138,6 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
               replace: createReplace
             }
           )
-          await execFile('chmod', ['+x', 'bin/build-types.sh'], { cwd: process.cwd() })
           // copy npm folder
           await copyTemplateFiles(
             path.join(dirName, '..', '..', 'template', 'npm'),
@@ -119,11 +146,16 @@ export const generateTemplate = async (input: GenerateInput, replacement?: any):
               replace: createReplace
             }
           )
+          // exec file
+          await execFile('chmod', ['+x', 'bin/build-types.sh'], { cwd: process.cwd() })
           return
         }
       }
       break
     }
+
+
+
     case 'vite/react': {
       switch (input.vite) {
         case 'vite-react-swc': {

@@ -23,6 +23,8 @@ export interface GenerateInput {
   node?: string
   type: string
   vite?: string
+  git: boolean
+  github: boolean
 }
 
 export interface GeneratePackageJsonInputWithOptions extends GenerateInput {
