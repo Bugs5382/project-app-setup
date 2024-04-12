@@ -8,28 +8,9 @@ Install using NPM:
 npm install @the-rabbit-hole/app-setup -g
 ```
 
-## Selection Types
+## How to run
 
-### NodeJS
-* Fastify Controller
-* Fastify Microservice (**default**)
-* Fastify Standalone Plugin Package
-* Standalone NPM Package
-
-### Vite
-* Vite with React + SWC
-
-### Replacement Vars
-
-Used within any UTF-8 file.
-
-| **Replacement Search** |     **Used for**     | **Should be on replacement...** |
-|:----------------------:|:--------------------:|---------------------------------|
-|       <%- npm %>       |                      | The full NPM package name.      |
-|    <%- repoOwner %>    | GitHub Projects Only | GitHub Username of Author.      |
-|     <%- author %>      |                      | Full Name of Initial Author     |
-|   <%- description %>   |                      | Description of the package.     |
-|    <%- homepage %>     |                      | Full URL                        |
+> trh-app-setup
 
 ## Contribute
 
