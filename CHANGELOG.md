@@ -1,3 +1,21 @@
+# [2.2.0](https://github.com/Bugs5382/project-app-setup/compare/v2.1.0...v2.2.0) (2024-04-12)
+
+
+### Bug Fixes
+
+* .gitignore ([e3b7c5a](https://github.com/Bugs5382/project-app-setup/commit/e3b7c5a370e0786b6c6f73e3a526b32e6459146e))
+* string issue ([da8b8a6](https://github.com/Bugs5382/project-app-setup/commit/da8b8a6d0ed22c037979200bf574fdf1d484f821))
+
+
+### Features
+
+* added redis plugin ([0a64eb9](https://github.com/Bugs5382/project-app-setup/commit/0a64eb91dd5cf63ebbc490c4d2bcb1c13749b375))
+* git ([8284a33](https://github.com/Bugs5382/project-app-setup/commit/8284a331f58b1caee601f410e5019eea16d5f72f))
+* git ([097f6b6](https://github.com/Bugs5382/project-app-setup/commit/097f6b6dbff95027e0d1c9104c20095e49ef3a7f))
+* updated format ([a49cd95](https://github.com/Bugs5382/project-app-setup/commit/a49cd95b0f439870d23508b5118cb4fc2ebae90f))
+* updated package ([4bc7133](https://github.com/Bugs5382/project-app-setup/commit/4bc7133317ce35d491344daa73b29b0602a95901))
+* updated readme ([48f61ad](https://github.com/Bugs5382/project-app-setup/commit/48f61ad138f6630d93ba8eefefd2a7f357aa3f83))
+
 # [2.1.0](https://github.com/Bugs5382/project-app-setup/compare/v2.0.0...v2.1.0) (2024-02-13)
 
 
