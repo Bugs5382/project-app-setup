@@ -1,14 +1,12 @@
 {
+  "tsconfig": "src/tsconfig.esm.json",
   "entryPoints": ["src/api.ts"],
   "excludeExternals": true,
   "excludeInternal": true,
-  "includeVersion": false,
+  "includeVersion": true,
   "githubPages": false,
   "out": "./docs",
-  "name": "<%- npm %>",
-  "navigationLinks": {
-    "GitHub": "<%- homepage %>"
-  },
+  "name": "",
   "visibilityFilters": {
     "protected": true,
     "private": false,
