@@ -1,10 +1,8 @@
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { copyTemplateFiles } from '../helpers/copyTemplateFiles.js'
 import { GenerateInput } from '../declaration/types.js'
 import { execFile } from './git.js'
-
-const dirName = path.dirname(fileURLToPath(import.meta.url))
+import { dirName } from './constants.js'
 
 /**
  * Generate Template

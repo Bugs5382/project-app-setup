@@ -1,15 +1,7 @@
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { copyTemplateFile } from '../helpers/copyTemplateFile.js'
-
-const dirName = path.dirname(fileURLToPath(import.meta.url))
-
-interface LicenseProps {
-  name: string
-  email: string
-  license: string
-  website?: string
-}
+import { LicenseProps } from '../declaration/types.js'
+import { dirName } from './constants.js'
 
 export const licenseChoices = [
   { name: 'Apache 2.0', value: 'Apache-2.0' },

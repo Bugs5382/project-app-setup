@@ -36,7 +36,7 @@ export interface GeneratePackageJsonInputWithOptions extends GenerateInput {
   vite?: string
 }
 
-interface Replacement {
+export interface Replacement {
   var: string
   replaceString: string
 }
@@ -44,4 +44,11 @@ interface Replacement {
 export interface TemplateCopyOptions {
   replace?: Replacement[]
   rename?: { [filename: string]: string }
+}
+
+export interface LicenseProps {
+  name: string
+  email: string
+  license: string
+  website?: string
 }

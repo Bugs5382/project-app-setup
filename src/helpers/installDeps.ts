@@ -1,7 +1,7 @@
 import cliProgress from 'cli-progress'
 import childProcess from 'node:child_process'
 import { promisify } from 'node:util'
-import { CLI_PROGRESS, isProd } from '../modules/constants.js'
+import { cliProgressFunc, isProd } from '../modules/constants.js'
 
 const execFile = promisify(childProcess.execFile)
 
@@ -19,7 +19,7 @@ export const installDeps = async (dependencies: string[], options: { dev?: boole
   }
 
   if (dependencies.length > 0) {
-    const bar = new cliProgress.SingleBar({}, CLI_PROGRESS(options.dev === true ? 'NPM DEV' : 'NPM'))
+    const bar = new cliProgress.SingleBar({}, cliProgressFunc(options.dev === true ? 'NPM DEV' : 'NPM'))
     bar.start(dependencies.length, 0)
 
     let value = 0

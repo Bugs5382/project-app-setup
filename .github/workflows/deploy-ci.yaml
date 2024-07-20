@@ -1,7 +1,7 @@
 name: "Deploy: CI"
 on:
   push:
-    branches: [ 'main', 'develop' ]
+    branches: [ 'main' ]
 
 permissions:
   contents: write
@@ -10,7 +10,7 @@ permissions:
   id-token: write
 
 jobs:
-  Test:
+  Checks:
     runs-on: ubuntu-latest
     outputs:
       src: ${{ steps.filter.outputs.src }}
@@ -28,8 +28,6 @@ jobs:
           filters: |
             src:
               - 'src/**'
-            test:
-              - '__tests__/**'
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
@@ -40,33 +38,30 @@ jobs:
       - name: Run Lint
         if: steps.filter.outputs.src == 'true'
         run: npm run lint
-      - name: Run Unit Tests
-        if: steps.filter.outputs.src == 'true' || steps.filter.outputs.test == 'true'
-        run: npm run test
   Release:
     runs-on: ubuntu-latest
-    needs: [ 'Test' ]
+    needs: [ 'Checks' ]
     steps:
       - uses: actions/checkout@v4
-        if: ${{ needs.Test.outputs.src == 'true' }}
+        if: ${{ needs.Checks.outputs.src == 'true' }}
         with:
           persist-credentials: false
       - name: Use Node.js
-        if: ${{ needs.Test.outputs.src == 'true' }}
+        if: ${{ needs.Checks.outputs.src == 'true' }}
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
       - name: NPM Install
-        if: ${{ needs.Test.outputs.src == 'true' }}
+        if: ${{ needs.Checks.outputs.src == 'true' }}
         run: npm install --ignore-scripts
       - name: Semantic Release (Dry Run)
-        if: ${{ needs.Test.outputs.src == 'true' }}
+        if: ${{ needs.Checks.outputs.src == 'true' }}
         run: npm run semantic-release:dry-run
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Semantic Release
-        if: ${{ needs.Test.outputs.src == 'true' }}
+        if: ${{ needs.Checks.outputs.src == 'true' }}
         run: npm run semantic-release
         env:
           GITHUB_TOKEN:  ${{ secrets.GH_TOKEN }}

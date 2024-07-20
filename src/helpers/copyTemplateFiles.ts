@@ -1,14 +1,14 @@
 import cliProgress from 'cli-progress'
 import fs from 'fs'
 import path from 'node:path'
-import { CLI_PROGRESS } from '../modules/constants.js'
+import { cliProgressFunc } from '../modules/constants.js'
 import { TemplateCopyOptions } from '../declaration/types.js'
 import { getOccurrence } from './getOccurrence.js'
 import { recurseDir } from './recurseDir.js'
 
 /**
  * Copy all files from a given source folder into the target folder.
- * @description This will recurse into subfolders.
+ * @remarks This will recurse into subfolders.
  * @since 1.0.0
  * @param source The source folder.
  * @param dest The destination folder.
@@ -28,7 +28,7 @@ export const copyTemplateFiles = async (
 
   const totalOfGitKeep = getOccurrence(templateFileNames, '.keepfolder')
 
-  const bar = new cliProgress.SingleBar({}, CLI_PROGRESS('Copy Directory Files'))
+  const bar = new cliProgress.SingleBar({}, cliProgressFunc('Copy Directory Files'))
   bar.start(templateFileNames.length - totalOfGitKeep, 0)
 
   let value = 0

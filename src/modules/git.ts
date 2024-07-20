@@ -39,7 +39,7 @@ export async function init (folder: string, step: string): Promise<void> {
  * @param repoOwner
  * @param repoName
  */
-export async function addRemoteGitHUb (folder: string, repoOwner: string, repoName: string): Promise<void> {
+export async function addRemoteGitHub (folder: string, repoOwner: string, repoName: string): Promise<void> {
   try {
     // If this succeeds, there's already a remote for `origin`.
     await execFile('git', ['config', 'remote.origin.url'], { cwd: folder })

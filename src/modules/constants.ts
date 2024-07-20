@@ -1,4 +1,6 @@
 import { Dependencies } from '../declaration/types.js'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 export const DEFAULT_NPM = {
   author: {
@@ -7,7 +9,7 @@ export const DEFAULT_NPM = {
   }
 }
 
-export const CLI_PROGRESS = (area: string): any => {
+export const cliProgressFunc = (area: string): any => {
   return {
     format: `${area} {bar}\u25A0 {percentage}% | ETA: {eta}s | {value}/{total}`,
     barCompleteChar: '\u25A0',
@@ -31,7 +33,7 @@ export const EMPTY_PROJECT: Dependencies = {
   ]
 }
 
-export const sharedDev: string[] = [
+export const SHARED_DEV: string[] = [
   '@semantic-release/changelog',
   '@semantic-release/git',
   '@the-rabbit-hole/semantic-release-config',
@@ -60,7 +62,7 @@ export const FASTIFY_GRAPHQL_CONTROLLER: Dependencies = {
     'fastify-plugin'
   ],
   devDependencies: [
-    ...sharedDev
+    ...SHARED_DEV
   ]
 }
 
@@ -80,7 +82,7 @@ export const FASTIFY_GRAPHQL_MICROSERVICES: Dependencies = {
     'mercurius-codegen'
   ],
   devDependencies: [
-    ...sharedDev
+    ...SHARED_DEV
   ]
 }
 
@@ -90,7 +92,7 @@ export const FASTIFY_NPM_PACKAGE: Dependencies = {
     'fastify-plugin'
   ],
   devDependencies: [
-    ...sharedDev,
+    ...SHARED_DEV,
     'fastify',
     '@vitest/coverage-v8',
     '@vitest/ui',
@@ -101,7 +103,7 @@ export const FASTIFY_NPM_PACKAGE: Dependencies = {
 export const NPM_PACKAGE: Dependencies = {
   dependencies: [],
   devDependencies: [
-    ...sharedDev,
+    ...SHARED_DEV,
     '@vitest/coverage-v8',
     '@vitest/ui',
     'vitest'
@@ -127,7 +129,7 @@ export const VITE_REACT_SWC: Dependencies = {
     'react-toastify'
   ],
   devDependencies: [
-    ...sharedDev,
+    ...SHARED_DEV,
     '@types/react',
     '@types/react-dom',
     '@vitejs/plugin-basic-ssl',
@@ -142,3 +144,5 @@ export const VITE_REACT_SWC: Dependencies = {
 }
 
 export const isProd = (): boolean => process.env.NODE_ENV !== 'test'
+
+export const dirName = path.dirname(fileURLToPath(import.meta.url))

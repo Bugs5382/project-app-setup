@@ -1,5 +1,5 @@
 import fs from 'fs'
-import inquirer from 'inquirer'
+import { confirm } from '@inquirer/prompts'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
@@ -47,14 +47,12 @@ export const parseOptions = async (): Promise<{
     }
   } else if (options.run === 'start' && options.sameFolder === true) {
     if (fs.existsSync('package.json')) {
-      const { continueAnyway } = await inquirer.prompt([{
-        name: 'continueAnyway',
+      const continueAnyway = await confirm({
         message: 'package.json exists already in directory. Continue?',
-        default: false,
-        type: 'confirm'
-      }])
+        default: false
+      })
 
-      if (continueAnyway === false) {
+      if (!continueAnyway) {
         process.exit()
       }
     }
