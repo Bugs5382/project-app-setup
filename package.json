@@ -68,7 +68,7 @@
     "@types/inquirer": "^9.0.7",
     "@types/inquirer-npm-name": "^3.0.7",
     "@types/lodash": "^4.14.202",
-    "@types/node": "^20.11.2",
+    "@types/node": "^22.0.0",
     "@types/yargs": "^17.0.32",
     "npm-package-json-lint": "^8.0.0",
     "precommit": "^1.2.2",
